@@ -72,8 +72,6 @@
     background: linear-gradient(90deg, var(--bg) 0%, rgba(11,15,20,.92) 45%, rgba(11,15,20,.45) 100%);
   }
   .hero .wrap { position: relative; z-index: 1; padding-top: 88px; padding-bottom: 88px; }
-  .freq { font-family: var(--mono); color: var(--amber); font-size: .95rem; letter-spacing: .08em; margin-bottom: 14px; }
-  .freq b { font-weight: 600; }
   h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.1; margin: 0 0 18px; max-width: 16ch; letter-spacing: -.01em; }
   .lede { font-size: 1.15rem; color: #c3cdd7; max-width: 58ch; margin: 0 0 30px; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
@@ -140,7 +138,6 @@
   .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
   .two > *, .dl > *, .grid > * { min-width: 0; }
   body { overflow-x: hidden; }
-  @media (max-width: 640px) { .freq .opt { display: none; } }
   @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
   ul.plain { padding-left: 1.1em; margin: 0; color: #b7c2cd; }
   ul.plain li { margin-bottom: 6px; }
@@ -198,7 +195,6 @@
   <canvas id="spectrum" aria-hidden="true"></canvas>
   <div class="wrap">
     <img class="hero-logo" src="assets/jesdr-logo-dark-600.png" srcset="assets/jesdr-logo-dark-600.png 600w, assets/jesdr-logo-dark-1200.png 1200w" sizes="(max-width: 570px) 88vw, 500px" alt="jeSDR" width="500" height="241">
-    <div class="freq"><b>14.074.000</b> &nbsp;USB-D<span class="opt"> &nbsp;·&nbsp; 80 m – 10 m &nbsp;·&nbsp; 25 W</span></div>
     <h1>Your sBitx, on your network.</h1>
     <p class="lede">jeSDR turns an sBitx HF transceiver into a network transceiver. It runs on the
       radio's Raspberry Pi, drives the hardware, and gives you a fast, touch-friendly web interface
@@ -206,7 +202,7 @@
     <div class="cta">
       <a class="btn primary" id="hero-dl" href="#download">Download jeSDR</a>
       <a class="btn" href="#install">How to install</a>
-      <span class="ver" id="hero-ver"></span>
+      <span class="ver" id="hero-ver">Latest: v1.5.0</span>
     </div>
   </div>
 </header>
@@ -295,8 +291,8 @@
     <h2>Download</h2>
     <p class="sub">For the sBitx with a Raspberry Pi 4. Choose the SD card image for a fresh start, or the installer to add jeSDR to an existing Raspberry Pi OS 64-bit install.</p>
 
-    <div class="release" id="release" hidden>
-      <div class="head"><span class="v" id="r-ver"></span><span class="d" id="r-date"></span></div>
+    <div class="release" id="release">
+      <div class="head"><span class="v" id="r-ver">v1.5.0</span><span class="d" id="r-date"></span></div>
       <p class="n" id="r-notes"></p>
       <div class="sha" id="r-sha"></div>
     </div>
@@ -412,8 +408,8 @@ sudo reboot</pre></li>
 <section id="manage">
   <div class="wrap two">
     <div>
-      <h2>Living with it</h2>
-      <p class="sub" style="margin-bottom:20px">Where things are and how to control the service.</p>
+      <h2>Managing jeSDR</h2>
+      <p class="sub" style="margin-bottom:20px">Where your files are, and how to start, stop, update, back up or remove jeSDR.</p>
       <ul class="plain">
         <li>The program is in <code>/opt/jeSDR</code>; it runs as the service <code>jesdr</code>.</li>
         <li>Your settings, logbook, calibration, recordings and voice messages are in <code>~/jeSDR/data</code>. Updates keep them; back up before re-imaging a card.</li>
@@ -462,11 +458,16 @@ sudo reboot</pre></li>
 (function () {
   const $ = id => document.getElementById(id);
   const fmtSize = n => n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.round(n / 1024) + ' kB';
+  // The current version, stated here so the page never shows an older one
+  // while latest.json (signed, updated when a release is published) lags.
+  const PAGE_VERSION = '1.5.0';
+  const newer = (a, b) => { const x = a.split('.').map(Number), y = b.split('.').map(Number);
+    for (let i = 0; i < 3; i++) if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); return false; };
 
   fetch('latest.json', { cache: 'no-cache' })
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(m => {
-      $('release').hidden = false;
+      if (!m.version || newer(PAGE_VERSION, m.version)) return;  // the manifest is older than this page
       $('r-ver').textContent = 'v' + m.version;
       $('r-date').textContent = (m.date ? 'Released ' + m.date : '') + (m.size ? ' · package ' + fmtSize(m.size) : '');
       $('r-notes').textContent = m.notes || '';
