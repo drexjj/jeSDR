@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jeSDR — network transceiver software for the sBitx</title>
+<meta name="description" content="jeSDR turns an sBitx HF transceiver into a network transceiver with its own touch-friendly web interface, TCI, HPSDR Protocol 1, Hamlib, and built-in digital modes.">
+<meta property="og:title" content="jeSDR — network transceiver software for the sBitx">
+<meta property="og:description" content="Web UI, TCI, HPSDR P1, Hamlib, FT8/FT4/FT2, RTTY, PSK, CW, FreeDV RADE, voice keyer, DX cluster and signed one-click updates.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://drexjj.github.io/jeSDR/">
+<meta property="og:image" content="https://drexjj.github.io/jeSDR/assets/jesdr-social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="assets/jesdr-icon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/jesdr-icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/jesdr-icon-180.png">
+<style>
+  :root {
+    --bg: #0b0f14;
+    --panel: #121922;
+    --panel2: #17202b;
+    --line: #243140;
+    --text: #e6edf3;
+    --muted: #8b9bab;
+    /* brand (see branding/BRAND.md) */
+    --amber: #fdb906;
+    --amber-dim: #b97f10;
+    --yellow: #fdd003;
+    --cyan: #19d0fc;
+    --blue: #0093fd;
+    --deep: #0052fc;
+    --green: #5fd38a;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, pre { font-family: var(--mono); }
+  code { background: var(--panel2); border: 1px solid var(--line); border-radius: 4px; padding: 0 .35em; font-size: .9em; }
+  pre {
+    background: #070a0e; border: 1px solid var(--line); border-radius: 8px;
+    padding: 14px 16px; overflow-x: auto; font-size: .9em; line-height: 1.5; margin: .6em 0 1em;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(11,15,20,.88); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 24px; height: 56px; }
+  .brand { display: flex; align-items: center; }
+  .brand img { height: 40px; width: auto; display: block; }
+  nav .links { margin-left: auto; display: flex; gap: 20px; font-size: .92rem; }
+  nav .links a { color: var(--muted); }
+  nav .links a:hover { color: var(--text); text-decoration: none; }
+  @media (max-width: 640px) { nav .links a.opt { display: none; } }
+
+  /* hero */
+  header.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+  #spectrum { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; }
+  header.hero::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--bg) 0%, rgba(11,15,20,.92) 45%, rgba(11,15,20,.45) 100%);
+  }
+  .hero .wrap { position: relative; z-index: 1; padding-top: 88px; padding-bottom: 88px; }
+  .freq { font-family: var(--mono); color: var(--amber); font-size: .95rem; letter-spacing: .08em; margin-bottom: 14px; }
+  .freq b { font-weight: 600; }
+  h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.1; margin: 0 0 18px; max-width: 16ch; letter-spacing: -.01em; }
+  .lede { font-size: 1.15rem; color: #c3cdd7; max-width: 58ch; margin: 0 0 30px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px;
+    font-weight: 600; font-size: .98rem; border: 1px solid var(--line); color: var(--text); background: var(--panel2);
+  }
+  .btn:hover { text-decoration: none; border-color: #3a4b5e; }
+  .btn.primary { background: var(--amber); color: #1a1200; border-color: var(--amber); }
+  .btn.primary:hover { background: var(--yellow); }
+  .hero-logo { display: block; width: min(500px, 88vw); height: auto; margin: 0 0 22px -10px; filter: drop-shadow(0 8px 24px rgba(0,82,252,.25)); }
+  footer .flogo { height: 48px; width: auto; display: block; margin-bottom: 14px; }
+  .ver { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
+
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  h2 { font-size: 1.7rem; margin: 0 0 8px; letter-spacing: -.005em; }
+  .sub { color: var(--muted); margin: 0 0 32px; max-width: 64ch; }
+  h3 { font-size: 1.05rem; margin: 0 0 6px; }
+
+  /* features */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px 20px 18px; }
+  .card p { margin: 0; color: #b7c2cd; font-size: .95rem; }
+  .card .tag { font-family: var(--mono); font-size: .75rem; color: var(--amber); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+
+  /* ports table */
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; }
+  td.port { font-family: var(--mono); color: var(--amber); white-space: nowrap; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  .tablewrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  .tablewrap tr:last-child td { border-bottom: 0; }
+  @media (max-width: 640px) {
+    thead { display: none; }
+    tbody tr { display: grid; grid-template-columns: 1fr auto; border-bottom: 1px solid var(--line); padding: 8px 0; }
+    tbody tr:last-child { border-bottom: 0; }
+    tbody td { border: 0; padding: 4px 14px; }
+    tbody td:last-child { grid-column: 1 / -1; color: #b7c2cd; }
+  }
+
+  /* download */
+  .dl { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .dl { grid-template-columns: 1fr; } }
+  .dl .card { display: flex; flex-direction: column; }
+  .dl .card ol { padding-left: 1.2em; margin: 8px 0 16px; color: #b7c2cd; font-size: .95rem; }
+  .dl .card .btn { margin-top: auto; align-self: flex-start; }
+  .release { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--amber); border-radius: 10px; padding: 18px 20px; margin-bottom: 20px; }
+  .release .head { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; }
+  .release .v { font-family: var(--mono); font-size: 1.25rem; font-weight: 700; color: var(--amber); }
+  .release .d { color: var(--muted); font-size: .9rem; }
+  .release .n { margin: 8px 0 0; color: #c3cdd7; white-space: pre-line; }
+  .release .sha { margin-top: 10px; font-family: var(--mono); font-size: .75rem; color: var(--muted); word-break: break-all; }
+
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .steps li { counter-increment: s; position: relative; padding-left: 44px; }
+  .steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--panel2); border: 1px solid var(--line); color: var(--amber);
+    font-family: var(--mono); font-size: .85rem; display: grid; place-items: center;
+  }
+  .note { background: #1a1608; border: 1px solid #3d3110; border-radius: 8px; padding: 12px 16px; color: #e8d9b0; font-size: .93rem; margin-top: 22px; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .two > *, .dl > *, .grid > * { min-width: 0; }
+  body { overflow-x: hidden; }
+  @media (max-width: 640px) { .freq .opt { display: none; } }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+  ul.plain { padding-left: 1.1em; margin: 0; color: #b7c2cd; }
+  ul.plain li { margin-bottom: 6px; }
+
+  .cmd { position: relative; }
+  .cmd pre { padding-right: 76px; margin: 0 0 14px; color: var(--amber); white-space: pre-wrap; word-break: break-all; }
+  .steps > li { min-width: 0; }
+  .grid4 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .copy { position: absolute; top: 8px; right: 8px; background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 6px; font: 600 .8rem var(--sans); padding: 5px 10px; cursor: pointer; }
+  .copy:hover { border-color: #3a4b5e; }
+  .muted { color: #b7c2cd; }
+  .h3gap { font-size: 1.1rem; margin-bottom: 12px; }
+  .steps.big { margin-top: 36px; gap: 26px; }
+  .steps.big li { padding-left: 52px; }
+  .steps.big li::before { width: 34px; height: 34px; font-size: 1rem; top: -2px; }
+  .steps.big h3 { margin-bottom: 6px; }
+  .steps.big p { margin: 0 0 6px; color: #b7c2cd; }
+  table.opts td:first-child { width: 150px; }
+  @media (max-width: 640px) { table.opts td:first-child { width: auto; } }
+  footer { padding: 40px 0 56px; color: var(--muted); font-size: .88rem; }
+  footer p { margin: 0 0 8px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="jeSDR"><img src="assets/jesdr-logo-dark-300.png" srcset="assets/jesdr-logo-dark-300.png 1x, assets/jesdr-logo-dark-600.png 2x" alt="jeSDR" width="83" height="40"></a>
+    <div class="links">
+      <a class="opt" href="#features">Features</a>
+      <a class="opt" href="#connect">Connect</a>
+      <a href="#download">Download</a>
+      <a href="#install">Install</a>
+      <a class="opt" href="#manage">Help</a>
+      <a href="https://github.com/drexjj/jeSDR/releases">Releases</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="spectrum" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <img class="hero-logo" src="assets/jesdr-logo-dark-600.png" srcset="assets/jesdr-logo-dark-600.png 600w, assets/jesdr-logo-dark-1200.png 1200w" sizes="(max-width: 570px) 88vw, 500px" alt="jeSDR" width="500" height="241">
+    <div class="freq"><b>14.074.000</b> &nbsp;USB-D<span class="opt"> &nbsp;·&nbsp; 80 m – 10 m &nbsp;·&nbsp; 25 W</span></div>
+    <h1>Your sBitx, on your network.</h1>
+    <p class="lede">jeSDR turns an sBitx HF transceiver into a network transceiver. It runs on the
+      radio's Raspberry Pi, drives the hardware, and gives you a fast, touch-friendly web interface
+      plus TCI, HPSDR Protocol 1 and Hamlib for the software you already use.</p>
+    <div class="cta">
+      <a class="btn primary" id="hero-dl" href="#download">Download jeSDR</a>
+      <a class="btn" href="#install">How to install</a>
+      <span class="ver" id="hero-ver"></span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="features">
+  <div class="wrap">
+    <h2>What's inside</h2>
+    <p class="sub">Everything runs on the radio. Open it from the touchscreen, a laptop, a tablet or a phone — no extra software to install.</p>
+    <div class="grid">
+      <div class="card"><span class="tag">Web UI</span><h3>A radio screen in any browser</h3>
+        <p>Spectrum and waterfall, band stacks, filters with adjustable low and high cut, receive and transmit equalizers, themes, and kiosk mode for the radio's own touchscreen.</p></div>
+      <div class="card"><span class="tag">Remote audio</span><h3>Listen and talk from anywhere in the house</h3>
+        <p>Receive audio in the browser, and transmit with your phone or laptop microphone over HTTPS. A TX audio scope shows what you are sending.</p></div>
+      <div class="card"><span class="tag">Digital</span><h3>Digital modes built in</h3>
+        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI, with drag-to-place TX markers. WSJT-X and fldigi work too, through Hamlib.</p></div>
+      <div class="card"><span class="tag">CW</span><h3>CW decoder and macros</h3>
+        <p>Decode CW on screen and send stored macros, or key from the front-panel jack with the built-in keyer.</p></div>
+      <div class="card"><span class="tag">Voice</span><h3>FreeDV RADE V1 and a voice keyer</h3>
+        <p>Digital voice with RADE V1, and eight recorded voice messages you can send with one tap, with optional auto-repeat for calling CQ.</p></div>
+      <div class="card"><span class="tag">DX</span><h3>DX cluster on the waterfall</h3>
+        <p>Live spots from a telnet DX cluster (VE7CC by default) appear on the spectrum. Tap a spot to tune it. Country lookups and qrz.com links are built in.</p></div>
+      <div class="card"><span class="tag">Log</span><h3>Logbook</h3>
+        <p>Log contacts from the web UI or from the digital modes and export ADIF. GridTracker, JTAlert and loggers follow along over the WSJT-X network protocol.</p></div>
+      <div class="card"><span class="tag">Field</span><h3>GPS time and grid</h3>
+        <p>Plug in a USB GPS puck and the radio sets its own clock for FT8 when there is no internet, and can keep your grid square up to date. A sky plot shows every satellite it hears.</p></div>
+      <div class="card"><span class="tag">Updates</span><h3>Signed one-click updates</h3>
+        <p>The radio checks for new versions and installs them from More → About. Every update is signed, and if a new version fails to start, the previous one is put back automatically.</p></div>
+      <div class="card"><span class="tag">Safety</span><h3>Built to protect the radio</h3>
+        <p>SWR protection while transmitting, one transmitter owner at a time, and the transmitter is un-keyed on shutdown.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="connect">
+  <div class="wrap">
+    <h2>Connect your software</h2>
+    <p class="sub">jeSDR serves the radio on your local network. Point your favourite program at the radio's address.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Interface</th><th>Port</th><th>Use it for</th></tr></thead>
+        <tbody>
+          <tr><td>Web UI</td><td class="port">TCP 8443</td><td>The radio's own screen, in any browser, over HTTPS. <code>http://&lt;radio&gt;:8080/</code> redirects here.</td></tr>
+          <tr><td>TCI</td><td class="port">TCP 50001</td><td>SDROxide, loggers and TCI-aware apps: IQ to the client, two-way rig control, TX audio modulated by the radio.</td></tr>
+          <tr><td>HPSDR Protocol 1</td><td class="port">UDP 1024</td><td>Hermes-Lite 2 emulation for SDROxide, SparkSDR, SDR Console and others; the client does the DSP.</td></tr>
+          <tr><td>Hamlib rigctld</td><td class="port">TCP 4532</td><td>WSJT-X, fldigi and loggers (rig model 2, <em>Hamlib NET rigctl</em>).</td></tr>
+          <tr><td>Console</td><td class="port">TCP 8081</td><td>Set-up, status and calibration: <code>telnet &lt;radio&gt; 8081</code>.</td></tr>
+          <tr><td>MIDI</td><td class="port">ALSA</td><td>The front-panel knobs, key and PTT, in SDROxide.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <h2>Download</h2>
+    <p class="sub">For the sBitx with a Raspberry Pi 4. Choose the SD card image for a fresh start, or the installer to add jeSDR to an existing Raspberry Pi OS 64-bit install.</p>
+
+    <div class="release" id="release" hidden>
+      <div class="head"><span class="v" id="r-ver"></span><span class="d" id="r-date"></span></div>
+      <p class="n" id="r-notes"></p>
+      <div class="sha" id="r-sha"></div>
+    </div>
+
+    <div class="dl">
+      <div class="card">
+        <span class="tag">Fresh start</span>
+        <h3>SD card image</h3>
+        <ol>
+          <li>Write the <code>.img.xz</code> to a 16&nbsp;GB or larger microSD card with Raspberry Pi Imager (“Use custom”) or balenaEtcher.</li>
+          <li>Put the card in the radio and switch on. The first start takes a little longer.</li>
+          <li>Open <code>https://&lt;radio&gt;:8443/</code>, or the jeSDR icon on the radio's desktop.</li>
+        </ol>
+        <a class="btn" id="dl-img" href="https://github.com/drexjj/jeSDR/releases/latest">Get the SD card image</a>
+      </div>
+      <div class="card">
+        <span class="tag">Recommended</span>
+        <h3>One-line installer</h3>
+        <p style="margin:8px 0 10px">On a Raspberry Pi OS 64-bit system, this installs everything jeSDR needs and the latest jeSDR:</p>
+        <div class="cmd"><pre id="cmd1">curl -fsSL https://drexjj.github.io/jeSDR/install.sh | sudo bash</pre><button class="copy" data-copy="cmd1">Copy</button></div>
+        <a class="btn primary" href="#install">Step-by-step guide</a>
+      </div>
+    </div>
+    <p style="margin-top:18px;color:var(--muted);font-size:.92rem">Prefer to do it by hand? The <a id="dl-deb" href="https://github.com/drexjj/jeSDR/releases/latest">.deb package</a> is on the releases page with older versions; see <a href="#manual">installing by hand</a>.</p>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Install with the script</h2>
+    <p class="sub">The installer turns a Raspberry Pi OS install into a jeSDR radio in one command. It is safe to run again: it skips what is already done, and on an existing jeSDR it installs the latest version and keeps your settings.</p>
+
+    <div class="two">
+      <div>
+        <h3 class="h3gap">Before you start</h3>
+        <ul class="plain">
+          <li>An sBitx with its Raspberry Pi 4, connected to your network.</li>
+          <li><b>Raspberry Pi OS 64-bit (Bookworm)</b>, Desktop or Lite. In Raspberry Pi Imager pick <em>Raspberry Pi OS (64-bit)</em>, and in its settings set a user name and password, your Wi-Fi if needed, and turn on SSH.</li>
+          <li>A keyboard and screen on the radio, or SSH from another computer: <code>ssh &lt;user&gt;@&lt;radio&gt;.local</code>.</li>
+          <li>About 5 minutes and an internet connection.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="h3gap">Already running other sBitx software?</h3>
+        <p class="muted">That works too: the installer finds the audio set-up that is already there and leaves it alone. Only one program can use the radio's audio codec and GPIO, so the installer offers to stop the sBitx program. Remove it from the desktop autostart as well, or it takes the radio back after a reboot.</p>
+      </div>
+    </div>
+
+    <ol class="steps big">
+      <li><h3>Open a terminal on the radio</h3>
+        <p>On the radio's desktop: the terminal icon in the menu bar. From another computer: <code>ssh &lt;user&gt;@&lt;radio&gt;.local</code> (for example <code>ssh pi@sbitx.local</code>).</p></li>
+      <li><h3>Run the installer</h3>
+        <div class="cmd"><pre id="cmd2">curl -fsSL https://drexjj.github.io/jeSDR/install.sh | sudo bash</pre><button class="copy" data-copy="cmd2">Copy</button></div>
+        <p>Enter your password when <code>sudo</code> asks. The installer explains each step and asks before it changes the audio set-up or stops another program. Answer <b>Y</b> (or just press Enter) to go ahead.</p></li>
+      <li><h3>Reboot if it asks</h3>
+        <p>When the installer had to set up the audio codec or loopback cards, the radio needs a restart before jeSDR can use them. Say yes to <em>Reboot now?</em>, or run <code>sudo reboot</code> later. jeSDR starts by itself after that, and at every boot.</p></li>
+      <li><h3>Open the radio</h3>
+        <p><b>On the radio:</b> double-click the <b>jeSDR</b> icon on the desktop, or open it from the menu (Internet). It opens in its own window, and the radio's microphone works there.</p>
+        <p><b>From another computer, tablet or phone:</b> go to the address the installer shows, for example <code>https://sbitx.local:8443/</code> or <code>https://192.168.1.50:8443/</code> (typing <code>http://sbitx.local:8080/</code> takes you there too). The browser warns about the certificate the first time; choose <em>Advanced → Proceed</em> once on each device. The radio makes its own certificate, so the warning is expected.</p></li>
+      <li><h3>Set up your station</h3>
+        <p>In the web UI under <b>More → Station</b>, enter your call sign and grid. If you have a calibration file from your old sBitx set-up, copy <code>hw_settings.ini</code> into <code>~/jeSDR/data/</code> and restart jeSDR. For callsign country lookups, run <code>sh /opt/jeSDR/tools/fetch_cty.sh</code> once.</p></li>
+    </ol>
+
+    <h3 class="h3gap" style="margin-top:44px">What the installer does</h3>
+    <div class="grid grid4">
+      <div class="card"><span class="tag">1 · Checks</span><p>64-bit Raspberry Pi OS, the Pi model, and which user jeSDR runs as (the one who ran <code>sudo</code>). It stops if anything is wrong, before it changes anything.</p></div>
+      <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS) and, if missing, the latest WiringPi from its official GitHub releases.</p></div>
+      <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> to <code>config.txt</code> (backup kept) for the sBitx codec, and three ALSA loopback cards for WSJT-X, fldigi and SDR apps.</p></div>
+      <div class="card"><span class="tag">4 · jeSDR</span><p>Downloads the latest release, checks its SHA-256 against the release manifest, and installs it to <code>/opt/jeSDR</code> as the <code>jesdr</code> service, with a menu entry and a desktop icon.</p></div>
+    </div>
+
+    <h3 class="h3gap" style="margin-top:44px">Installer options</h3>
+    <p class="muted" style="margin-top:0">Add options after <code>bash -s --</code>, for example:</p>
+    <div class="cmd"><pre id="cmd3">curl -fsSL https://drexjj.github.io/jeSDR/install.sh | sudo bash -s -- --yes</pre><button class="copy" data-copy="cmd3">Copy</button></div>
+    <div class="tablewrap" style="margin-top:12px">
+      <table class="opts">
+        <tbody>
+          <tr><td><code>--yes</code></td><td>Answer yes to every question, including the reboot. For unattended installs.</td></tr>
+          <tr><td><code>--user NAME</code></td><td>Run jeSDR as this user instead of the one who ran <code>sudo</code>.</td></tr>
+          <tr><td><code>--deb FILE</code></td><td>Install a <code>.deb</code> you already downloaded instead of the latest release.</td></tr>
+          <tr><td><code>--no-hw</code></td><td>Leave the audio codec and loopback set-up alone (if you manage <code>config.txt</code> yourself).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:.92rem">Want to read it first? <a href="install.sh">View install.sh</a>, or download it and run <code>sudo bash install.sh</code>.</p>
+  </div>
+</section>
+
+<section id="manual">
+  <div class="wrap">
+    <h2>Installing by hand</h2>
+    <p class="sub">The same steps as the script, if you'd rather see each one.</p>
+    <ol class="steps big">
+      <li><h3>Install what jeSDR needs</h3>
+        <pre>sudo apt update
+sudo apt install curl openssl python3 alsa-utils gpsd</pre>
+        <p>Then WiringPi: download the <code>wiringpi_&lt;version&gt;_arm64.deb</code> from <a href="https://github.com/WiringPi/WiringPi/releases">github.com/WiringPi/WiringPi/releases</a> and install it with <code>sudo apt install ./wiringpi_*_arm64.deb</code>.</p></li>
+      <li><h3>Set up the sBitx audio</h3>
+        <p>Skip this if <code>aplay -l</code> already lists <code>audioinjectorpi</code> and three <code>Loopback</code> cards. Otherwise add this line to <code>/boot/firmware/config.txt</code>:</p>
+        <pre>dtoverlay=audioinjector-wm8731-audio</pre>
+        <p>and create the loopback cards:</p>
+        <pre>echo "options snd-aloop enable=1,1,1 index=1,2,3" | sudo tee /etc/modprobe.d/jesdr-aloop.conf
+echo "snd-aloop" | sudo tee /etc/modules-load.d/jesdr-aloop.conf
+sudo reboot</pre></li>
+      <li><h3>Install jeSDR</h3>
+        <p>Download <code>jesdr_&lt;version&gt;_arm64.deb</code> from the <a href="https://github.com/drexjj/jeSDR/releases/latest">latest release</a>, then in the folder where you saved it:</p>
+        <pre>sudo apt install ./jesdr_&lt;version&gt;_arm64.deb</pre>
+        <p>It starts at once and at every boot, running as the user who ran <code>sudo</code>. On a desktop system it also adds jeSDR to the menu and an icon to the desktop.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="manage">
+  <div class="wrap two">
+    <div>
+      <h2>Living with it</h2>
+      <p class="sub" style="margin-bottom:20px">Where things are and how to control the service.</p>
+      <ul class="plain">
+        <li>The program is in <code>/opt/jeSDR</code>; it runs as the service <code>jesdr</code>.</li>
+        <li>Your settings, logbook, calibration and voice messages are in <code>~/jeSDR/data</code>. Updates keep them; back up that folder before re-imaging a card.</li>
+        <li>Status and log: <code>systemctl status jesdr</code> and <code>journalctl -u jesdr -f</code>.</li>
+        <li>Stop, start or restart: <code>sudo systemctl stop|start|restart jesdr</code>.</li>
+        <li>Don't start it at boot: <code>sudo systemctl disable jesdr</code> (<code>enable</code> to undo).</li>
+        <li>Uninstall: <code>sudo apt remove jesdr</code>. Your <code>~/jeSDR/data</code> stays; <code>sudo apt purge jesdr</code> also removes jeSDR's system settings.</li>
+      </ul>
+      <div class="note"><b>Updating:</b> in the web UI, More → About → Software updates → <b>Check now</b>, then <b>Install</b>. The radio also checks once a day by itself. Every update is signed, and if a new version does not start, the previous one is put back. Running the installer again also updates.</div>
+    </div>
+    <div>
+      <h2>If it doesn't work</h2>
+      <p class="sub" style="margin-bottom:20px">Most problems show in the log: <code>journalctl -u jesdr -n 50</code>.</p>
+      <ul class="plain">
+        <li><b>“cannot open PCM … is another program using it?”</b> or <b>“Device or resource busy”</b>: another program has the audio codec. Find it with <code>sudo fuser -v /dev/snd/*</code>, quit it and remove it from autostart. jeSDR keeps trying and starts as soon as the codec is free.</li>
+        <li><b>“gpiochip0 … line 17/27”</b>: another program holds the front-panel GPIO, usually the original sBitx program (<code>pgrep -a sbitx</code>).</li>
+        <li><b>No <code>audioinjectorpi</code> in <code>aplay -l</code></b>: the codec overlay is missing or you haven't rebooted since adding it.</li>
+        <li><b>The page doesn't load</b>: check <code>systemctl status jesdr</code> shows <em>active (running)</em>, and try <code>https://</code> with the IP address from <code>hostname -I</code> instead of <code>.local</code>.</li>
+        <li><b>“Your connection is not private”</b>: expected the first time on each device, because the radio signs its own certificate. Choose <em>Advanced → Proceed</em>.</li>
+        <li><b>Full screen on the radio's touchscreen</b>: add <code>/opt/jeSDR/jesdr-app --kiosk</code> to the desktop autostart.</li>
+        <li><b>No microphone in the browser</b>: allow it when the browser asks; on another device make sure the address starts with <code>https://</code>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <img class="flogo" src="assets/jesdr-logo-dark-300.png" srcset="assets/jesdr-logo-dark-300.png 1x, assets/jesdr-logo-dark-600.png 2x" alt="jeSDR" width="100" height="48">
+    <p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. Enhanced code by J. Kujawa, W9JES, with contributions from Jon W2JON, Alan N1QM, Lee W4WHL, Matt NM7D, Lars OZ7BX, Jeff KF7DYU, Mike KB2ML, Shawn K7IHZ, Jared KJ5DTK, Fabrizio F4VUK, Bob KD8CGH, Bob W7PUA, Phil KA9Q, Gerald K5SDR and Steve N3SB.</p>
+    <p>jeSDR is an independent project. It runs on sBitx hardware but is not affiliated with or endorsed by the makers of the sBitx.
+      It includes software by others under their own licenses — see <a href="THIRD_PARTY_NOTICES.md">third-party notices</a>.</p>
+    <p><a href="https://github.com/drexjj/jeSDR">github.com/drexjj/jeSDR</a> · <a href="assets/jesdr-brand-kit.zip">Logo and brand kit</a> (for club newsletters, talks and reviews)</p>
+  </div>
+</footer>
+
+<script>
+// Latest release: latest.json is served from this same site (the repository's
+// main branch); the GitHub API supplies the SD card image link if there is one.
+(function () {
+  const $ = id => document.getElementById(id);
+  const fmtSize = n => n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.round(n / 1024) + ' kB';
+
+  fetch('latest.json', { cache: 'no-cache' })
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(m => {
+      $('release').hidden = false;
+      $('r-ver').textContent = 'v' + m.version;
+      $('r-date').textContent = (m.date ? 'Released ' + m.date : '') + (m.size ? ' · package ' + fmtSize(m.size) : '');
+      $('r-notes').textContent = m.notes || '';
+      if (m.sha256) $('r-sha').textContent = 'SHA-256 ' + m.sha256;
+      $('hero-ver').textContent = 'Latest: v' + m.version;
+      if (m.url) {
+        $('dl-deb').href = m.url;
+      }
+    })
+    .catch(() => {});
+
+  fetch('https://api.github.com/repos/drexjj/jeSDR/releases/latest')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(rel => {
+      const img = (rel.assets || []).find(a => /\.img(\.xz|\.gz|\.zip)?$/i.test(a.name));
+      if (img) {
+        $('dl-img').href = img.browser_download_url;
+        $('dl-img').textContent = 'Download image (' + fmtSize(img.size) + ')';
+        $('hero-dl').href = img.browser_download_url;
+      }
+    })
+    .catch(() => {});
+})();
+
+document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', () => {
+  const t = document.getElementById(b.dataset.copy).textContent;
+  const done = () => { b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy', 1500); };
+  if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, () => {});
+}));
+
+// Background: a slowly scrolling waterfall with a few FT8-style signals.
+(function () {
+  const c = document.getElementById('spectrum');
+  const ctx = c.getContext('2d');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { draw(true); return; }
+  let w, h, img, sigs = [];
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    w = c.width = Math.floor(c.clientWidth * dpr / 3);
+    h = c.height = Math.floor(c.clientHeight * dpr / 3);
+    ctx.fillStyle = '#05080c'; ctx.fillRect(0, 0, w, h);
+    sigs = Array.from({ length: Math.max(6, Math.floor(w / 18)) }, () => newSig());
+  }
+  function newSig() {
+    return { x: Math.random() * w, life: 20 + Math.random() * 60, gap: Math.random() * 80, a: .4 + Math.random() * .6, wd: 1 + Math.random() * 2 };
+  }
+  function color(v) {
+    // dark blue -> cyan -> amber
+    if (v < .5) { const t = v / .5; return [5 + 20 * t, 8 + 120 * t, 12 + 150 * t]; }
+    const t = (v - .5) / .5; return [25 + 230 * t, 128 + 54 * t, 162 - 123 * t];
+  }
+  function line() {
+    ctx.drawImage(c, 0, 0, w, h - 1, 0, 1, w, h - 1);
+    img = ctx.createImageData(w, 1);
+    const row = new Float32Array(w);
+    for (let x = 0; x < w; x++) row[x] = Math.random() * .22;
+    for (const s of sigs) {
+      if (s.gap > 0) { s.gap--; continue; }
+      for (let dx = -3; dx <= 3; dx++) {
+        const x = Math.round(s.x + dx); if (x < 0 || x >= w) continue;
+        row[x] = Math.max(row[x], s.a * Math.exp(-(dx * dx) / (2 * s.wd)));
+      }
+      if (--s.life <= 0) Object.assign(s, newSig());
+    }
+    for (let x = 0; x < w; x++) {
+      const [r, g, b] = color(Math.min(1, row[x]));
+      img.data.set([r, g, b, 255], x * 4);
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+  function draw(still) {
+    resize();
+    if (still) { for (let i = 0; i < h; i++) line(); return; }
+    for (let i = 0; i < h; i++) line();
+    let last = 0;
+    (function tick(t) {
+      if (t - last > 70) { line(); last = t; }
+      requestAnimationFrame(tick);
+    })(0);
+  }
+  window.addEventListener('resize', () => { clearTimeout(window._rs); window._rs = setTimeout(resize, 200); });
+  draw(false);
+})();
+</script>
+</body>
+</html>
