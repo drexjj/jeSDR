@@ -1,5 +1,5 @@
 #!/bin/bash
-# jeSDR installer for the sBitx (Raspberry Pi 4, Raspberry Pi OS 64-bit).
+# jeSDR installer for the sBitx (Raspberry Pi 4 or Pi 5, Raspberry Pi OS 64-bit).
 #
 #   curl -fsSL https://drexjj.github.io/jeSDR/install.sh | sudo bash
 #
@@ -10,8 +10,9 @@
 #   --no-hw          do not touch the audio codec / loopback set-up
 #
 # What it does:
-#   1. checks this is a 64-bit Raspberry Pi OS (Bookworm or later)
-#   2. installs the packages jeSDR needs, and WiringPi if it is missing
+#   1. checks this is a 64-bit Raspberry Pi OS (Bookworm or later) on a Pi 4 or Pi 5
+#   2. installs the packages jeSDR needs, and WiringPi if it is missing (on a
+#      Pi 5 it must be WiringPi 3.0 or newer; an older one is upgraded)
 #   3. sets up the sBitx audio codec (WM8731) and three ALSA loopback cards
 #      if they are not set up already
 #   4. downloads the latest jeSDR package, checks its SHA-256, installs it
@@ -32,7 +33,7 @@ while [ $# -gt 0 ]; do
     --deb) DEB=${2:?--deb needs a file}; shift ;;
     --user) RUN_USER=${2:?--user needs a name}; shift ;;
     --no-hw) DO_HW=0 ;;
-    -h|--help) sed -n '2,21p' "$0" 2>/dev/null || true; exit 0 ;;
+    -h|--help) sed -n '2,22p' "$0" 2>/dev/null || true; exit 0 ;;
     *) echo "unknown option: $1" >&2; exit 2 ;;
   esac
   shift
@@ -78,11 +79,23 @@ case "${VERSION_CODENAME:-}" in
      ask "Continue anyway?" || exit 1 ;;
 esac
 
+# Pi 4 family (Pi 4, Pi 400, CM4) or Pi 5 family (Pi 5, Pi 500, CM5). The
+# Pi 5's GPIO sits behind its RP1 chip: it needs WiringPi 3.0 or newer and
+# Bookworm or later.
 MODEL=$(tr -d '\0' < /proc/device-tree/model 2>/dev/null || echo unknown)
+PI5=0
 case "$MODEL" in
-  *"Raspberry Pi 4"*) ok "$MODEL" ;;
-  *) warn "$MODEL: jeSDR is made for the sBitx's Raspberry Pi 4" ;;
+  *"Raspberry Pi 5"*|*"Compute Module 5"*) PI5=1; ok "$MODEL" ;;   # also the Pi 500
+  *"Raspberry Pi 4"*|*"Compute Module 4"*) ok "$MODEL" ;;          # also the Pi 400
+  *) warn "$MODEL: jeSDR is made for the sBitx's Raspberry Pi 4 or Pi 5"
+     ask "Continue anyway?" || exit 1 ;;
 esac
+if [ "$PI5" = 1 ]; then
+  case "${VERSION_CODENAME:-}" in
+    bookworm|trixie) ;;
+    *) die "a Raspberry Pi 5 needs Raspberry Pi OS Bookworm or later (this is ${PRETTY_NAME:-unknown})" ;;
+  esac
+fi
 
 # the user jeSDR runs as: --user, an earlier install, the sudo user, else the
 # first normal user
@@ -121,19 +134,59 @@ if [ -f /etc/default/gpsd ] && grep -q '^GPSD_OPTIONS=""' /etc/default/gpsd; the
   systemctl restart gpsd >/dev/null 2>&1 || true
 fi
 
-if ldconfig -p | grep -q libwiringPi; then
-  ok "WiringPi is installed"
-else
+# WiringPi drives the radio's GPIO. Its version: the package's, else what an
+# installed "gpio" tool reports (a copy built from source has no package).
+wiringpi_version() {
+  local v
+  v=$(dpkg-query -W -f='${Version}' wiringpi 2>/dev/null || true)
+  if [ -z "$v" ] && command -v gpio >/dev/null 2>&1; then
+    v=$(gpio -v 2>/dev/null | sed -n 's/^gpio version: *\([0-9][0-9.]*\).*/\1/p' | head -n 1)
+  fi
+  echo "$v"
+}
+
+install_wiringpi() {
   echo "    downloading WiringPi from github.com/WiringPi/WiringPi"
   URL=$(curl -fsSL "$WIRINGPI_API" | python3 -c '
 import json, sys
 for a in json.load(sys.stdin).get("assets", []):
     if a["name"].endswith("_arm64.deb"):
         print(a["browser_download_url"]); break')
-  [ -n "$URL" ] || die "could not find the WiringPi arm64 package; install WiringPi yourself and run this again"
+  [ -n "$URL" ] || die "could not find the WiringPi arm64 package; install WiringPi 3.0 or newer yourself and run this again"
   curl -fsSL -o "$TMP/wiringpi.deb" "$URL"
   apt-get install -y -q "$TMP/wiringpi.deb" >/dev/null
   ok "WiringPi installed ($(basename "$URL"))"
+}
+
+WPV=$(wiringpi_version)
+if ! ldconfig -p | grep -q libwiringPi; then
+  install_wiringpi
+elif [ "$PI5" = 1 ] && { [ -z "$WPV" ] || dpkg --compare-versions "$WPV" lt 3.0; }; then
+  warn "WiringPi ${WPV:-(unknown version)} is too old for a Raspberry Pi 5 (it needs 3.0 or newer)"
+  install_wiringpi
+else
+  ok "WiringPi ${WPV:-is installed}"
+fi
+
+# A WiringPi built from source lives in /usr/local/lib, which is searched
+# before the package's copy: an old one there would still be the one jeSDR
+# loads, and a Pi 5 needs 3.0 or newer.
+if [ "$PI5" = 1 ]; then
+  OLDWP=$(ls /usr/local/lib/libwiringPi*.so* 2>/dev/null || true)
+  if [ -n "$OLDWP" ] && dpkg-query -W wiringpi >/dev/null 2>&1; then
+    warn "an older WiringPi built from source is in /usr/local/lib and would be used instead of the new one"
+    if ask "Move it aside (to /usr/local/lib/wiringpi-old)?"; then
+      mkdir -p /usr/local/lib/wiringpi-old
+      for f in /usr/local/lib/libwiringPi*.so* /usr/local/lib/libwiringPiDev*.so*; do
+        [ -e "$f" ] && mv "$f" /usr/local/lib/wiringpi-old/
+      done
+      [ -x /usr/local/bin/gpio ] && mv /usr/local/bin/gpio /usr/local/lib/wiringpi-old/ 2>/dev/null || true
+      ldconfig
+      ok "moved; jeSDR now uses WiringPi $(dpkg-query -W -f='${Version}' wiringpi)"
+    else
+      warn "jeSDR may not start on this Pi 5 until the old WiringPi in /usr/local/lib is removed"
+    fi
+  fi
 fi
 
 # --------------------------------------------------------- 3. sBitx audio
@@ -262,6 +315,12 @@ echo "    choose Advanced -> Proceed once on each device."
 echo
 echo "    Check on it:   systemctl status jesdr      journalctl -u jesdr -f"
 echo "    Country file:  sh $FETCH   (as $RUN_USER, a few times a year)"
+
+if [ "$PI5" = 1 ]; then
+  echo
+  warn "Raspberry Pi 5: it draws more current than a Pi 4. Use a 5 V supply that can"
+  warn "give 5 A, or the Pi slows down and jeSDR shows a PI POWER warning."
+fi
 
 if [ "$REBOOT" = 1 ]; then
   echo

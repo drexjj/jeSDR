@@ -27,18 +27,22 @@ From the [latest release](https://github.com/drexjj/jeSDR/releases/latest):
 
 1. Write it to a microSD card (16 GB or more) with Raspberry Pi Imager
    ("Use custom") or balenaEtcher.
-2. Put the card in the radio's Raspberry Pi 4 and switch on. The first start
+2. Put the card in the radio's Raspberry Pi and switch on. The first start
    takes a little longer (the card is expanded and the radio makes its own
    keys).
 3. On the radio, open **jeSDR** from the desktop icon or the menu. From other
    devices, open `https://<radio>:8443/` (accept the certificate warning once
    per device; `http://<radio>:8080/` redirects there).
 
+The image is made on a Raspberry Pi 4. On a Pi 5, run the installer below once
+after the first start: it brings WiringPi up to 3.0 or newer, which the Pi 5
+needs.
+
 Writing a new image erases the card. Your settings, log and voice messages
 are in `~/jeSDR/data` on the radio: copy that folder off first and back
 afterwards, or use the update button instead (below), which keeps them.
 
-**Package**, for a Raspberry Pi OS 64-bit (Bookworm) system with WiringPi:
+**Package**, for a Raspberry Pi 4 or Pi 5 with Raspberry Pi OS 64-bit (Bookworm or later) and WiringPi (3.0 or newer on a Pi 5):
 
 ```console
 sudo apt install ./jesdr_<version>_arm64.deb
