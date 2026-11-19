@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jeSDR — network transceiver software for the sBitx</title>
-<meta name="description" content="jeSDR turns an sBitx HF transceiver into a network transceiver with its own touch-friendly web interface, TCI, HPSDR Protocol 1, Hamlib, and built-in digital modes.">
+<meta name="description" content="jeSDR turns an sBitx HF transceiver into a network transceiver with its own touch-friendly web interface, TCI, HPSDR Protocol 1, Hamlib, built-in digital modes, and tools for portable and POTA operating.">
 <meta property="og:title" content="jeSDR — network transceiver software for the sBitx">
-<meta property="og:description" content="Web UI, TCI, HPSDR P1, Hamlib, FT8/FT4/FT2, RTTY, PSK, CW, FreeDV RADE, voice keyer, DX cluster and signed one-click updates.">
+<meta property="og:description" content="Web UI, TCI, HPSDR P1, Hamlib, FT8/FT4/FT2, RTTY, PSK, CW, FreeDV RADE, split, RIT and XIT, an outdoor POTA theme, battery monitoring and signed one-click updates.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://drexjj.github.io/jeSDR/">
 <meta property="og:image" content="https://drexjj.github.io/jeSDR/assets/jesdr-social.png">
@@ -161,6 +161,18 @@
   .steps.big p { margin: 0 0 6px; color: #b7c2cd; }
   table.opts td:first-child { width: 150px; }
   @media (max-width: 640px) { table.opts td:first-child { width: auto; } }
+  /* screenshots */
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .shots figure { margin: 0; min-width: 0; }
+  .shots figure.wide { grid-column: 1 / -1; }
+  .shots img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line);
+    background: #05080c; box-shadow: 0 18px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.02); }
+  .shots figure.wide img { box-shadow: 0 24px 70px rgba(0,82,252,.18), 0 18px 50px rgba(0,0,0,.5); }
+  .shots figcaption { color: var(--muted); font-size: .9rem; margin-top: 10px; }
+  .shots figcaption b { color: var(--text); font-weight: 600; }
+  @media (max-width: 760px) { .shots { grid-template-columns: 1fr; } }
+  .new { font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; color: #06210f; background: var(--green);
+    border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: 2px; }
   footer { padding: 40px 0 56px; color: var(--muted); font-size: .88rem; }
   footer p { margin: 0 0 8px; }
 </style>
@@ -171,6 +183,7 @@
   <div class="wrap">
     <a class="brand" href="#" aria-label="jeSDR"><img src="assets/jesdr-logo-dark-300.png" srcset="assets/jesdr-logo-dark-300.png 1x, assets/jesdr-logo-dark-600.png 2x" alt="jeSDR" width="83" height="40"></a>
     <div class="links">
+      <a class="opt" href="#screens">Screens</a>
       <a class="opt" href="#features">Features</a>
       <a class="opt" href="#connect">Connect</a>
       <a href="#download">Download</a>
@@ -200,31 +213,58 @@
 
 <main>
 
+<section id="screens">
+  <div class="wrap">
+    <h2>See it</h2>
+    <p class="sub">The same screen on the radio's touchscreen, a laptop, a tablet or a phone. These are real screens from jeSDR.</p>
+    <div class="shots">
+      <figure class="wide">
+        <img src="assets/screen-ft8.jpg" alt="jeSDR in FT8 mode: spectrum and waterfall at the top, decoded FT8 messages below with country names, and the TX controls on the right" width="1280" height="720" loading="lazy">
+        <figcaption><b>FT8 in the radio.</b> Decodes with countries and worked-before colors, tap a caller to answer, drag the red TX marker to move your transmit frequency.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/screen-cw-outdoor.jpg" alt="jeSDR in CW mode with the Outdoor (POTA) theme: white background, bold black text, the CW decoder and macro buttons" width="1280" height="720" loading="lazy">
+        <figcaption><b>Outdoor (POTA) theme.</b> High contrast for sunlight, with the CW decoder, the zero-beat bar and one-tap macros.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/screen-themes.jpg" alt="Six jeSDR themes side by side: Outdoor (POTA), Night (red), Icom style, Elecraft style, Heathkit style and Yaesu style" width="1220" height="490" loading="lazy">
+        <figcaption><b>Twelve themes,</b> from Night (red) for the dark to Icom, Yaesu, Kenwood, Elecraft and Heathkit styles.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <section id="features">
   <div class="wrap">
     <h2>What's inside</h2>
     <p class="sub">Everything runs on the radio. Open it from the touchscreen, a laptop, a tablet or a phone — no extra software to install.</p>
     <div class="grid">
       <div class="card"><span class="tag">Web UI</span><h3>A radio screen in any browser</h3>
-        <p>Spectrum and waterfall, band stacks, filters with adjustable low and high cut, receive and transmit equalizers, themes, and kiosk mode for the radio's own touchscreen.</p></div>
+        <p>Spectrum and waterfall, band stacks, filters with adjustable low and high cut, receive and transmit equalizers, twelve themes, a Quick page you arrange yourself, settings search, and kiosk mode for the radio's own touchscreen.</p></div>
       <div class="card"><span class="tag">Remote audio</span><h3>Listen and talk from anywhere in the house</h3>
         <p>Receive audio in the browser, and transmit with your phone or laptop microphone over HTTPS. A TX audio scope shows what you are sending.</p></div>
+      <div class="card"><span class="tag">Operating</span><h3>Split, RIT and XIT <span class="new">NEW</span></h3>
+        <p>Work a pile-up with split on either VFO, move the receiver with RIT or the transmitter with XIT. The screen always shows where you will transmit, and a band plan for your country warns before you go outside your privileges.</p></div>
       <div class="card"><span class="tag">Digital</span><h3>Digital modes built in</h3>
-        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI, with drag-to-place TX markers. WSJT-X and fldigi work too, through Hamlib.</p></div>
-      <div class="card"><span class="tag">CW</span><h3>CW decoder and macros</h3>
-        <p>Decode CW on screen and send stored macros, or key from the front-panel jack with the built-in keyer.</p></div>
-      <div class="card"><span class="tag">Voice</span><h3>FreeDV RADE V1 and a voice keyer</h3>
-        <p>Digital voice with RADE V1, and eight recorded voice messages you can send with one tap, with optional auto-repeat for calling CQ.</p></div>
+        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI. FT8 can answer callers or call CQ for you, hunt for new ones, send POTA, SOTA or WWFF CQs, and show a grid map. WSJT-X and fldigi work too.</p></div>
+      <div class="card"><span class="tag">CW</span><h3>CW decoder, keyer and macros</h3>
+        <p>Decode CW on screen, zero-beat with the tuning bar, and send stored macros. Key from the front-panel jack with a straight key, bug or iambic paddles, with adjustable weighting and spacing.</p></div>
+      <div class="card"><span class="tag">Voice</span><h3>RADE, voice keyer and recordings</h3>
+        <p>FreeDV RADE V1 digital voice, eight recorded voice messages with auto-repeat for calling CQ, and recordings of what you hear and say that you can download from any device.</p></div>
+      <div class="card"><span class="tag">Receive</span><h3>Quieter listening</h3>
+        <p>Two kinds of noise reduction, a noise blanker, an automatic notch and peak filter, and automatic IF gain. The S-meter is calibrated band by band and reads the same at any gain.</p></div>
       <div class="card"><span class="tag">DX</span><h3>DX cluster on the waterfall</h3>
-        <p>Live spots from a telnet DX cluster (VE7CC by default) appear on the spectrum. Tap a spot to tune it. Country lookups and qrz.com links are built in.</p></div>
-      <div class="card"><span class="tag">Log</span><h3>Logbook</h3>
-        <p>Log contacts from the web UI or from the digital modes and export ADIF. GridTracker, JTAlert and loggers follow along over the WSJT-X network protocol.</p></div>
-      <div class="card"><span class="tag">Field</span><h3>GPS time and grid</h3>
-        <p>Plug in a USB GPS puck and the radio sets its own clock for FT8 when there is no internet, and can keep your grid square up to date. A sky plot shows every satellite it hears.</p></div>
+        <p>Live spots from a telnet DX cluster appear on the spectrum. Tap a spot to tune it. Country lookups, a country file you can update from the web UI, and qrz.com links are built in.</p></div>
+      <div class="card"><span class="tag">Log</span><h3>Logbook and activations</h3>
+        <p>Log from the web UI or the digital modes, export ADIF, and get POTA, WWFF and SOTA activation files in one tap. GridTracker, JTAlert, Log4OM and N1MM+ follow along over UDP.</p></div>
+      <div class="card"><span class="tag">Field</span><h3>Made for portable operating</h3>
+        <p>Battery monitoring with low-voltage protection (with an INA260 sensor), a battery saver, a transmit timeout, Pi temperature warnings, and a USB GPS for clock and grid with no internet. Turn the waterfall speed down to keep the Pi cool.</p></div>
+      <div class="card"><span class="tag">Set-up</span><h3>Calibration in the browser</h3>
+        <p>Automatic PA power calibration on every band, an SWR scan, a two-tone test for checking linearity, and S-meter calibration. Back up and restore all your settings, log and voice messages as one file.</p></div>
       <div class="card"><span class="tag">Updates</span><h3>Signed one-click updates</h3>
         <p>The radio checks for new versions and installs them from More → About. Every update is signed, and if a new version fails to start, the previous one is put back automatically.</p></div>
       <div class="card"><span class="tag">Safety</span><h3>Built to protect the radio</h3>
-        <p>SWR protection while transmitting, one transmitter owner at a time, and the transmitter is un-keyed on shutdown.</p></div>
+        <p>SWR protection while transmitting, a transmit timeout, one transmitter owner at a time, and the transmitter is un-keyed on shutdown. Stop, restart or shut down from the web UI.</p></div>
     </div>
   </div>
 </section>
@@ -241,6 +281,7 @@
           <tr><td>TCI</td><td class="port">TCP 50001</td><td>SDROxide, loggers and TCI-aware apps: IQ to the client, two-way rig control, TX audio modulated by the radio.</td></tr>
           <tr><td>HPSDR Protocol 1</td><td class="port">UDP 1024</td><td>Hermes-Lite 2 emulation for SDROxide, SparkSDR, SDR Console and others; the client does the DSP.</td></tr>
           <tr><td>Hamlib rigctld</td><td class="port">TCP 4532</td><td>WSJT-X, fldigi and loggers (rig model 2, <em>Hamlib NET rigctl</em>).</td></tr>
+          <tr><td>WSJT-X and ADIF over UDP</td><td class="port">UDP, you choose</td><td>GridTracker, JTAlert, Log4OM and N1MM+: FT8 decodes, status and logged contacts, sent to the addresses you set in More → Logging programs.</td></tr>
           <tr><td>Console</td><td class="port">TCP 8081</td><td>Set-up, status and calibration: <code>telnet &lt;radio&gt; 8081</code>.</td></tr>
           <tr><td>MIDI</td><td class="port">ALSA</td><td>The front-panel knobs, key and PTT, in SDROxide.</td></tr>
         </tbody>
@@ -316,13 +357,13 @@
         <p><b>On the radio:</b> double-click the <b>jeSDR</b> icon on the desktop, or open it from the menu (Internet). It opens in its own window, and the radio's microphone works there.</p>
         <p><b>From another computer, tablet or phone:</b> go to the address the installer shows, for example <code>https://sbitx.local:8443/</code> or <code>https://192.168.1.50:8443/</code> (typing <code>http://sbitx.local:8080/</code> takes you there too). The browser warns about the certificate the first time; choose <em>Advanced → Proceed</em> once on each device. The radio makes its own certificate, so the warning is expected.</p></li>
       <li><h3>Set up your station</h3>
-        <p>In the web UI under <b>More → Station</b>, enter your call sign and grid. If you have a calibration file from your old sBitx set-up, copy <code>hw_settings.ini</code> into <code>~/jeSDR/data/</code> and restart jeSDR. For callsign country lookups, run <code>sh /opt/jeSDR/tools/fetch_cty.sh</code> once.</p></li>
+        <p>In the web UI under <b>More → Station</b>, enter your call sign and grid. The installer already fetched the country file for callsign lookups; <b>More → Station → Country file</b> updates it later. If you have a calibration file from your old sBitx set-up, copy <code>hw_settings.ini</code> into <code>~/jeSDR/data/</code> and restart jeSDR, or run the PA power calibration in <b>More → Calibration</b>.</p></li>
     </ol>
 
     <h3 class="h3gap" style="margin-top:44px">What the installer does</h3>
     <div class="grid grid4">
       <div class="card"><span class="tag">1 · Checks</span><p>64-bit Raspberry Pi OS, the Pi model, and which user jeSDR runs as (the one who ran <code>sudo</code>). It stops if anything is wrong, before it changes anything.</p></div>
-      <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS) and, if missing, the latest WiringPi from its official GitHub releases.</p></div>
+      <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS), the latest WiringPi from its official GitHub releases if missing, and the country file for callsign lookups.</p></div>
       <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> to <code>config.txt</code> (backup kept) for the sBitx codec, and three ALSA loopback cards for WSJT-X, fldigi and SDR apps.</p></div>
       <div class="card"><span class="tag">4 · jeSDR</span><p>Downloads the latest release, checks its SHA-256 against the release manifest, and installs it to <code>/opt/jeSDR</code> as the <code>jesdr</code> service, with a menu entry and a desktop icon.</p></div>
     </div>
@@ -375,9 +416,11 @@ sudo reboot</pre></li>
       <p class="sub" style="margin-bottom:20px">Where things are and how to control the service.</p>
       <ul class="plain">
         <li>The program is in <code>/opt/jeSDR</code>; it runs as the service <code>jesdr</code>.</li>
-        <li>Your settings, logbook, calibration and voice messages are in <code>~/jeSDR/data</code>. Updates keep them; back up that folder before re-imaging a card.</li>
+        <li>Your settings, logbook, calibration, recordings and voice messages are in <code>~/jeSDR/data</code>. Updates keep them; back up before re-imaging a card.</li>
         <li>Status and log: <code>systemctl status jesdr</code> and <code>journalctl -u jesdr -f</code>.</li>
-        <li>Stop, start or restart: <code>sudo systemctl stop|start|restart jesdr</code>.</li>
+        <li>Stop, restart or shut down the radio from the web UI: <b>More → Shut down</b>. The desktop icon starts jeSDR again.</li>
+        <li>From a terminal: <code>sudo systemctl stop|start|restart jesdr</code>.</li>
+        <li>Back up your settings, log and voice messages to one file from <b>More → Backup</b>, and restore them there too.</li>
         <li>Don't start it at boot: <code>sudo systemctl disable jesdr</code> (<code>enable</code> to undo).</li>
         <li>Uninstall: <code>sudo apt remove jesdr</code>. Your <code>~/jeSDR/data</code> stays; <code>sudo apt purge jesdr</code> also removes jeSDR's system settings.</li>
       </ul>
@@ -393,6 +436,8 @@ sudo reboot</pre></li>
         <li><b>The page doesn't load</b>: check <code>systemctl status jesdr</code> shows <em>active (running)</em>, and try <code>https://</code> with the IP address from <code>hostname -I</code> instead of <code>.local</code>.</li>
         <li><b>“Your connection is not private”</b>: expected the first time on each device, because the radio signs its own certificate. Choose <em>Advanced → Proceed</em>.</li>
         <li><b>Full screen on the radio's touchscreen</b>: add <code>/opt/jeSDR/jesdr-app --kiosk</code> to the desktop autostart.</li>
+        <li><b>The Pi runs warm</b>: the browser drawing the waterfall is most of the work. Set <b>More → Display → Waterfall speed</b> to 10 or 5 on the radio's own screen, or turn on the battery saver.</li>
+        <li><b>Downloads fail from another computer</b> (“Check internet connection”): update jeSDR; recordings, backups and ADIF now download over the page's own secure connection.</li>
         <li><b>No microphone in the browser</b>: allow it when the browser asks; on another device make sure the address starts with <code>https://</code>.</li>
       </ul>
     </div>
