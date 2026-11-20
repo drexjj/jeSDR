@@ -118,7 +118,10 @@ step "Installing the packages jeSDR needs"
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -q >/dev/null || warn "apt-get update failed; trying with the current package lists"
 ASOUND=libasound2
-apt-cache show libasound2t64 >/dev/null 2>&1 && ASOUND=libasound2t64
+# Trixie renamed it libasound2t64. Only a real candidate counts: on Bookworm
+# the name can exist as a purely virtual package, which apt-cache show accepts
+# but apt-get install refuses.
+if apt-cache policy libasound2t64 2>/dev/null | grep -Eq 'Candidate: [^(]'; then ASOUND=libasound2t64; fi
 apt-get install -y -q curl ca-certificates openssl python3 sudo alsa-utils unzip "$ASOUND" >/dev/null
 ok "curl, openssl, python3, sudo, ALSA, unzip"
 
