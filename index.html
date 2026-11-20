@@ -306,7 +306,7 @@
           <li>Put the card in the radio and switch on. The first start takes a little longer.</li>
           <li>Open <code>https://&lt;radio&gt;:8443/</code>, or the jeSDR icon on the radio's desktop.</li>
         </ol>
-        <p class="muted" style="font-size:.9rem;margin:0 0 12px">The same image works on a Pi 4 and a Pi 5.</p>
+        <p class="muted" style="font-size:.9rem;margin:0 0 12px">The image is made on a Pi 4. On a Pi 5, run the installer once after the first start: it brings WiringPi up to the version the Pi 5 needs.</p>
         <a class="btn" id="dl-img" href="https://github.com/drexjj/jeSDR/releases/latest">Get the SD card image</a>
       </div>
       <div class="card">
@@ -360,7 +360,7 @@
     <h3 class="h3gap" style="margin-top:44px">What the installer does</h3>
     <div class="grid grid4">
       <div class="card"><span class="tag">1 · Checks</span><p>64-bit Raspberry Pi OS, the Pi model (Pi 4 or Pi 5), and which user jeSDR runs as (the one who ran <code>sudo</code>). It stops if anything is wrong, before it changes anything.</p></div>
-      <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS) and the country file for callsign lookups. No GPIO library is needed: it puts the user in the <code>gpio</code> group and makes sure SPI is off, since the sBitx uses those pins.</p></div>
+      <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS), the latest WiringPi from its official GitHub releases if missing (on a Pi 5 it must be 3.0 or newer, so an older one is upgraded), and the country file for callsign lookups.</p></div>
       <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> to <code>config.txt</code> (backup kept) for the sBitx codec, and three ALSA loopback cards for WSJT-X, fldigi and SDR apps.</p></div>
       <div class="card"><span class="tag">4 · jeSDR</span><p>Downloads the latest release, checks its SHA-256 against the release manifest, and installs it to <code>/opt/jeSDR</code> as the <code>jesdr</code> service, with a menu entry and a desktop icon.</p></div>
     </div>
@@ -390,7 +390,7 @@
       <li><h3>Install what jeSDR needs</h3>
         <pre>sudo apt update
 sudo apt install curl openssl python3 alsa-utils gpsd</pre>
-        <p>No GPIO library is needed. Check that SPI is off: <code>/boot/firmware/config.txt</code> must not have <code>dtparam=spi=on</code>, because the sBitx's band filters and volume knob use those pins.</p></li>
+        <p>Then WiringPi: download the <code>wiringpi_&lt;version&gt;_arm64.deb</code> from <a href="https://github.com/WiringPi/WiringPi/releases">github.com/WiringPi/WiringPi/releases</a> and install it with <code>sudo apt install ./wiringpi_*_arm64.deb</code>. On a Raspberry Pi 5 it must be WiringPi 3.0 or newer; check with <code>gpio -v</code>.</p></li>
       <li><h3>Set up the sBitx audio</h3>
         <p>Skip this if <code>aplay -l</code> already lists <code>audioinjectorpi</code> and three <code>Loopback</code> cards. Otherwise add this line to <code>/boot/firmware/config.txt</code>:</p>
         <pre>dtoverlay=audioinjector-wm8731-audio</pre>
