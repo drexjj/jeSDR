@@ -1,362 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support jeSDR — Donate</title>
-  <style>
-    :root {
-      --bg-color: #0f1115;
-      --surface-color: #181b21;
-      --surface-hover: #1f232b;
-      --border-color: #2c313c;
-      --text-primary: #f0f2f5;
-      --text-secondary: #9ba1ae;
-      --accent-blue: #3b82f6;
-      --accent-blue-hover: #2563eb;
-      --bmc-yellow: #ffdd00;
-      --bmc-text: #000000;
-      --paypal-blue: #0070ba;
-      --paypal-hover: #005ea6;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Navigation matching jeSDR structure */
-    header {
-      border-bottom: 1px solid var(--border-color);
-      background-color: rgba(15, 17, 21, 0.95);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav-container {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .brand {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.925rem;
-      transition: color 0.15s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--text-primary);
-    }
-
-    /* Main Content */
-    main {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem;
-      flex: 1;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent-blue);
-      margin-bottom: 0.75rem;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-
-    .lead {
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      max-width: 620px;
-      margin: 0 auto;
-    }
-
-    /* Donation Cards */
-    .donate-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .card {
-      background-color: var(--surface-color);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: #454c5c;
-      transform: translateY(-2px);
-    }
-
-    .card h2 {
-      font-size: 1.35rem;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .card p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.85rem 1.25rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1rem;
-      text-decoration: none;
-      text-align: center;
-      transition: background-color 0.15s ease, opacity 0.15s ease;
-      cursor: pointer;
-    }
-
-    .btn-bmc {
-      background-color: var(--bmc-yellow);
-      color: var(--bmc-text);
-    }
-
-    .btn-bmc:hover {
-      opacity: 0.9;
-    }
-
-    .btn-paypal {
-      background-color: var(--paypal-blue);
-      color: #ffffff;
-    }
-
-    .btn-paypal:hover {
-      background-color: var(--paypal-hover);
-    }
-
-    /* Non-monetary support box */
-    .community-box {
-      background-color: var(--surface-color);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .community-box h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .community-box p {
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-      max-width: 580px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .action-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      background-color: transparent;
-      padding: 0.6rem 1.1rem;
-      font-size: 0.9rem;
-    }
-
-    .btn-outline:hover {
-      background-color: var(--surface-hover);
-      border-color: #4b5263;
-    }
-
-    .signoff {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 1.05rem;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .callsign {
-      color: var(--accent-blue);
-      font-family: monospace;
-      font-size: 1.1rem;
-    }
-
-    /* Footer matching jeSDR */
-    footer {
-      border-top: 1px solid var(--border-color);
-      padding: 2rem 1.5rem;
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-    }
-
-    footer a {
-      color: var(--text-secondary);
-      text-decoration: underline;
-    }
-
-    footer a:hover {
-      color: var(--text-primary);
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-      main {
-        padding: 2.5rem 1.25rem;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support jeSDR — donate</title>
+<meta name="description" content="Support the development of jeSDR, network transceiver software for the sBitx, with a coffee or a PayPal donation.">
+<meta property="og:title" content="Support jeSDR">
+<meta property="og:description" content="Help keep jeSDR's new features and fixes coming.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://drexjj.github.io/jeSDR/donate.html">
+<meta property="og:image" content="https://drexjj.github.io/jeSDR/assets/jesdr-social.png">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="assets/jesdr-icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/jesdr-icon-180.png">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
-  <header>
-    <div class="nav-container">
-      <a href="index.html" class="brand">jeSDR</a>
-      <nav class="nav-links">
-        <a href="index.html#screens">Screens</a>
-        <a href="index.html#features">Features</a>
-        <a href="index.html#connect">Connect</a>
-        <a href="index.html#download">Download</a>
-        <a href="index.html#install">Install</a>
-        <a href="index.html#help">Help</a>
-        <a href="donate.html" class="active">Donate</a>
-      </nav>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="jeSDR home"><img src="assets/jesdr-logo-dark-300.png" srcset="assets/jesdr-logo-dark-300.png 1x, assets/jesdr-logo-dark-600.png 2x" alt="jeSDR" width="83" height="40"></a>
+    <div class="links">
+      <a class="opt" href="./#screens">Screens</a>
+      <a class="opt" href="./#features">Features</a>
+      <a class="opt" href="./#connect">Connect</a>
+      <a href="./#download">Download</a>
+      <a href="./#install">Install</a>
+      <a class="opt" href="./#manage">Help</a>
+      <a class="opt opt2" href="report.html">Report a bug</a>
+      <a class="pill" href="donate.html" aria-current="page">Donate</a>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <main>
-    <section class="hero">
-      <span class="eyebrow">Support Open Amateur Radio Software</span>
-      <h1>Support jeSDR Development</h1>
-      <p class="lead">
-        If you find this software valuable or have benefited from using jeSDR, consider supporting our work. Every donation, big or small, helps us keep development going.
-      </p>
-    </section>
+<header class="pagehead">
+  <div class="wrap narrow">
+    <p class="eyebrow">Support jeSDR</p>
+    <h1>Keep jeSDR on the air.</h1>
+    <p class="lede">If jeSDR has made your sBitx more fun to operate, consider supporting its development.
+      Every donation, big or small, helps pay for test hardware and keeps new features and fixes coming.</p>
+  </div>
+</header>
 
-    <section class="donate-grid">
-      <!-- Buy Me a Coffee Card -->
+<main>
+
+<section class="tight">
+  <div class="wrap narrow">
+    <div class="grid give" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
       <div class="card">
-        <div>
-          <h2>☕ Buy Me a Coffee</h2>
-          <p>
-            Send a quick one-time tip or become a monthly sponsor to support ongoing features, bug fixes, and sBitx hardware testing.
-          </p>
-        </div>
-        <a href="https://buymeacoffee.com/w9jes" target="_blank" rel="noopener noreferrer" class="btn btn-bmc">
-          Buy JJ W9JES a Coffee
-        </a>
+        <h3><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></span>Buy Me a Coffee</h3>
+        <p>A quick one-time tip, or a monthly membership if you'd like to help regularly.</p>
+        <a class="btn primary ext" href="https://buymeacoffee.com/w9jes" target="_blank" rel="noopener">Buy JJ a coffee</a>
       </div>
-
-      <!-- PayPal Card -->
       <div class="card">
-        <div>
-          <h2>💳 PayPal</h2>
-          <p>
-            Contribute securely via PayPal using your PayPal balance, debit card, or credit card in any amount you choose.
-          </p>
-        </div>
-        <a href="https://www.paypal.com/donate/?hosted_button_id=SWPB76LVNUHEY" target="_blank" rel="noopener noreferrer" class="btn btn-paypal">
-          Donate with PayPal
-        </a>
+        <h3><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></span>PayPal</h3>
+        <p>Any amount you choose, from your PayPal balance or a debit or credit card.</p>
+        <a class="btn ext" href="https://www.paypal.com/donate/?hosted_button_id=SWPB76LVNUHEY" target="_blank" rel="noopener">Donate with PayPal</a>
       </div>
-    </section>
+    </div>
+    <p class="fine">Donations go to J. Kujawa, W9JES, and support jeSDR's development. You'll finish on Buy Me a Coffee's or PayPal's own secure page.</p>
+  </div>
+</section>
 
-    <section class="community-box">
-      <h3>Can't donate? No worries!</h3>
-      <p>
-        Saying thanks and spreading the word also makes a big impact. Star the repository, share your portable POTA/SOTA setup photos, or help fellow sBitx operators get on the air.
-      </p>
-      <div class="action-links">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-          ★ Star on GitHub
-        </a>
-        <a href="https://github.com/issues" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-          Report a Bug / Share Feedback
-        </a>
+<section class="tight">
+  <div class="wrap narrow">
+    <h2>Other ways to help</h2>
+    <p class="sub">Can't donate? No worries. These help just as much.</p>
+    <div class="grid grid4">
+      <div class="card">
+        <span class="tag">Report</span>
+        <h3>Tell us what breaks</h3>
+        <p>A clear bug report, with the version and a screenshot, is often the quickest way to a fix. <a href="report.html">Report a bug</a></p>
       </div>
-    </section>
+      <div class="card">
+        <span class="tag">Share</span>
+        <h3>Spread the word</h3>
+        <p>Show your station or portable POTA/SOTA setup at your club, and help other sBitx operators get on the air.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Star</span>
+        <h3>Star it on GitHub</h3>
+        <p>It helps other hams find jeSDR. <a class="ext" href="https://github.com/drexjj/jeSDR" target="_blank" rel="noopener">github.com/drexjj/jeSDR</a></p>
+      </div>
+    </div>
+    <p class="signoff">Thank you for your support!<br><span class="call">73, JJ — W9JES</span></p>
+  </div>
+</section>
 
-    <p class="signoff">
-      Thank you for your support and belief in this project!<br>
-      <span class="callsign">73, JJ — W9JES</span>
-    </p>
-  </main>
+</main>
 
-  <footer>
-    <p>
-      jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE.<br>
-      <a href="index.html">Back to Home</a> · <a href="https://github.com" target="_blank" rel="noopener noreferrer">://github.com</a>
-    </p>
-  </footer>
+<footer>
+  <div class="wrap">
+    <img class="flogo" src="assets/jesdr-logo-dark-300.png" srcset="assets/jesdr-logo-dark-300.png 1x, assets/jesdr-logo-dark-600.png 2x" alt="jeSDR" width="100" height="48">
+    <p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE.</p>
+    <p>jeSDR is an independent project. It runs on sBitx hardware but is not affiliated with or endorsed by the makers of the sBitx.</p>
+    <p><a href="./">Home</a> · <a href="./#download">Download</a> · <a href="report.html">Report a bug</a> · <a href="https://github.com/drexjj/jeSDR">github.com/drexjj/jeSDR</a></p>
+  </div>
+</footer>
 
 </body>
 </html>

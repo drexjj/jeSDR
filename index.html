@@ -18,161 +18,7 @@
 <link rel="icon" href="assets/jesdr-icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/jesdr-icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="assets/jesdr-icon-180.png">
-<style>
-  :root {
-    --bg: #0b0f14;
-    --panel: #121922;
-    --panel2: #17202b;
-    --line: #243140;
-    --text: #e6edf3;
-    --muted: #8b9bab;
-    /* brand (see branding/BRAND.md) */
-    --amber: #fdb906;
-    --amber-dim: #b97f10;
-    --yellow: #fdd003;
-    --cyan: #19d0fc;
-    --blue: #0093fd;
-    --deep: #0052fc;
-    --green: #5fd38a;
-    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
-    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font: 16px/1.6 var(--sans);
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--cyan); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  code, pre { font-family: var(--mono); }
-  code { background: var(--panel2); border: 1px solid var(--line); border-radius: 4px; padding: 0 .35em; font-size: .9em; }
-  pre {
-    background: #070a0e; border: 1px solid var(--line); border-radius: 8px;
-    padding: 14px 16px; overflow-x: auto; font-size: .9em; line-height: 1.5; margin: .6em 0 1em;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-
-  /* nav */
-  nav { position: sticky; top: 0; z-index: 10; background: rgba(11,15,20,.88); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  nav .wrap { display: flex; align-items: center; gap: 24px; height: 56px; }
-  .brand { display: flex; align-items: center; }
-  .brand img { height: 40px; width: auto; display: block; }
-  nav .links { margin-left: auto; display: flex; gap: 20px; font-size: .92rem; }
-  nav .links a { color: var(--muted); }
-  nav .links a:hover { color: var(--text); text-decoration: none; }
-  @media (max-width: 640px) { nav .links a.opt { display: none; } }
-
-  /* hero */
-  header.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
-  #spectrum { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; }
-  header.hero::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(90deg, var(--bg) 0%, rgba(11,15,20,.92) 45%, rgba(11,15,20,.45) 100%);
-  }
-  .hero .wrap { position: relative; z-index: 1; padding-top: 88px; padding-bottom: 88px; }
-  h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.1; margin: 0 0 18px; max-width: 16ch; letter-spacing: -.01em; }
-  .lede { font-size: 1.15rem; color: #c3cdd7; max-width: 58ch; margin: 0 0 30px; }
-  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px;
-    font-weight: 600; font-size: .98rem; border: 1px solid var(--line); color: var(--text); background: var(--panel2);
-  }
-  .btn:hover { text-decoration: none; border-color: #3a4b5e; }
-  .btn.primary { background: var(--amber); color: #1a1200; border-color: var(--amber); }
-  .btn.primary:hover { background: var(--yellow); }
-  .hero-logo { display: block; width: min(500px, 88vw); height: auto; margin: 0 0 22px -10px; filter: drop-shadow(0 8px 24px rgba(0,82,252,.25)); }
-  footer .flogo { height: 48px; width: auto; display: block; margin-bottom: 14px; }
-  .ver { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
-
-  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
-  h2 { font-size: 1.7rem; margin: 0 0 8px; letter-spacing: -.005em; }
-  .sub { color: var(--muted); margin: 0 0 32px; max-width: 64ch; }
-  h3 { font-size: 1.05rem; margin: 0 0 6px; }
-
-  /* features */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px 20px 18px; }
-  .card p { margin: 0; color: #b7c2cd; font-size: .95rem; }
-  .card .tag { font-family: var(--mono); font-size: .75rem; color: var(--amber); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; display: block; }
-
-  /* ports table */
-  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
-  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { color: var(--muted); font-weight: 500; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; }
-  td.port { font-family: var(--mono); color: var(--amber); white-space: nowrap; }
-  td:first-child { font-weight: 600; white-space: nowrap; }
-  .tablewrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
-  .tablewrap tr:last-child td { border-bottom: 0; }
-  @media (max-width: 640px) {
-    thead { display: none; }
-    tbody tr { display: grid; grid-template-columns: 1fr auto; border-bottom: 1px solid var(--line); padding: 8px 0; }
-    tbody tr:last-child { border-bottom: 0; }
-    tbody td { border: 0; padding: 4px 14px; }
-    tbody td:last-child { grid-column: 1 / -1; color: #b7c2cd; }
-  }
-
-  /* download */
-  .dl { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 760px) { .dl { grid-template-columns: 1fr; } }
-  .dl .card { display: flex; flex-direction: column; }
-  .dl .card ol { padding-left: 1.2em; margin: 8px 0 16px; color: #b7c2cd; font-size: .95rem; }
-  .dl .card .btn { margin-top: auto; align-self: flex-start; }
-  .release { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--amber); border-radius: 10px; padding: 18px 20px; margin-bottom: 20px; }
-  .release .head { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; }
-  .release .v { font-family: var(--mono); font-size: 1.25rem; font-weight: 700; color: var(--amber); }
-  .release .d { color: var(--muted); font-size: .9rem; }
-  .release .n { margin: 8px 0 0; color: #c3cdd7; white-space: pre-line; }
-  .release .sha { margin-top: 10px; font-family: var(--mono); font-size: .75rem; color: var(--muted); word-break: break-all; }
-
-  .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
-  .steps li { counter-increment: s; position: relative; padding-left: 44px; }
-  .steps li::before {
-    content: counter(s); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--panel2); border: 1px solid var(--line); color: var(--amber);
-    font-family: var(--mono); font-size: .85rem; display: grid; place-items: center;
-  }
-  .note { background: #1a1608; border: 1px solid #3d3110; border-radius: 8px; padding: 12px 16px; color: #e8d9b0; font-size: .93rem; margin-top: 22px; }
-
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-  .two > *, .dl > *, .grid > * { min-width: 0; }
-  body { overflow-x: hidden; }
-  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
-  ul.plain { padding-left: 1.1em; margin: 0; color: #b7c2cd; }
-  ul.plain li { margin-bottom: 6px; }
-
-  .cmd { position: relative; }
-  .cmd pre { padding-right: 76px; margin: 0 0 14px; color: var(--amber); white-space: pre-wrap; word-break: break-all; }
-  .steps > li { min-width: 0; }
-  .grid4 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
-  .copy { position: absolute; top: 8px; right: 8px; background: var(--panel2); color: var(--text); border: 1px solid var(--line);
-    border-radius: 6px; font: 600 .8rem var(--sans); padding: 5px 10px; cursor: pointer; }
-  .copy:hover { border-color: #3a4b5e; }
-  .muted { color: #b7c2cd; }
-  .h3gap { font-size: 1.1rem; margin-bottom: 12px; }
-  .steps.big { margin-top: 36px; gap: 26px; }
-  .steps.big li { padding-left: 52px; }
-  .steps.big li::before { width: 34px; height: 34px; font-size: 1rem; top: -2px; }
-  .steps.big h3 { margin-bottom: 6px; }
-  .steps.big p { margin: 0 0 6px; color: #b7c2cd; }
-  table.opts td:first-child { width: 150px; }
-  @media (max-width: 640px) { table.opts td:first-child { width: auto; } }
-  /* screenshots */
-  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .shots figure { margin: 0; min-width: 0; }
-  .shots figure.wide { grid-column: 1 / -1; }
-  .shots img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line);
-    background: #05080c; box-shadow: 0 18px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.02); }
-  .shots figure.wide img { box-shadow: 0 24px 70px rgba(0,82,252,.18), 0 18px 50px rgba(0,0,0,.5); }
-  .shots figcaption { color: var(--muted); font-size: .9rem; margin-top: 10px; }
-  .shots figcaption b { color: var(--text); font-weight: 600; }
-  @media (max-width: 760px) { .shots { grid-template-columns: 1fr; } }
-  .new { font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; color: #06210f; background: var(--green);
-    border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: 2px; }
-  footer { padding: 40px 0 56px; color: var(--muted); font-size: .88rem; }
-  footer p { margin: 0 0 8px; }
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
@@ -186,8 +32,8 @@
       <a href="#download">Download</a>
       <a href="#install">Install</a>
       <a class="opt" href="#manage">Help</a>
-      <a href="https://github.com/drexjj/jeSDR/releases">Releases</a>
-	  <a href="report.html">Report a Bug</a>
+      <a class="opt opt2" href="report.html">Report a bug</a>
+      <a class="pill" href="donate.html">Donate</a>
     </div>
   </div>
 </nav>
@@ -437,7 +283,29 @@ sudo reboot</pre></li>
         <li><b>The Pi runs warm</b>: the browser drawing the waterfall is most of the work. Set <b>More → Display → Waterfall speed</b> to 10 or 5 on the radio's own screen, or turn on the battery saver.</li>
         <li><b>Downloads fail from another computer</b> (“Check internet connection”): update jeSDR; recordings, backups and ADIF now download over the page's own secure connection.</li>
         <li><b>No microphone in the browser</b>: allow it when the browser asks; on another device make sure the address starts with <code>https://</code>.</li>
+        <li><b>Still stuck?</b> <a href="report.html">Report a bug</a>, with your jeSDR version and the lines from the log.</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section id="support">
+  <div class="wrap">
+    <h2>Help make jeSDR better</h2>
+    <p class="sub">jeSDR is free to download and use. Bug reports and donations both go straight to its developer.</p>
+    <div class="support">
+      <div class="card">
+        <span class="tag">Feedback</span>
+        <h3>Found a bug or have an idea?</h3>
+        <p>Tell us what happened, on which version and radio. A screenshot or a few lines from the log make it much quicker to fix.</p>
+        <a class="btn" href="report.html">Report a bug</a>
+      </div>
+      <div class="card">
+        <span class="tag">Support</span>
+        <h3>Enjoying jeSDR?</h3>
+        <p>A coffee or a PayPal donation helps pay for test hardware and keeps new features and fixes coming.</p>
+        <a class="btn primary" href="donate.html">Support jeSDR</a>
+      </div>
     </div>
   </div>
 </section>
@@ -450,7 +318,7 @@ sudo reboot</pre></li>
     <p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. Enhanced code by J. Kujawa, W9JES, with contributions from Jon W2JON, Alan N1QM, Lee W4WHL, Matt NM7D, Lars OZ7BX, Jeff KF7DYU, Mike KB2ML, Shawn K7IHZ, Jared KJ5DTK, Fabrizio F4VUK, Bob KD8CGH, Bob W7PUA, Phil KA9Q, Gerald K5SDR and Steve N3SB.</p>
     <p>jeSDR is an independent project. It runs on sBitx hardware but is not affiliated with or endorsed by the makers of the sBitx.
       It includes software by others under their own licenses — see <a href="THIRD_PARTY_NOTICES.md">third-party notices</a>.</p>
-    <p><a href="https://github.com/drexjj/jeSDR">github.com/drexjj/jeSDR</a> · <a href="assets/jesdr-brand-kit.zip">Logo and brand kit</a> (for club newsletters, talks and reviews)</p>
+    <p><a href="https://github.com/drexjj/jeSDR">github.com/drexjj/jeSDR</a> · <a href="https://github.com/drexjj/jeSDR/releases">All releases</a> · <a href="report.html">Report a bug</a> · <a href="donate.html">Donate</a> · <a href="assets/jesdr-brand-kit.zip">Logo and brand kit</a> (for club newsletters, talks and reviews)</p>
   </div>
 </footer>
 

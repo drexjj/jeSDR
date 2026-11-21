@@ -3,236 +3,226 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Report a bug — jeSDR</title>
+<meta name="description" content="Send a bug report or feedback about jeSDR, network transceiver software for the sBitx.">
 <meta name="theme-color" content="#0b0f14">
-<title>Report an issue · jeSDR</title>
-<meta name="description" content="Submit a bug report or feedback for jeSDR.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/jesdr-icon-32.png" type="image/png" sizes="32x32">
-<style>
-:root {
-  --bg:#0b0f14; --panel:#121922; --panel2:#17202b; --line:#243140;
-  --text:#e6edf3; --muted:#8b9bab; --amber:#fdb906; --yellow:#fdd003;
-  --cyan:#19d0fc; --green:#5fd38a;
-  --mono:ui-monospace,"SF Mono",Consolas,monospace;
-  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
-a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
-.wrap{width:min(900px,calc(100% - 40px));margin:auto}
-nav{position:sticky;top:0;z-index:5;background:rgba(11,15,20,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-nav .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:10px;color:var(--text);font-weight:700;letter-spacing:.02em}
-.brand img{width:104px;height:auto;display:block}
-.navlink{color:var(--muted);font-size:.92rem}
-main{padding:56px 0 76px}
-.eyebrow{font: .78rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin:0 0 10px}
-h1{font-size:clamp(2rem,5vw,3rem);line-height:1.12;letter-spacing:-.025em;margin:0 0 12px}
-.lede{color:#b7c2cd;max-width:66ch;margin:0 0 28px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,34px);box-shadow:0 18px 50px rgba(0,0,0,.22)}
-.notice{background:#1a1608;border:1px solid #3d3110;border-radius:8px;padding:13px 16px;color:#e8d9b0;font-size:.92rem;margin:0 0 24px}
-.notice strong{color:var(--amber)}
-.section-title{font-size:1.05rem;margin:28px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
-.section-title:first-child{margin-top:0}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:17px 18px}
-.field{min-width:0}.field.full{grid-column:1/-1}
-label{display:block;font-size:.9rem;font-weight:650;margin:0 0 7px}
-.optional{color:var(--muted);font-weight:400;font-size:.82rem;margin-left:5px}
-input,select,textarea{width:100%;border:1px solid #344354;border-radius:7px;background:#090e14;color:var(--text);font:inherit;padding:11px 12px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(25,208,252,.12)}
-textarea{min-height:130px;resize:vertical}
-input::placeholder,textarea::placeholder{color:#68798a}
-.hint{font-size:.8rem;color:var(--muted);margin:6px 0 0}
-input[type=file]{padding:9px;background:#090e14}
-input[type=file]::file-selector-button{background:var(--panel2);border:1px solid var(--line);color:var(--text);padding:7px 10px;border-radius:5px;margin-right:10px;cursor:pointer}
-.actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:28px}
-button{border:1px solid var(--amber);background:var(--amber);color:#1a1200;font:700 1rem var(--sans);padding:12px 20px;border-radius:8px;cursor:pointer}
-button:hover{background:var(--yellow)}
-button:disabled{opacity:.6;cursor:not-allowed}
-.small{font-size:.84rem;color:var(--muted)}
-footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);font-size:.86rem}
-#fileStatus{color:var(--muted)}
-@media(max-width:650px){.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.wrap{width:min(100% - 28px,900px)}main{padding-top:38px}}
-</style>
+<link rel="apple-touch-icon" href="assets/jesdr-icon-180.png">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+
 <nav>
   <div class="wrap">
-    <a class="brand" href="./" aria-label="jeSDR home">
-      <img src="assets/jesdr-logo-dark-300.png" alt="jeSDR">
-    </a>
-    <a class="navlink" href="./">← Back to jeSDR</a>
+    <a class="brand" href="./" aria-label="jeSDR home"><img src="assets/jesdr-logo-dark-300.png" srcset="assets/jesdr-logo-dark-300.png 1x, assets/jesdr-logo-dark-600.png 2x" alt="jeSDR" width="83" height="40"></a>
+    <div class="links">
+      <a class="opt" href="./#screens">Screens</a>
+      <a class="opt" href="./#features">Features</a>
+      <a class="opt" href="./#connect">Connect</a>
+      <a href="./#download">Download</a>
+      <a href="./#install">Install</a>
+      <a class="opt" href="./#manage">Help</a>
+      <a class="opt opt2" href="report.html" aria-current="page">Report a bug</a>
+      <a class="pill" href="donate.html">Donate</a>
+    </div>
   </div>
 </nav>
 
-<main class="wrap">
-  <p class="eyebrow">jeSDR · Community support</p>
-  <h1>Report a bug</h1>
-  <p class="lede">Found something that doesn't work as expected? Send the details to the jeSDR development team. Clear steps and a screenshot make issues much easier to reproduce and fix.</p>
-
-  <div class="panel">
-    <div class="notice"><strong>Before submitting:</strong> Please check that you're running the latest jeSDR release. Include the exact version, what you were doing, what you expected to happen, and what actually happened. Please do not include passwords, private keys, or other sensitive information.</div>
-
-    <form id="bugForm" action="https://formsubmit.co/bug@jesdr.com" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="_subject" value="[jeSDR Bug Report] New report">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_url" value="https://drexjj.github.io/jeSDR/report.html">
-      <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-
-      <h2 class="section-title">About you and your setup</h2>
-      <div class="fields">
-        <div class="field">
-          <label for="name">Name</label>
-          <input id="name" name="Name" type="text" autocomplete="name" placeholder="Your name">
-        </div>
-        <div class="field">
-          <label for="email">Email address <span class="optional">(optional)</span></label>
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
-          <p class="hint">Add an email if you'd like the team to follow up. It will be used as the reply-to address.</p>
-        </div>
-        <div class="field">
-          <label for="callsign">Callsign <span class="optional">(optional)</span></label>
-          <input id="callsign" name="Callsign" type="text" placeholder="e.g. W9ABC">
-        </div>
-        <div class="field">
-          <label for="version">jeSDR version</label>
-          <input id="version" name="jeSDR version" type="text" required placeholder="e.g. 1.5.0">
-        </div>
-        <div class="field">
-          <label for="hardware">Radio / hardware</label>
-          <select id="hardware" name="Radio / hardware">
-            <option value="">Select hardware (optional)</option>
-            <option>sBitx DE</option>
-            <option>sBitx V2</option>
-            <option>sBitx V3</option>
-            <option>Other / modified hardware</option>
-            <option>Not sure</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="pi">Raspberry Pi model <span class="optional">(optional)</span></label>
-          <select id="pi" name="Raspberry Pi model">
-            <option value="">Select model</option>
-            <option>Raspberry Pi 4</option>
-            <option>Raspberry Pi 5</option>
-            <option>Other</option>
-            <option>Not sure</option>
-          </select>
-        </div>
-      </div>
-
-      <h2 class="section-title">The issue</h2>
-      <div class="fields">
-        <div class="field">
-          <label for="category">Category</label>
-          <select id="category" name="Category" required>
-            <option value="">Choose a category</option>
-            <option>Bug / unexpected behavior</option>
-            <option>Installation / update</option>
-            <option>Web interface / controls</option>
-            <option>Digital modes / audio</option>
-            <option>Radio control / CAT / TCI / HPSDR</option>
-            <option>Performance / stability</option>
-            <option>Feature request</option>
-            <option>Documentation</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="severity">Impact <span class="optional">(optional)</span></label>
-          <select id="severity" name="Impact">
-            <option value="">Select impact</option>
-            <option>Minor — workaround available</option>
-            <option>Moderate — feature impaired</option>
-            <option>Major — core function unusable</option>
-            <option>Critical — radio or system instability</option>
-          </select>
-        </div>
-        <div class="field full">
-          <label for="title">Short title</label>
-          <input id="title" name="Issue title" type="text" required maxlength="120" placeholder="A concise description of the problem">
-        </div>
-        <div class="field full">
-          <label for="description">What happened?</label>
-          <textarea id="description" name="What happened" required placeholder="Describe the problem. What did you see or hear? Include any error messages."></textarea>
-        </div>
-        <div class="field full">
-          <label for="steps">Steps to reproduce <span class="optional">(if known)</span></label>
-          <textarea id="steps" name="Steps to reproduce" placeholder="1. Open...
-2. Select...
-3. Observe..."></textarea>
-        </div>
-        <div class="field">
-          <label for="expected">What did you expect to happen? <span class="optional">(optional)</span></label>
-          <textarea id="expected" name="Expected result" placeholder="Describe the expected result."></textarea>
-        </div>
-        <div class="field">
-          <label for="actual">What happened instead? <span class="optional">(optional)</span></label>
-          <textarea id="actual" name="Actual result" placeholder="Describe the actual result."></textarea>
-        </div>
-        <div class="field full">
-          <label for="attachments">Screenshots or photos <span class="optional">(optional, up to 3 images)</span></label>
-          <input id="attachments" name="attachment" type="file" accept="image/png,image/jpeg,image/webp" multiple>
-          <p class="hint">PNG, JPG or WebP. Maximum 3 images, 5 MB each (10 MB total). A screenshot of the jeSDR screen or a clear photo of the radio can be very helpful.</p>
-          <p class="hint" id="fileStatus" aria-live="polite">No files selected.</p>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button id="submitButton" type="submit">Send bug report →</button>
-        <span class="small">Your report will be sent to the developer for review and follow up.</span>
-      </div>
-    </form>
+<header class="pagehead">
+  <div class="wrap narrow">
+    <p class="eyebrow">Feedback</p>
+    <h1>Report a bug</h1>
+    <p class="lede">Found something that doesn't work as expected, or have an idea? Send the details here.
+      Clear steps, a screenshot and a few lines from the log make a problem much quicker to find and fix.</p>
   </div>
+</header>
+
+<main>
+<section class="tight">
+  <div class="wrap narrow">
+
+    <div class="panel sent" id="sent" hidden>
+      <h2>Thank you — your report was sent</h2>
+      <p class="muted">It goes to the developer by email. If you left an email address, you may get a reply with questions or a fix.</p>
+      <div class="cta" style="margin-top:18px">
+        <a class="btn" href="report.html">Send another report</a>
+        <a class="btn" href="./">Back to jeSDR</a>
+      </div>
+    </div>
+
+    <ul class="checklist" id="checks">
+      <li><b>Up to date?</b>Check in jeSDR: <em>More → About → Software updates</em>. The latest release is on the <a href="./#download">download page</a>.</li>
+      <li><b>A known problem?</b>Look through <a href="./#manage">If it doesn't work</a> first; many fixes are there.</li>
+      <li><b>Get the log</b>On the radio: <code>journalctl -u jesdr -n 50</code>, and paste the lines below.</li>
+    </ul>
+
+    <div class="panel" id="formpanel">
+      <form id="bugForm" action="https://formsubmit.co/bug@jesdr.com" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_subject" id="subject" value="[jeSDR bug report]">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://drexjj.github.io/jeSDR/report.html?sent=1">
+        <input type="hidden" name="_url" value="https://drexjj.github.io/jeSDR/report.html">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+
+        <h2 class="formsec">You and your radio</h2>
+        <div class="fields">
+          <div class="field">
+            <label for="name">Name <span class="opt-l">(optional)</span></label>
+            <input id="name" name="Name" type="text" autocomplete="name" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label for="callsign">Callsign <span class="opt-l">(optional)</span></label>
+            <input id="callsign" name="Callsign" type="text" autocapitalize="characters" placeholder="e.g. W9ABC">
+          </div>
+          <div class="field full">
+            <label for="email">Email <span class="opt-l">(optional)</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            <p class="hint">Only if you'd like a reply. It is used as the reply-to address and nothing else.</p>
+          </div>
+          <div class="field">
+            <label for="version">jeSDR version</label>
+            <input id="version" name="jeSDR version" type="text" required placeholder="e.g. 1.5.0" inputmode="decimal">
+            <p class="hint">In jeSDR: More → About.</p>
+          </div>
+          <div class="field">
+            <label for="hardware">Radio <span class="opt-l">(optional)</span></label>
+            <select id="hardware" name="Radio">
+              <option value="">Choose…</option>
+              <option>sBitx DE</option>
+              <option>sBitx V2</option>
+              <option>sBitx V3</option>
+              <option>Other or modified hardware</option>
+              <option>Not sure</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pi">Raspberry Pi <span class="opt-l">(optional)</span></label>
+            <select id="pi" name="Raspberry Pi">
+              <option value="">Choose…</option>
+              <option>Raspberry Pi 4</option>
+              <option>Raspberry Pi 5</option>
+              <option>Other</option>
+              <option>Not sure</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="client">Used from <span class="opt-l">(optional)</span></label>
+            <input id="client" name="Used from" type="text" placeholder="e.g. the radio's screen, Chrome on Windows, iPhone">
+          </div>
+        </div>
+
+        <h2 class="formsec">The problem</h2>
+        <div class="fields">
+          <div class="field">
+            <label for="category">Category</label>
+            <select id="category" name="Category" required>
+              <option value="">Choose…</option>
+              <option>Bug / unexpected behavior</option>
+              <option>Installation / update</option>
+              <option>Web interface / controls</option>
+              <option>Digital modes / audio</option>
+              <option>Radio control / CAT / TCI / HPSDR</option>
+              <option>Performance / stability</option>
+              <option>Feature request</option>
+              <option>Documentation</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="severity">How bad is it? <span class="opt-l">(optional)</span></label>
+            <select id="severity" name="Impact">
+              <option value="">Choose…</option>
+              <option>Minor — there is a workaround</option>
+              <option>Moderate — a feature doesn't work right</option>
+              <option>Major — can't operate normally</option>
+              <option>Critical — the radio or the Pi becomes unstable</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="title">Short title</label>
+            <input id="title" name="Title" type="text" required maxlength="120" placeholder="e.g. Waterfall freezes after switching to FT8">
+          </div>
+          <div class="field full">
+            <label for="description">What happened?</label>
+            <textarea id="description" name="What happened" required placeholder="What did you see or hear? Include any error message exactly as shown."></textarea>
+          </div>
+          <div class="field">
+            <label for="steps">Steps to make it happen <span class="opt-l">(if known)</span></label>
+            <textarea id="steps" name="Steps to reproduce" placeholder="1. Open…&#10;2. Select…&#10;3. …"></textarea>
+          </div>
+          <div class="field">
+            <label for="expected">What did you expect? <span class="opt-l">(optional)</span></label>
+            <textarea id="expected" name="Expected" placeholder="What should have happened instead?"></textarea>
+          </div>
+          <div class="field full">
+            <label for="log">Log lines <span class="opt-l">(optional)</span></label>
+            <textarea id="log" class="log" name="Log" spellcheck="false" placeholder="Paste the output of: journalctl -u jesdr -n 50"></textarea>
+          </div>
+          <div class="field full">
+            <label for="attachments">Screenshots or photos <span class="opt-l">(optional, up to 3)</span></label>
+            <input id="attachments" name="attachment" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+            <p class="hint" id="fileStatus" aria-live="polite">PNG, JPG or WebP; up to 5 MB each and 10 MB in all.</p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="submitButton" type="submit">Send report</button>
+          <span class="small">Sent by email to the jeSDR developer through FormSubmit (formsubmit.co). Please leave out passwords and other private information.</span>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>jeSDR · Open-source software for the sBitx</span>
+    <img class="flogo" src="assets/jesdr-logo-dark-300.png" srcset="assets/jesdr-logo-dark-300.png 1x, assets/jesdr-logo-dark-600.png 2x" alt="jeSDR" width="100" height="48">
+    <p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE.</p>
+    <p>jeSDR is an independent project. It runs on sBitx hardware but is not affiliated with or endorsed by the makers of the sBitx.</p>
+    <p><a href="./">Home</a> · <a href="./#download">Download</a> · <a href="donate.html">Donate</a> · <a href="https://github.com/drexjj/jeSDR">github.com/drexjj/jeSDR</a></p>
   </div>
 </footer>
 
 <script>
 (() => {
-  const form = document.getElementById('bugForm');
-  const files = document.getElementById('attachments');
-  const status = document.getElementById('fileStatus');
-  const submit = document.getElementById('submitButton');
-  const maxEach = 5 * 1024 * 1024;
-  const maxTotal = 10 * 1024 * 1024;
+  const $ = id => document.getElementById(id);
+
+  // back from FormSubmit after sending
+  if (new URLSearchParams(location.search).has('sent')) {
+    $('sent').hidden = false;
+    $('formpanel').hidden = true;
+    $('checks').hidden = true;
+  }
+
+  const form = $('bugForm'), files = $('attachments'), status = $('fileStatus'), submit = $('submitButton');
+  const MB = 1024 * 1024, hint = status.textContent;
 
   files.addEventListener('change', () => {
-    const selected = Array.from(files.files);
-    const total = selected.reduce((sum, file) => sum + file.size, 0);
-    if (selected.length > 3) {
-      files.setCustomValidity('Please select no more than 3 images.');
-      status.textContent = 'Too many files selected. Please choose up to 3 images.';
-      return;
-    }
-    if (selected.some(file => file.size > maxEach)) {
-      files.setCustomValidity('Each image must be 5 MB or smaller.');
-      status.textContent = 'One or more images exceed the 5 MB per-file limit.';
-      return;
-    }
-    if (total > maxTotal) {
-      files.setCustomValidity('The combined size of the images must be 10 MB or less.');
-      status.textContent = 'The selected images exceed the 10 MB combined limit.';
-      return;
-    }
-    files.setCustomValidity('');
-    status.textContent = selected.length
-      ? selected.length + ' image(s) selected · ' + (total / 1024 / 1024).toFixed(2) + ' MB total.'
-      : 'No files selected.';
+    const sel = Array.from(files.files);
+    const total = sel.reduce((n, f) => n + f.size, 0);
+    let err = '';
+    if (sel.length > 3) err = 'Please choose no more than 3 images.';
+    else if (sel.some(f => f.size > 5 * MB)) err = 'Each image must be 5 MB or smaller.';
+    else if (total > 10 * MB) err = 'The images must be 10 MB or less in all.';
+    files.setCustomValidity(err);
+    status.style.color = err ? 'var(--amber)' : '';
+    status.textContent = err || (sel.length ? sel.length + ' image' + (sel.length > 1 ? 's' : '') +
+      ', ' + (total / MB).toFixed(1) + ' MB' : hint);
   });
 
-  form.addEventListener('submit', event => {
-    if (!form.reportValidity()) {
-      event.preventDefault();
-      return;
-    }
+  form.addEventListener('submit', e => {
+    if (!form.reportValidity()) { e.preventDefault(); return; }
+    // a subject that says what it is about in the inbox
+    const v = $('version').value.trim(), t = $('title').value.trim();
+    $('subject').value = '[jeSDR bug report] ' + (v ? 'v' + v.replace(/^v/i, '') + ': ' : '') + t;
     submit.disabled = true;
-    submit.textContent = 'Sending report…';
+    submit.textContent = 'Sending…';
   });
+  // the button comes back if the browser returns to this page
+  window.addEventListener('pageshow', () => { submit.disabled = false; submit.textContent = 'Send report'; });
 })();
 </script>
 </body>
