@@ -369,6 +369,15 @@ document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', () =
 }));
 
 </script>
+<script>
+// Arriving from another page with a #section in the address: once everything
+// has loaded (release notes, images), make sure that section is in view.
+window.addEventListener('load', () => {
+  const t = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (t && Math.abs(t.getBoundingClientRect().top - (parseFloat(getComputedStyle(t).scrollMarginTop) || 0)) > 4)
+    t.scrollIntoView({ behavior: 'instant', block: 'start' });
+});
+</script>
 <script src="assets/spectrum.js"></script>
 </body>
 </html>
