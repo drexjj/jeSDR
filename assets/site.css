@@ -170,17 +170,15 @@ nav .links a.pill[aria-current="page"] { background: #241b05; }
 .support .card p { flex: 1; }
 .support .card .btn { align-self: flex-start; }
 
-/* ---- sub-page header (report, donate) ---- */
-.pagehead { position: relative; overflow: hidden; border-bottom: 1px solid var(--line);
-  background: radial-gradient(900px 300px at 85% -40%, rgba(0,82,252,.22), transparent 70%),
-              radial-gradient(600px 240px at 0% 120%, rgba(253,185,6,.07), transparent 70%); }
-.pagehead .wrap { padding-top: 64px; padding-bottom: 52px; }
-.eyebrow { font-family: var(--mono); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 0 0 12px; }
-.pagehead h1 { max-width: 22ch; }
-.pagehead .lede { margin-bottom: 0; }
-.narrow { max-width: 860px; }
-section.tight { padding: 56px 0; }
+/* ---- sub-pages (report, donate): the home page's hero, shorter ---- */
+.hero.compact .wrap { padding-top: 64px; padding-bottom: 60px; }
+.hero.compact h1 { max-width: 20ch; }
+.hero.compact .lede { margin-bottom: 0; }
+.eyebrow { font-family: var(--mono); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 0 0 14px; }
 .ext::after { content: " ↗"; font-weight: 400; opacity: .8; }
+.crumbs { font-size: .88rem; color: var(--muted); margin: 0 0 18px; }
+.crumbs a { color: var(--muted); }
+.crumbs a:hover { color: var(--text); }
 
 /* ---- donate ---- */
 .give .card { display: flex; flex-direction: column; gap: 12px; padding: 24px; }
@@ -196,9 +194,6 @@ section.tight { padding: 56px 0; }
 
 /* ---- report form ---- */
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: clamp(20px, 4vw, 32px); }
-.checklist { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin: 0 0 28px; padding: 0; list-style: none; }
-.checklist li { background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: .92rem; color: #b7c2cd; }
-.checklist b { display: block; color: var(--text); margin-bottom: 2px; }
 .formsec { font-size: 1.02rem; margin: 30px 0 14px; padding-bottom: 9px; border-bottom: 1px solid var(--line); }
 .formsec:first-of-type { margin-top: 0; }
 .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -224,7 +219,12 @@ section.tight { padding: 56px 0; }
 .actions .btn:disabled { opacity: .6; cursor: progress; }
 .actions .small { font-size: .85rem; color: var(--muted); max-width: 52ch; }
 .sent { border-left: 3px solid var(--green); }
+.reportgrid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: start; }
+.reportgrid aside { position: sticky; top: 76px; display: grid; gap: 14px; }
+.reportgrid aside .card p { font-size: .92rem; }
+.reportgrid aside .card code { white-space: nowrap; font-size: .82em; }
+@media (max-width: 900px) { .reportgrid { grid-template-columns: 1fr; } .reportgrid aside { position: static; order: -1; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
 .sent h2 { font-size: 1.35rem; }
 @media (max-width: 650px) { .fields { grid-template-columns: 1fr; } }
 [hidden] { display: none !important; }
-.checklist code { white-space: nowrap; font-size: .82em; }
+.sent { max-width: 760px; }
