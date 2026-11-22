@@ -246,3 +246,4 @@ nav .links a.pill[aria-current="page"] { background: #241b05; }
   .community .btn { grid-column: 1 / -1; justify-self: start; }
 }
 .mb { margin-bottom: 16px; }
+.lede:has(+ .lede) { margin-bottom: 14px; }

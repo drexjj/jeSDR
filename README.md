@@ -5,10 +5,13 @@
 
 # jeSDR
 
-jeSDR turns an sBitx HF transceiver into a network transceiver with its own
-touch-friendly web interface: TCI, HPSDR Protocol 1 and Hamlib for other
-programs; FT8/FT4/FT2, JTTY, RTTY, PSK, CW decoder and macros, FreeDV RADE V1,
-a voice keyer, DX cluster spots and a logbook built in.
+jeSDR is a new software suite for the sBitx HF transceiver. The radio works as
+it always has, from its front-panel knobs, mic and key, and a touch-friendly
+interface on the built-in screen, with dozens of new features and many
+long-standing bugs fixed: FT8/FT4/FT2, JTTY, RTTY, PSK, CW decoder and macros,
+FreeDV RADE V1, a voice keyer, DX cluster spots and a logbook built in. The
+same radio can also be operated from any browser on your network, and TCI,
+HPSDR Protocol 1 and Hamlib connect your other programs.
 
 This repository holds the **releases**: SD card images and installable
 packages. jeSDR is closed source.
