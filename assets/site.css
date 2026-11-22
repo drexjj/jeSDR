@@ -160,7 +160,7 @@ nav .links a.pill { color: var(--amber); border: 1px solid #5a430f; border-radiu
 nav .links a.pill:hover { border-color: var(--amber); color: var(--yellow); }
 nav .links a.pill[aria-current="page"] { background: #241b05; }
 @media (max-width: 860px) { nav .links { gap: 16px; } }
-@media (max-width: 760px) { nav .links a.opt2 { display: none; } }
+@media (max-width: 900px) { nav .links a.opt2 { display: none; } }
 .flinks { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 14px 0 0; padding: 0; list-style: none; }
 
 /* ---- support band on the home page ---- */
@@ -228,3 +228,21 @@ nav .links a.pill[aria-current="page"] { background: #241b05; }
 @media (max-width: 650px) { .fields { grid-template-columns: 1fr; } }
 [hidden] { display: none !important; }
 .sent { max-width: 760px; }
+
+/* ---- the Discord community (Radio & Electronics Hub) ---- */
+.community { display: grid; grid-template-columns: 88px minmax(0, 1fr) auto; gap: 20px; align-items: center;
+  background: linear-gradient(100deg, rgba(31,72,64,.35), rgba(18,25,34,0) 60%), var(--panel);
+  border: 1px solid var(--line); border-left: 3px solid #c9a46a; border-radius: 10px; padding: 18px 22px; }
+.community img { width: 88px; height: 88px; display: block; }
+.community h3 { margin: 2px 0 4px; }
+.community p { margin: 0; color: #b7c2cd; font-size: .95rem; }
+.community .tag { font-family: var(--mono); font-size: .75rem; color: #d9b77e; letter-spacing: .08em; text-transform: uppercase; }
+.community .btn { white-space: nowrap; }
+.btn.discord { background: #5865f2; border-color: #5865f2; color: #fff; }
+.btn.discord:hover { background: #4752c4; border-color: #4752c4; }
+@media (max-width: 760px) {
+  .community { grid-template-columns: 64px minmax(0, 1fr); align-items: start; }
+  .community img { width: 64px; height: 64px; }
+  .community .btn { grid-column: 1 / -1; justify-self: start; }
+}
+.mb { margin-bottom: 16px; }
