@@ -50,7 +50,7 @@
     <div class="cta">
       <a class="btn primary" id="hero-dl" href="#download">Download jeSDR</a>
       <a class="btn" href="#install">How to install</a>
-      <span class="ver" id="hero-ver">Latest: v1.5.0</span>
+      <span class="ver" id="hero-ver">Latest release</span>
     </div>
   </div>
 </header>
@@ -140,7 +140,7 @@
     <p class="sub">For the sBitx with a Raspberry Pi 4 or Raspberry Pi 5. Choose the SD card image for a fresh start, or the installer to add jeSDR to an existing Raspberry Pi OS 64-bit install.</p>
 
     <div class="release" id="release">
-      <div class="head"><span class="v" id="r-ver">v1.5.0</span><span class="d" id="r-date"></span></div>
+      <div class="head"><span class="v" id="r-ver">Latest release</span><span class="d" id="r-date"></span></div>
       <p class="n" id="r-notes"></p>
       <div class="sha" id="r-sha"></div>
     </div>
@@ -336,20 +336,16 @@ sudo reboot</pre></li>
 
 <script>
 // Latest release: latest.json is served from this same site (the repository's
-// main branch); the GitHub API supplies the SD card image link if there is one.
+// main branch) and is the one place the version number comes from; the
+// GitHub API supplies the SD card image link if there is one.
 (function () {
   const $ = id => document.getElementById(id);
   const fmtSize = n => n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.round(n / 1024) + ' kB';
-  // The current version, stated here so the page never shows an older one
-  // while latest.json (signed, updated when a release is published) lags.
-  const PAGE_VERSION = '1.5.0';
-  const newer = (a, b) => { const x = a.split('.').map(Number), y = b.split('.').map(Number);
-    for (let i = 0; i < 3; i++) if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); return false; };
 
   fetch('latest.json', { cache: 'no-cache' })
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(m => {
-      if (!m.version || newer(PAGE_VERSION, m.version)) return;  // the manifest is older than this page
+      if (!m.version) return;
       $('r-ver').textContent = 'v' + m.version;
       $('r-date').textContent = (m.date ? 'Released ' + m.date : '') + (m.size ? ' · package ' + fmtSize(m.size) : '');
       $('r-notes').textContent = m.notes || '';

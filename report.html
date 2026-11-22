@@ -91,7 +91,7 @@
           </div>
           <div class="field">
             <label for="version">jeSDR version</label>
-            <input id="version" name="jeSDR version" type="text" required placeholder="e.g. 1.5.0" inputmode="decimal">
+            <input id="version" name="jeSDR version" type="text" required placeholder="e.g. 1.6.0" inputmode="decimal">
             <p class="hint">In jeSDR: More → About.</p>
           </div>
           <div class="field">
@@ -224,6 +224,11 @@
     $('sent').hidden = false;
     $('formarea').hidden = true;
   }
+
+  // the latest release number, from latest.json, as the example version
+  fetch('latest.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(m => {
+    if (m && m.version) $('version').placeholder = 'e.g. ' + m.version;
+  }).catch(() => {});
 
   const form = $('bugForm'), files = $('attachments'), status = $('fileStatus'), submit = $('submitButton');
   const MB = 1024 * 1024, hint = status.textContent;
