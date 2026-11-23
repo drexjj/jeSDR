@@ -58,7 +58,6 @@ When RADE is built in, ship `third_party/rade_c/LICENSE` and
 |---|---|---|
 | OpenSSL (`libssl`, `libcrypto`) | The OpenSSL Project Authors | Apache-2.0 for OpenSSL 3 (Raspberry Pi OS Bookworm and later); the OpenSSL/SSLeay license for 1.1.1 (Bullseye) (dynamically linked) |
 | ALSA library (`libasound`) | The ALSA project | LGPL-2.1-or-later (dynamically linked) |
-| WiringPi | Gordon Henderson and the WiringPi maintainers | LGPL-3.0 (dynamically linked) |
 | GNU C library | Free Software Foundation and contributors | LGPL-2.1-or-later (dynamically linked) |
 
 ## Data and protocols
@@ -229,9 +228,8 @@ TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 ```
 
-### LGPL — ALSA library, WiringPi, GNU C library
+### LGPL — ALSA library, GNU C library
 
 These are used as shared libraries from the operating system and can be
 replaced by the user; their licenses are at
-https://www.gnu.org/licenses/lgpl-2.1.txt and
-https://www.gnu.org/licenses/lgpl-3.0.txt.
+https://www.gnu.org/licenses/lgpl-2.1.txt.

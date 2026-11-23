@@ -11,8 +11,8 @@
 #
 # What it does:
 #   1. checks this is a 64-bit Raspberry Pi OS (Bookworm or later) on a Pi 4 or Pi 5
-#   2. installs the packages jeSDR needs, and WiringPi if it is missing (on a
-#      Pi 5 it must be WiringPi 3.0 or newer; an older one is upgraded)
+#   2. installs the packages jeSDR needs and checks the GPIO (the user in the
+#      gpio group, SPI off: the sBitx uses its pins)
 #   3. sets up the sBitx audio codec (WM8731) and three ALSA loopback cards
 #      if they are not set up already
 #   4. downloads the latest jeSDR package, checks its SHA-256, installs it
@@ -24,7 +24,6 @@ set -eu
 
 REPO="drexjj/jeSDR"
 MANIFEST="https://raw.githubusercontent.com/$REPO/main/latest.json"
-WIRINGPI_API="https://api.github.com/repos/WiringPi/WiringPi/releases/latest"
 
 YES=0; DEB=""; RUN_USER=""; DO_HW=1
 while [ $# -gt 0 ]; do
@@ -80,8 +79,7 @@ case "${VERSION_CODENAME:-}" in
 esac
 
 # Pi 4 family (Pi 4, Pi 400, CM4) or Pi 5 family (Pi 5, Pi 500, CM5). The
-# Pi 5's GPIO sits behind its RP1 chip: it needs WiringPi 3.0 or newer and
-# Bookworm or later.
+# Pi 5 needs Bookworm or later.
 MODEL=$(tr -d '\0' < /proc/device-tree/model 2>/dev/null || echo unknown)
 PI5=0
 case "$MODEL" in
@@ -137,59 +135,31 @@ if [ -f /etc/default/gpsd ] && grep -q '^GPSD_OPTIONS=""' /etc/default/gpsd; the
   systemctl restart gpsd >/dev/null 2>&1 || true
 fi
 
-# WiringPi drives the radio's GPIO. Its version: the package's, else what an
-# installed "gpio" tool reports (a copy built from source has no package).
-wiringpi_version() {
-  local v
-  v=$(dpkg-query -W -f='${Version}' wiringpi 2>/dev/null || true)
-  if [ -z "$v" ] && command -v gpio >/dev/null 2>&1; then
-    v=$(gpio -v 2>/dev/null | sed -n 's/^gpio version: *\([0-9][0-9.]*\).*/\1/p' | head -n 1)
-  fi
-  echo "$v"
-}
-
-install_wiringpi() {
-  echo "    downloading WiringPi from github.com/WiringPi/WiringPi"
-  URL=$(curl -fsSL "$WIRINGPI_API" | python3 -c '
-import json, sys
-for a in json.load(sys.stdin).get("assets", []):
-    if a["name"].endswith("_arm64.deb"):
-        print(a["browser_download_url"]); break')
-  [ -n "$URL" ] || die "could not find the WiringPi arm64 package; install WiringPi 3.0 or newer yourself and run this again"
-  curl -fsSL -o "$TMP/wiringpi.deb" "$URL"
-  apt-get install -y -q "$TMP/wiringpi.deb" >/dev/null
-  ok "WiringPi installed ($(basename "$URL"))"
-}
-
-WPV=$(wiringpi_version)
-if ! ldconfig -p | grep -q libwiringPi; then
-  install_wiringpi
-elif [ "$PI5" = 1 ] && { [ -z "$WPV" ] || dpkg --compare-versions "$WPV" lt 3.0; }; then
-  warn "WiringPi ${WPV:-(unknown version)} is too old for a Raspberry Pi 5 (it needs 3.0 or newer)"
-  install_wiringpi
+# GPIO: jeSDR drives the T/R relay, filters, keys and knobs through the
+# kernel's GPIO device (/dev/gpiochip*); no GPIO library is needed. The
+# user needs the gpio group.
+if getent group gpio >/dev/null; then
+  usermod -aG gpio "$RUN_USER" && ok "'$RUN_USER' is in the gpio group"
 else
-  ok "WiringPi ${WPV:-is installed}"
+  warn "there is no gpio group; jeSDR may not be allowed to use the GPIO"
 fi
 
-# A WiringPi built from source lives in /usr/local/lib, which is searched
-# before the package's copy: an old one there would still be the one jeSDR
-# loads, and a Pi 5 needs 3.0 or newer.
-if [ "$PI5" = 1 ]; then
-  OLDWP=$(ls /usr/local/lib/libwiringPi*.so* 2>/dev/null || true)
-  if [ -n "$OLDWP" ] && dpkg-query -W wiringpi >/dev/null 2>&1; then
-    warn "an older WiringPi built from source is in /usr/local/lib and would be used instead of the new one"
-    if ask "Move it aside (to /usr/local/lib/wiringpi-old)?"; then
-      mkdir -p /usr/local/lib/wiringpi-old
-      for f in /usr/local/lib/libwiringPi*.so* /usr/local/lib/libwiringPiDev*.so*; do
-        [ -e "$f" ] && mv "$f" /usr/local/lib/wiringpi-old/
-      done
-      [ -x /usr/local/bin/gpio ] && mv /usr/local/bin/gpio /usr/local/lib/wiringpi-old/ 2>/dev/null || true
-      ldconfig
-      ok "moved; jeSDR now uses WiringPi $(dpkg-query -W -f='${Version}' wiringpi)"
-    else
-      warn "jeSDR may not start on this Pi 5 until the old WiringPi in /usr/local/lib is removed"
-    fi
+# SPI0 shares GPIO7-11 with the sBitx's band filters and volume knob: with
+# SPI on, the kernel holds those pins and jeSDR cannot use them.
+GCFG=/boot/firmware/config.txt
+[ -f "$GCFG" ] || GCFG=/boot/config.txt
+if [ -f "$GCFG" ] && grep -Eq '^[[:space:]]*dtparam=spi=on' "$GCFG"; then
+  warn "SPI is on (dtparam=spi=on in $GCFG); the sBitx needs those pins (GPIO7-11)"
+  if ask "Turn SPI off?"; then
+    cp "$GCFG" "$GCFG.jesdr-backup"
+    sed -i -E 's/^([[:space:]]*)(dtparam=spi=on)/\1#\2   # jeSDR: the sBitx uses these pins/' "$GCFG"
+    ok "SPI turned off (backup: $GCFG.jesdr-backup)"
+    REBOOT=1
+  else
+    warn "the band filters and the volume knob will not work while SPI is on"
   fi
+else
+  ok "SPI is off (the sBitx uses its pins)"
 fi
 
 # --------------------------------------------------------- 3. sBitx audio
@@ -224,15 +194,15 @@ if [ "$DO_HW" = 1 ]; then
     ok "kernel I2C bus is set up in $CFG (active after a reboot)"
     REBOOT=1
   elif [ -f "$CFG" ]; then
-    if ask "Let the kernel drive the radio's I2C bus (adds '$I2CLINE' to $CFG)?"; then
+    # jeSDR needs it: it no longer bit-bangs these pins, and stops without the bus
+    if ask "jeSDR needs the kernel's I2C bus for the radio. Add '$I2CLINE' to $CFG?"; then
       [ -f "$CFG.jesdr-backup" ] || cp "$CFG" "$CFG.jesdr-backup"
       printf '\n[all]\n# jeSDR: the kernel drives the sBitx I2C bus (Si5351, SWR bridge, INA260)\n%s\n' "$I2CLINE" >> "$CFG"
       mkdir -p /var/lib/jeSDR && echo added > /var/lib/jeSDR/i2c-overlay
       ok "added (backup: $CFG.jesdr-backup)"
       REBOOT=1
     else
-      # don't let the package add it later either
-      mkdir -p /var/lib/jeSDR && echo declined > /var/lib/jeSDR/i2c-overlay
+      warn "jeSDR will not start without it: add '$I2CLINE' to $CFG yourself, then reboot"
     fi
   fi
 

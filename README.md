@@ -37,15 +37,14 @@ From the [latest release](https://github.com/drexjj/jeSDR/releases/latest):
    devices, open `https://<radio>:8443/` (accept the certificate warning once
    per device; `http://<radio>:8080/` redirects there).
 
-The image is made on a Raspberry Pi 4. On a Pi 5, run the installer below once
-after the first start: it brings WiringPi up to 3.0 or newer, which the Pi 5
-needs.
+The image works on a Raspberry Pi 4 or Pi 5. jeSDR drives the radio's GPIO
+and I2C through the kernel, so no GPIO library (WiringPi) is needed.
 
 Writing a new image erases the card. Your settings, log and voice messages
 are in `~/jeSDR/data` on the radio: copy that folder off first and back
 afterwards, or use the update button instead (below), which keeps them.
 
-**Package**, for a Raspberry Pi 4 or Pi 5 with Raspberry Pi OS 64-bit (Bookworm or later) and WiringPi (3.0 or newer on a Pi 5):
+**Package**, for a Raspberry Pi 4 or Pi 5 with Raspberry Pi OS 64-bit (Bookworm or later):
 
 ```console
 sudo apt install ./jesdr_<version>_arm64.deb

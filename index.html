@@ -120,7 +120,7 @@
 <section id="connect">
   <div class="wrap">
     <h2>Connect your software</h2>
-    <p class="sub">jeSDR serves the radio on your local network. Point your favorite program at the radio's address.</p>
+    <p class="sub">jeSDR serves the radio on your local network. Point your favourite program at the radio's address.</p>
     <div class="tablewrap">
       <table>
         <thead><tr><th>Interface</th><th>Port</th><th>Use it for</th></tr></thead>
@@ -158,7 +158,7 @@
           <li>Put the card in the radio and switch on. The first start takes a little longer.</li>
           <li>Open <code>https://&lt;radio&gt;:8443/</code>, or the jeSDR icon on the radio's desktop.</li>
         </ol>
-        <p class="muted" style="font-size:.9rem;margin:0 0 12px">The image is made on a Pi 4. On a Pi 5, run the installer once after the first start: it brings WiringPi up to the version the Pi 5 needs.</p>
+        <p class="muted" style="font-size:.9rem;margin:0 0 12px">Works on a Pi 4 or a Pi 5: jeSDR drives the radio's GPIO and I²C through the kernel, with no GPIO library to install.</p>
         <a class="btn" id="dl-img" href="https://github.com/drexjj/jeSDR/releases/latest">Get the SD card image</a>
       </div>
       <div class="card">
@@ -212,8 +212,8 @@
     <h3 class="h3gap" style="margin-top:44px">What the installer does</h3>
     <div class="grid grid4">
       <div class="card"><span class="tag">1 · Checks</span><p>64-bit Raspberry Pi OS, the Pi model (Pi 4 or Pi 5), and which user jeSDR runs as (the one who ran <code>sudo</code>). It stops if anything is wrong, before it changes anything.</p></div>
-      <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS), the latest WiringPi from its official GitHub releases if missing (on a Pi 5 it must be 3.0 or newer, so an older one is upgraded), and the country file for callsign lookups.</p></div>
-      <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> to <code>config.txt</code> (backup kept) for the sBitx codec, and three ALSA loopback cards for WSJT-X, fldigi and SDR apps.</p></div>
+      <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS) and the country file for callsign lookups, puts the radio's user in the <code>gpio</code> and <code>i2c</code> groups, and makes sure SPI is off (it would take the pins the filters and the volume knob use).</p></div>
+      <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> (the sBitx codec) and <code>dtoverlay=i2c-gpio,…</code> (the kernel's I²C bus for the Si5351 and SWR bridge) to <code>config.txt</code> (backup kept), and three ALSA loopback cards for WSJT-X, fldigi and SDR apps.</p></div>
       <div class="card"><span class="tag">4 · jeSDR</span><p>Downloads the latest release, checks its SHA-256 against the release manifest, and installs it to <code>/opt/jeSDR</code> as the <code>jesdr</code> service, with a menu entry and a desktop icon.</p></div>
     </div>
 
@@ -242,10 +242,12 @@
       <li><h3>Install what jeSDR needs</h3>
         <pre>sudo apt update
 sudo apt install curl openssl python3 alsa-utils gpsd</pre>
-        <p>Then WiringPi: download the <code>wiringpi_&lt;version&gt;_arm64.deb</code> from <a href="https://github.com/WiringPi/WiringPi/releases">github.com/WiringPi/WiringPi/releases</a> and install it with <code>sudo apt install ./wiringpi_*_arm64.deb</code>. On a Raspberry Pi 5 it must be WiringPi 3.0 or newer; check with <code>gpio -v</code>.</p></li>
+        <p>No GPIO library is needed. Make sure SPI is off (no <code>dtparam=spi=on</code> in <code>/boot/firmware/config.txt</code>): it would take the pins the filters and the volume knob use.</p></li>
       <li><h3>Set up the sBitx audio</h3>
         <p>Skip this if <code>aplay -l</code> already lists <code>audioinjectorpi</code> and three <code>Loopback</code> cards. Otherwise add this line to <code>/boot/firmware/config.txt</code>:</p>
         <pre>dtoverlay=audioinjector-wm8731-audio</pre>
+        <p>The radio's I²C bus (Si5351, SWR bridge) is the kernel's; add this line too, if it isn't there:</p>
+        <pre>dtoverlay=i2c-gpio,bus=3,i2c_gpio_sda=13,i2c_gpio_scl=6</pre>
         <p>and create the loopback cards:</p>
         <pre>echo "options snd-aloop enable=1,1,1 index=1,2,3" | sudo tee /etc/modprobe.d/jesdr-aloop.conf
 echo "snd-aloop" | sudo tee /etc/modules-load.d/jesdr-aloop.conf
