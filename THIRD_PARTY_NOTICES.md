@@ -60,6 +60,12 @@ When RADE is built in, ship `third_party/rade_c/LICENSE` and
 | ALSA library (`libasound`) | The ALSA project | LGPL-2.1-or-later (dynamically linked) |
 | GNU C library | Free Software Foundation and contributors | LGPL-2.1-or-later (dynamically linked) |
 
+## Programs jeSDR works with (separate, not part of jeSDR)
+
+| Program | Copyright | License |
+|---|---|---|
+| JS8Call (JS8Call-improved), https://github.com/JS8Call-improved/JS8Call-improved | Jordan Sherer, KN4CRD, and the JS8Call-improved developers | GPL-3.0. A separate program: jeSDR's JS8 mode talks to it only through its TCP API; no JS8Call code is in jeSDR. `install.sh` can download its official AppImage to `/opt/js8call`, where it keeps its own license |
+
 ## Data and protocols
 
 Not code, credited with thanks:

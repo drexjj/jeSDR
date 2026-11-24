@@ -94,7 +94,7 @@
       <div class="card"><span class="tag">Operating</span><h3>Split, RIT and XIT <span class="new">NEW</span></h3>
         <p>Work a pile-up with split on either VFO, move the receiver with RIT or the transmitter with XIT. The screen always shows where you will transmit, and a band plan for your country warns before you go outside your privileges.</p></div>
       <div class="card"><span class="tag">Digital</span><h3>Digital modes built in</h3>
-        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI. FT8 can answer callers or call CQ for you, hunt for new ones, send POTA, SOTA or WWFF CQs, and show a grid map. WSJT-X and fldigi work too.</p></div>
+        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI. FT8 can answer callers or call CQ for you, hunt for new ones, send POTA, SOTA or WWFF CQs, and show a grid map. JS8 works with JS8Call on the Pi, with its traffic and messages in the web UI. WSJT-X and fldigi work too.</p></div>
       <div class="card"><span class="tag">CW</span><h3>CW decoder, keyer and macros</h3>
         <p>Decode CW on screen, zero-beat with the tuning bar, and send stored macros. Key from the front-panel jack with a straight key, bug or iambic paddles, with adjustable weighting and spacing.</p></div>
       <div class="card"><span class="tag">Voice</span><h3>RADE, voice keyer and recordings</h3>
@@ -214,7 +214,7 @@
       <div class="card"><span class="tag">1 · Checks</span><p>64-bit Raspberry Pi OS, the Pi model (Pi 4 or Pi 5), and which user jeSDR runs as (the one who ran <code>sudo</code>). It stops if anything is wrong, before it changes anything.</p></div>
       <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS) and the country file for callsign lookups, puts the radio's user in the <code>gpio</code> and <code>i2c</code> groups, and makes sure SPI is off (it would take the pins the filters and the volume knob use).</p></div>
       <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> (the sBitx codec) and <code>dtoverlay=i2c-gpio,…</code> (the kernel's I²C bus for the Si5351 and SWR bridge) to <code>config.txt</code> (backup kept), and three ALSA loopback cards for WSJT-X, fldigi and SDR apps.</p></div>
-      <div class="card"><span class="tag">4 · jeSDR</span><p>Downloads the latest release, checks its SHA-256 against the release manifest, and installs it to <code>/opt/jeSDR</code> as the <code>jesdr</code> service, with a menu entry and a desktop icon.</p></div>
+      <div class="card"><span class="tag">4 · jeSDR</span><p>Downloads the latest release, checks its SHA-256 against the release manifest, and installs it to <code>/opt/jeSDR</code> as the <code>jesdr</code> service, with a menu entry and a desktop icon. Then it offers JS8Call for the JS8 mode (optional).</p></div>
     </div>
 
     <h3 class="h3gap" style="margin-top:44px">Installer options</h3>
@@ -227,6 +227,7 @@
           <tr><td><code>--user NAME</code></td><td>Run jeSDR as this user instead of the one who ran <code>sudo</code>.</td></tr>
           <tr><td><code>--deb FILE</code></td><td>Install a <code>.deb</code> you already downloaded instead of the latest release.</td></tr>
           <tr><td><code>--no-hw</code></td><td>Leave the audio codec and loopback set-up alone (if you manage <code>config.txt</code> yourself).</td></tr>
+          <tr><td><code>--no-js8call</code></td><td>Don't offer JS8Call. Otherwise the installer asks whether to download JS8Call-improved (a separate GPL program, about 100&nbsp;MB) for jeSDR's JS8 mode.</td></tr>
         </tbody>
       </table>
     </div>

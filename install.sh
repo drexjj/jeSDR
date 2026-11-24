@@ -8,6 +8,7 @@
 #   --deb FILE       install this package instead of downloading the latest
 #   --user NAME      run jeSDR as this user (default: the user who ran sudo)
 #   --no-hw          do not touch the audio codec / loopback set-up
+#   --no-js8call     do not offer to install JS8Call
 #
 # What it does:
 #   1. checks this is a 64-bit Raspberry Pi OS (Bookworm or later) on a Pi 4 or Pi 5
@@ -17,7 +18,9 @@
 #      if they are not set up already
 #   4. downloads the latest jeSDR package, checks its SHA-256, installs it
 #   5. downloads the country file (AD1C's Big CTY) for callsign lookups
-#   6. offers to reboot when step 3 changed anything
+#   6. offers to install JS8Call (JS8Call-improved's ARM64 AppImage, a
+#      separate GPL program) for jeSDR's JS8 mode
+#   7. offers to reboot when step 3 changed anything
 #
 # jeSDR is Copyright (c) 2026 J. Kujawa, W9JES.
 set -eu
@@ -25,14 +28,15 @@ set -eu
 REPO="drexjj/jeSDR"
 MANIFEST="https://raw.githubusercontent.com/$REPO/main/latest.json"
 
-YES=0; DEB=""; RUN_USER=""; DO_HW=1
+YES=0; DEB=""; RUN_USER=""; DO_HW=1; DO_JS8=1
 while [ $# -gt 0 ]; do
   case "$1" in
     --yes|-y) YES=1 ;;
     --deb) DEB=${2:?--deb needs a file}; shift ;;
     --user) RUN_USER=${2:?--user needs a name}; shift ;;
     --no-hw) DO_HW=0 ;;
-    -h|--help) sed -n '2,22p' "$0" 2>/dev/null || true; exit 0 ;;
+    --no-js8call) DO_JS8=0 ;;
+    -h|--help) sed -n '2,25p' "$0" 2>/dev/null || true; exit 0 ;;
     *) echo "unknown option: $1" >&2; exit 2 ;;
   esac
   shift
@@ -273,7 +277,91 @@ else
   warn "later, as $RUN_USER (not sudo):  sh $FETCH"
 fi
 
-# ------------------------------------------------------------ 6. finish
+# --------------------------------------------------------------- 6. JS8Call
+# JS8Call (JS8Call-improved, GPL-3) is its own program: jeSDR's JS8 mode
+# shows what it hears and sends through its TCP API. Its official ARM64
+# AppImage goes in /opt/js8call; nothing of it is built into jeSDR.
+JS8_DIR=/opt/js8call
+JS8_REPO=https://github.com/JS8Call-improved/JS8Call-improved
+JS8_FALLBACK=v3.0.3
+if [ "$DO_JS8" = 1 ]; then
+  step "JS8Call (optional, for the JS8 mode)"
+  if [ "$(uname -m)" != aarch64 ]; then
+    warn "JS8Call's AppImage is for 64-bit ARM; skipping"
+  elif [ -x "$JS8_DIR/JS8Call.AppImage" ] && ! ask "JS8Call is installed ($(cat "$JS8_DIR/VERSION" 2>/dev/null || echo '?')). Check for a newer one?"; then
+    ok "keeping $JS8_DIR/JS8Call.AppImage"
+  elif [ ! -x "$JS8_DIR/JS8Call.AppImage" ] && ! ask "Install JS8Call (about 100 MB download) for jeSDR's JS8 mode?"; then
+    ok "skipped (run this installer again to add it later)"
+  else
+    # the newest release: github.com/.../releases/latest redirects to .../tag/vX.Y.Z
+    TAG=$(curl -fsSIL -o /dev/null -w '%{url_effective}' "$JS8_REPO/releases/latest" 2>/dev/null | sed -n 's#.*/tag/\(v[0-9][0-9.]*\)$#\1#p')
+    [ -n "$TAG" ] || TAG=$JS8_FALLBACK
+    if [ "$(cat "$JS8_DIR/VERSION" 2>/dev/null)" = "$TAG" ] && [ -x "$JS8_DIR/JS8Call.AppImage" ]; then
+      ok "JS8Call $TAG is the newest"
+    else
+      JS8_URL="$JS8_REPO/releases/download/$TAG/JS8Call-$TAG-aarch64.AppImage"
+      echo "    downloading JS8Call $TAG"
+      if curl -fL --progress-bar -o "$TMP/js8call.AppImage" "$JS8_URL" &&
+         [ "$(head -c 4 "$TMP/js8call.AppImage" | od -An -c | tr -d ' ')" = '177ELF' ]; then
+        mkdir -p "$JS8_DIR"
+        install -m 0755 "$TMP/js8call.AppImage" "$JS8_DIR/JS8Call-$TAG-aarch64.AppImage"
+        ln -sfn "JS8Call-$TAG-aarch64.AppImage" "$JS8_DIR/JS8Call.AppImage"
+        echo "$TAG" > "$JS8_DIR/VERSION"
+        # older versions go
+        find "$JS8_DIR" -maxdepth 1 -name 'JS8Call-v*-aarch64.AppImage' ! -name "JS8Call-$TAG-aarch64.AppImage" -delete 2>/dev/null || true
+        ok "JS8Call $TAG in $JS8_DIR (from $JS8_REPO; its own licence, GPL-3)"
+      else
+        warn "could not download JS8Call from $JS8_URL"
+        warn "jeSDR works without it; run this installer again later to add it"
+      fi
+    fi
+    if [ -x "$JS8_DIR/JS8Call.AppImage" ]; then
+      # AppImages need FUSE 2 (Trixie renamed it libfuse2t64)
+      FUSE=libfuse2
+      if apt-cache policy libfuse2t64 2>/dev/null | grep -Eq 'Candidate: [^(]'; then FUSE=libfuse2t64; fi
+      if apt-get install -y -q "$FUSE" >/dev/null 2>&1; then ok "$FUSE (for AppImages)"
+      else warn "could not install $FUSE: JS8Call will unpack itself each time it starts (slower)"; fi
+      # the menu entry (Internet / Ham radio)
+      cat > /usr/share/applications/js8call.desktop <<DESK
+[Desktop Entry]
+Type=Application
+Name=JS8Call
+Comment=JS8 keyboard-to-keyboard messaging (works with jeSDR's JS8 mode)
+Exec=$JS8_DIR/JS8Call.AppImage
+Terminal=false
+Categories=Network;HamRadio;
+DESK
+      # A first set-up for jeSDR, only when JS8Call has none yet: the radio
+      # through jeSDR's Hamlib server and the TCP API jeSDR reads. Audio
+      # devices and PTT are chosen in JS8Call (Settings -> Radio / Audio).
+      J_HOME=$(getent passwd "$RUN_USER" | cut -d: -f6)
+      J_INI="$J_HOME/.config/JS8Call.ini"
+      if [ -n "$J_HOME" ] && [ ! -e "$J_INI" ]; then
+        J_CALL=$(grep -hE '^(#mycall|MYCALL)=' "$J_HOME/jeSDR/data/jesdr.ini" 2>/dev/null | tail -1 | cut -d= -f2 | tr -dc 'A-Za-z0-9/' | tr a-z A-Z)
+        J_GRID=$(grep -hE '^(#mygrid|MYGRID)=' "$J_HOME/jeSDR/data/jesdr.ini" 2>/dev/null | tail -1 | cut -d= -f2 | tr -dc 'A-Za-z0-9')
+        sudo -u "$RUN_USER" mkdir -p "$J_HOME/.config"
+        {
+          echo "[Configuration]"
+          [ -n "$J_CALL" ] && echo "MyCall=$J_CALL"
+          [ -n "$J_GRID" ] && echo "MyGrid=$J_GRID"
+          echo "Rig=Hamlib NET rigctl"
+          echo "CATNetworkPort=127.0.0.1:4532"
+          echo "TCPEnabled=true"
+          echo "AcceptTCPRequests=true"
+          echo "TCPServerPort=2442"
+          echo "TCPMaxConnections=2"
+        } > "$TMP/JS8Call.ini"
+        install -o "$RUN_USER" -g "$(id -gn "$RUN_USER")" -m 0644 "$TMP/JS8Call.ini" "$J_INI"
+        ok "set JS8Call up for jeSDR ($J_INI): rig Hamlib NET rigctl, TCP API on"
+        warn "in JS8Call still choose the loopback audio devices and PTT method CAT"
+      elif [ -e "$J_INI" ]; then
+        ok "JS8Call's own settings are kept ($J_INI)"
+      fi
+    fi
+  fi
+fi
+
+# ------------------------------------------------------------ 7. finish
 HOSTN=$(hostname)
 IP=$(hostname -I 2>/dev/null | awk '{print $1}')
 step "Done"
