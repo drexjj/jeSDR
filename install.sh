@@ -14,7 +14,9 @@
 #   1. checks this is a 64-bit Raspberry Pi OS (Bookworm or later) on a Pi 4 or Pi 5
 #   2. installs the packages jeSDR needs and checks the GPIO (the user in the
 #      gpio group, SPI off: the sBitx uses its pins)
-#   3. sets up the sBitx audio codec (WM8731) and three ALSA loopback cards
+#   3. sets up the sBitx audio codec (WM8731), and three ALSA loopback cards
+#      when there is no PipeWire (with PipeWire, jeSDR makes its own audio
+#      devices for other programs: "jeSDR Receive" and "jeSDR Transmit")
 #      if they are not set up already
 #   4. downloads the latest jeSDR package, checks its SHA-256, installs it
 #   5. downloads the country file (AD1C's Big CTY) for callsign lookups
@@ -210,8 +212,16 @@ if [ "$DO_HW" = 1 ]; then
     fi
   fi
 
-  # Three ALSA loopback cards, numbered 1, 2 and 3
-  if grep -rqs 'snd-aloop\|snd_aloop' /etc/modprobe.d/ /etc/modules /etc/modules-load.d/; then
+  # Other programs' audio (WSJT-X, fldigi, JS8Call): with PipeWire (the
+  # Raspberry Pi OS desktop), jeSDR makes its own PipeWire devices, "jeSDR
+  # Receive" and "jeSDR Transmit", so no loopback cards are needed. Without
+  # PipeWire (Lite), three ALSA loopback cards, numbered 1, 2 and 3.
+  if command -v pipewire >/dev/null 2>&1; then
+    ok "PipeWire is installed: other programs use jeSDR's PipeWire devices (no loopback cards needed)"
+    if grep -rqs 'snd-aloop\|snd_aloop' /etc/modprobe.d/ /etc/modules /etc/modules-load.d/; then
+      ok "the ALSA loopback cards are also set up (kept, for SDROxide or AUDIO_BRIDGE=ALSA)"
+    fi
+  elif grep -rqs 'snd-aloop\|snd_aloop' /etc/modprobe.d/ /etc/modules /etc/modules-load.d/; then
     NLOOP=$(aplay -l 2>/dev/null | grep -c '^card .*Loopback.*device 0' || true)
     if [ "$NLOOP" -ge 3 ]; then
       ok "ALSA loopback is set up ($NLOOP loopback cards)"
@@ -353,7 +363,7 @@ DESK
         } > "$TMP/JS8Call.ini"
         install -o "$RUN_USER" -g "$(id -gn "$RUN_USER")" -m 0644 "$TMP/JS8Call.ini" "$J_INI"
         ok "set JS8Call up for jeSDR ($J_INI): rig Hamlib NET rigctl, TCP API on"
-        warn "in JS8Call still choose the loopback audio devices and PTT method CAT"
+        warn "in JS8Call still choose the audio devices jeSDR Receive (input) and jeSDR Transmit (output), and PTT method CAT"
       elif [ -e "$J_INI" ]; then
         ok "JS8Call's own settings are kept ($J_INI)"
       fi

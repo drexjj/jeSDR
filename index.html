@@ -94,7 +94,7 @@
       <div class="card"><span class="tag">Operating</span><h3>Split, RIT and XIT <span class="new">NEW</span></h3>
         <p>Work a pile-up with split on either VFO, move the receiver with RIT or the transmitter with XIT. The screen always shows where you will transmit, and a band plan for your country warns before you go outside your privileges.</p></div>
       <div class="card"><span class="tag">Digital</span><h3>Digital modes built in</h3>
-        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI. FT8 can answer callers or call CQ for you, hunt for new ones, send POTA, SOTA or WWFF CQs, and show a grid map. JS8 works with JS8Call on the Pi, with its traffic and messages in the web UI. WSJT-X and fldigi work too.</p></div>
+        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI. FT8 can answer callers or call CQ for you, hunt for new ones, send POTA, SOTA or WWFF CQs, and show a grid map. JS8 works with JS8Call on the Pi, with its traffic and messages in the web UI. WSJT-X and fldigi work too, with the radio's audio as two named devices, <b>jeSDR Receive</b> and <b>jeSDR Transmit</b>: no loopback cards to set up.</p></div>
       <div class="card"><span class="tag">CW</span><h3>CW decoder, keyer and macros</h3>
         <p>Decode CW on screen, zero-beat with the tuning bar, and send stored macros. Key from the front-panel jack with a straight key, bug or iambic paddles, with adjustable weighting and spacing.</p></div>
       <div class="card"><span class="tag">Voice</span><h3>RADE, voice keyer and recordings</h3>
@@ -213,7 +213,7 @@
     <div class="grid grid4">
       <div class="card"><span class="tag">1 · Checks</span><p>64-bit Raspberry Pi OS, the Pi model (Pi 4 or Pi 5), and which user jeSDR runs as (the one who ran <code>sudo</code>). It stops if anything is wrong, before it changes anything.</p></div>
       <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, gpsd for a USB GPS) and the country file for callsign lookups, puts the radio's user in the <code>gpio</code> and <code>i2c</code> groups, and makes sure SPI is off (it would take the pins the filters and the volume knob use).</p></div>
-      <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> (the sBitx codec) and <code>dtoverlay=i2c-gpio,…</code> (the kernel's I²C bus for the Si5351 and SWR bridge) to <code>config.txt</code> (backup kept), and three ALSA loopback cards for WSJT-X, fldigi and SDR apps.</p></div>
+      <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> (the sBitx codec) and <code>dtoverlay=i2c-gpio,…</code> (the kernel's I²C bus for the Si5351 and SWR bridge) to <code>config.txt</code> (backup kept). WSJT-X, fldigi and JS8Call get the radio's audio from jeSDR's own PipeWire devices, <b>jeSDR Receive</b> and <b>jeSDR Transmit</b>; only without PipeWire (Lite) does it add ALSA loopback cards.</p></div>
       <div class="card"><span class="tag">4 · jeSDR</span><p>Downloads the latest release, checks its SHA-256 against the release manifest, and installs it to <code>/opt/jeSDR</code> as the <code>jesdr</code> service, with a menu entry and a desktop icon. Then it offers JS8Call for the JS8 mode (optional).</p></div>
     </div>
 
@@ -245,11 +245,11 @@
 sudo apt install curl openssl python3 alsa-utils gpsd</pre>
         <p>No GPIO library is needed. Make sure SPI is off (no <code>dtparam=spi=on</code> in <code>/boot/firmware/config.txt</code>): it would take the pins the filters and the volume knob use.</p></li>
       <li><h3>Set up the sBitx audio</h3>
-        <p>Skip this if <code>aplay -l</code> already lists <code>audioinjectorpi</code> and three <code>Loopback</code> cards. Otherwise add this line to <code>/boot/firmware/config.txt</code>:</p>
+        <p>Skip this if <code>aplay -l</code> already lists <code>audioinjectorpi</code>. Otherwise add this line to <code>/boot/firmware/config.txt</code>:</p>
         <pre>dtoverlay=audioinjector-wm8731-audio</pre>
         <p>The radio's I²C bus (Si5351, SWR bridge) is the kernel's; add this line too, if it isn't there:</p>
         <pre>dtoverlay=i2c-gpio,bus=3,i2c_gpio_sda=13,i2c_gpio_scl=6</pre>
-        <p>and create the loopback cards:</p>
+        <p>On Raspberry Pi OS Lite (no PipeWire) also create the loopback cards for other programs' audio; with the desktop, jeSDR's PipeWire devices replace them:</p>
         <pre>echo "options snd-aloop enable=1,1,1 index=1,2,3" | sudo tee /etc/modprobe.d/jesdr-aloop.conf
 echo "snd-aloop" | sudo tee /etc/modules-load.d/jesdr-aloop.conf
 sudo reboot</pre></li>
