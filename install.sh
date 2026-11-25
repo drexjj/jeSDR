@@ -129,7 +129,7 @@ ASOUND=libasound2
 # but apt-get install refuses.
 if apt-cache policy libasound2t64 2>/dev/null | grep -Eq 'Candidate: [^(]'; then ASOUND=libasound2t64; fi
 apt-get install -y -q curl ca-certificates openssl python3 sudo alsa-utils unzip "$ASOUND" >/dev/null
-ok "curl, openssl, python3, sudo, ALSA, unzip"
+ok "curl, openssl, python3, sudo, unzip, libasound (jeSDR drives the radio's codec through it)"
 
 # PipeWire: jeSDR's audio devices for other programs ("jeSDR Receive",
 # "jeSDR Transmit", ...). The library's development files too, so jeSDR can
