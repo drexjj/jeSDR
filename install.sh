@@ -7,17 +7,17 @@
 #   --yes            answer yes to every question (no prompts)
 #   --deb FILE       install this package instead of downloading the latest
 #   --user NAME      run jeSDR as this user (default: the user who ran sudo)
-#   --no-hw          do not touch the audio codec / loopback set-up
+#   --no-hw          do not touch the audio codec / I2C set-up
 #   --no-js8call     do not offer to install JS8Call
 #
 # What it does:
 #   1. checks this is a 64-bit Raspberry Pi OS (Bookworm or later) on a Pi 4 or Pi 5
 #   2. installs the packages jeSDR needs and checks the GPIO (the user in the
 #      gpio group, SPI off: the sBitx uses its pins)
-#   3. sets up the sBitx audio codec (WM8731), and three ALSA loopback cards
-#      when there is no PipeWire (with PipeWire, jeSDR makes its own audio
-#      devices for other programs: "jeSDR Receive" and "jeSDR Transmit")
-#      if they are not set up already
+#   3. sets up the sBitx audio codec (WM8731) and the I2C bus if they are not
+#      set up already. Other programs get the radio's audio from jeSDR's own
+#      PipeWire devices ("jeSDR Receive", "jeSDR Transmit"); the package
+#      brings PipeWire on Raspberry Pi OS Lite.
 #   4. downloads the latest jeSDR package, checks its SHA-256, installs it
 #   5. downloads the country file (AD1C's Big CTY) for callsign lookups
 #   6. offers to install JS8Call (JS8Call-improved's ARM64 AppImage, a
@@ -212,32 +212,14 @@ if [ "$DO_HW" = 1 ]; then
     fi
   fi
 
-  # Other programs' audio (WSJT-X, fldigi, JS8Call): with PipeWire (the
-  # Raspberry Pi OS desktop), jeSDR makes its own PipeWire devices, "jeSDR
-  # Receive" and "jeSDR Transmit", so no loopback cards are needed. Without
-  # PipeWire (Lite), three ALSA loopback cards, numbered 1, 2 and 3.
+  # Other programs' audio (WSJT-X, fldigi, JS8Call, SDROxide) goes through
+  # jeSDR's PipeWire devices ("jeSDR Receive", "jeSDR Transmit", ...): no
+  # ALSA loopback cards. The package installs PipeWire where it is missing
+  # (Lite) and removes the loopback set-up older installers added.
   if command -v pipewire >/dev/null 2>&1; then
-    ok "PipeWire is installed: other programs use jeSDR's PipeWire devices (no loopback cards needed)"
-    if grep -rqs 'snd-aloop\|snd_aloop' /etc/modprobe.d/ /etc/modules /etc/modules-load.d/; then
-      ok "the ALSA loopback cards are also set up (kept, for SDROxide or AUDIO_BRIDGE=ALSA)"
-    fi
-  elif grep -rqs 'snd-aloop\|snd_aloop' /etc/modprobe.d/ /etc/modules /etc/modules-load.d/; then
-    NLOOP=$(aplay -l 2>/dev/null | grep -c '^card .*Loopback.*device 0' || true)
-    if [ "$NLOOP" -ge 3 ]; then
-      ok "ALSA loopback is set up ($NLOOP loopback cards)"
-    else
-      ok "ALSA loopback is configured (checked after the reboot)"
-      warn "jeSDR needs three loopback cards: options snd-aloop enable=1,1,1 index=1,2,3"
-    fi
+    ok "PipeWire is installed (other programs use jeSDR's PipeWire audio devices)"
   else
-    warn "the ALSA loopback cards are not set up"
-    if ask "Set up three loopback cards (for WSJT-X, fldigi and SDR apps)?"; then
-      mkdir -p /etc/modprobe.d /etc/modules-load.d
-      echo "options snd-aloop enable=1,1,1 index=1,2,3" > /etc/modprobe.d/jesdr-aloop.conf
-      echo "snd-aloop" > /etc/modules-load.d/jesdr-aloop.conf
-      ok "added /etc/modprobe.d/jesdr-aloop.conf"
-      REBOOT=1
-    fi
+    ok "PipeWire comes with the jeSDR package (other programs use jeSDR's PipeWire audio devices)"
   fi
 fi
 
