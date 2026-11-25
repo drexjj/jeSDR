@@ -131,6 +131,15 @@ if apt-cache policy libasound2t64 2>/dev/null | grep -Eq 'Candidate: [^(]'; then
 apt-get install -y -q curl ca-certificates openssl python3 sudo alsa-utils unzip "$ASOUND" >/dev/null
 ok "curl, openssl, python3, sudo, ALSA, unzip"
 
+# PipeWire: jeSDR's audio devices for other programs ("jeSDR Receive",
+# "jeSDR Transmit", ...). The library's development files too, so jeSDR can
+# also be built from source on this Pi.
+apt-get install -y -q pipewire wireplumber libpipewire-0.3-dev pkg-config >/dev/null \
+  || die "could not install PipeWire (pipewire, wireplumber, libpipewire-0.3-dev)"
+apt-get install -y -q pipewire-pulse pipewire-alsa >/dev/null 2>&1 \
+  || warn "could not install pipewire-pulse / pipewire-alsa (PulseAudio and ALSA programs use them to reach jeSDR's devices)"
+ok "PipeWire $(pkg-config --modversion libpipewire-0.3 2>/dev/null) and its development files (libpipewire-0.3-dev)"
+
 # gpsd: for a USB GPS receiver (position and time in the field). -n reads
 # the receiver from boot, so GPS time is there before anything asks.
 apt-get install -y -q gpsd >/dev/null && ok "gpsd (for a USB GPS receiver)" || warn "could not install gpsd"
