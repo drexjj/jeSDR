@@ -201,33 +201,39 @@ if [ "$DO_HW" = 1 ]; then
     warn "no config.txt found; set up the audio codec yourself"
   fi
 
-  # Kernel I2C for the Si5351, SWR bridge and INA260 (the zBitx's line).
-  # The sBitx image's RTC overlay (i2c-rtc-gpio on GPIO 13/6) already makes
-  # that bus, with the clock on it; a second overlay on the same pins hides
-  # the clock, so it is not added there (and one added earlier is removed).
-  I2CLINE='dtoverlay=i2c-gpio,bus=3,i2c_gpio_sda=13,i2c_gpio_scl=6'
-  I2CRE='^[[:space:]]*dtoverlay=i2c-gpio,bus=3,i2c_gpio_sda=13,i2c_gpio_scl=6[[:space:]]*$'
+  # Kernel I2C for the Si5351, SWR bridge, INA260 and the board's DS1307
+  # real-time clock (GPIO 13/6): one i2c-rtc-gpio overlay makes the bus and
+  # binds the clock (the sBitx image's own line). Only one overlay may use
+  # those pins, or the clock disappears. Earlier installers added a plain
+  # i2c-gpio line (no clock): it is replaced, or dropped beside an RTC line.
+  I2CLINE='dtoverlay=i2c-rtc-gpio,ds1307,i2c_gpio_sda=13,i2c_gpio_scl=6'
+  I2CNOTE='# jeSDR: the kernel drives the sBitx I2C bus (Si5351, SWR bridge, INA260) and its DS1307 clock'
+  OLDRE='^[[:space:]]*dtoverlay=i2c-gpio,bus=3,i2c_gpio_sda=13,i2c_gpio_scl=6[[:space:]]*$'
   RTCRE='^[[:space:]]*dtoverlay=i2c-rtc-gpio,.*i2c_gpio_sda=13([^0-9]|$)'
   if grep -E "$RTCRE" "$CFG" 2>/dev/null | grep -Eq 'i2c_gpio_scl=6([^0-9]|$)'; then
-    if grep -Eq "$I2CRE" "$CFG"; then
+    if grep -Eq "$OLDRE" "$CFG"; then
       cp "$CFG" "$CFG.jesdr-rtc-backup"
-      sed -i -e '/^# jeSDR: the kernel drives the sBitx I2C bus/d' -e "/$I2CRE/d" "$CFG"
-      ok "removed a second I2C overlay on the RTC's pins; it hid the clock (backup: $CFG.jesdr-rtc-backup)"
+      sed -i -e '/^# jeSDR: the kernel drives the sBitx I2C bus/d' -e "/$OLDRE/d" "$CFG"
+      ok "removed a second I2C overlay on the clock's pins; it hid the RTC (backup: $CFG.jesdr-rtc-backup)"
       REBOOT=1
     else
-      ok "kernel I2C bus is set up (the RTC overlay provides it)"
+      ok "kernel I2C bus and real-time clock are set up in $CFG"
     fi
     mkdir -p /var/lib/jeSDR && echo rtc > /var/lib/jeSDR/i2c-overlay
-  elif [ -c /dev/i2c-3 ] && grep -Eq '^[[:space:]]*dtoverlay=i2c-gpio' "$CFG" 2>/dev/null; then
-    ok "kernel I2C bus is set up (/dev/i2c-3)"
-  elif grep -Eq '^[[:space:]]*dtoverlay=i2c-gpio' "$CFG" 2>/dev/null; then
-    ok "kernel I2C bus is set up in $CFG (active after a reboot)"
+  elif grep -Eq "$OLDRE" "$CFG" 2>/dev/null; then
+    cp "$CFG" "$CFG.jesdr-rtc-backup"
+    sed -i -e "s|^# jeSDR: the kernel drives the sBitx I2C bus.*|$I2CNOTE|" -e "s|$OLDRE|$I2CLINE|" "$CFG"
+    mkdir -p /var/lib/jeSDR && echo rtc > /var/lib/jeSDR/i2c-overlay
+    ok "I2C line changed to '$I2CLINE': the same bus, with the RTC (backup: $CFG.jesdr-rtc-backup)"
     REBOOT=1
+  elif grep -Eq '^[[:space:]]*dtoverlay=i2c-gpio' "$CFG" 2>/dev/null; then
+    ok "kernel I2C bus is set up in $CFG"
+    warn "that i2c-gpio line has no clock on it; for the sBitx RTC use '$I2CLINE' in its place"
   elif [ -f "$CFG" ]; then
     # jeSDR needs it: it no longer bit-bangs these pins, and stops without the bus
-    if ask "jeSDR needs the kernel's I2C bus for the radio. Add '$I2CLINE' to $CFG?"; then
+    if ask "jeSDR needs the kernel's I2C bus for the radio and its clock. Add '$I2CLINE' to $CFG?"; then
       [ -f "$CFG.jesdr-backup" ] || cp "$CFG" "$CFG.jesdr-backup"
-      printf '\n[all]\n# jeSDR: the kernel drives the sBitx I2C bus (Si5351, SWR bridge, INA260)\n%s\n' "$I2CLINE" >> "$CFG"
+      printf '\n[all]\n%s\n%s\n' "$I2CNOTE" "$I2CLINE" >> "$CFG"
       mkdir -p /var/lib/jeSDR && echo added > /var/lib/jeSDR/i2c-overlay
       ok "added (backup: $CFG.jesdr-backup)"
       REBOOT=1

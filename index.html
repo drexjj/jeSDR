@@ -213,7 +213,7 @@
     <div class="grid grid4">
       <div class="card"><span class="tag">1 · Checks</span><p>64-bit Raspberry Pi OS, the Pi model (Pi 4 or Pi 5), and which user jeSDR runs as (the one who ran <code>sudo</code>). It stops if anything is wrong, before it changes anything.</p></div>
       <div class="card"><span class="tag">2 · Packages</span><p>Installs the few packages jeSDR needs (ALSA, OpenSSL, Python, PipeWire with <code>libpipewire-0.3-dev</code>, gpsd for a USB GPS) and the country file for callsign lookups, puts the radio's user in the <code>gpio</code> and <code>i2c</code> groups, and makes sure SPI is off (it would take the pins the filters and the volume knob use).</p></div>
-      <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> (the sBitx codec) and <code>dtoverlay=i2c-gpio,…</code> (the kernel's I²C bus for the Si5351 and SWR bridge) to <code>config.txt</code> (backup kept). WSJT-X, fldigi and JS8Call get the radio's audio from jeSDR's own PipeWire devices, <b>jeSDR Receive</b> and <b>jeSDR Transmit</b>; no ALSA loopback cards (the package brings PipeWire on Lite).</p></div>
+      <div class="card"><span class="tag">3 · Audio set-up</span><p>If missing, adds <code>dtoverlay=audioinjector-wm8731-audio</code> (the sBitx codec) and <code>dtoverlay=i2c-rtc-gpio,…</code> (the kernel's I²C bus for the Si5351, SWR bridge and the board's real-time clock) to <code>config.txt</code> (backup kept). WSJT-X, fldigi and JS8Call get the radio's audio from jeSDR's own PipeWire devices, <b>jeSDR Receive</b> and <b>jeSDR Transmit</b>; no ALSA loopback cards (the package brings PipeWire on Lite).</p></div>
       <div class="card"><span class="tag">4 · jeSDR</span><p>Downloads the latest release, checks its SHA-256 against the release manifest, and installs it to <code>/opt/jeSDR</code> as the <code>jesdr</code> service, with a menu entry and a desktop icon. Then it offers JS8Call for the JS8 mode (optional).</p></div>
     </div>
 
@@ -247,8 +247,8 @@ sudo apt install curl openssl python3 alsa-utils gpsd</pre>
       <li><h3>Set up the sBitx audio</h3>
         <p>Skip this if <code>aplay -l</code> already lists <code>audioinjectorpi</code>. Otherwise add this line to <code>/boot/firmware/config.txt</code>:</p>
         <pre>dtoverlay=audioinjector-wm8731-audio</pre>
-        <p>The radio's I²C bus (Si5351, SWR bridge) is the kernel's; add this line too, if it isn't there:</p>
-        <pre>dtoverlay=i2c-gpio,bus=3,i2c_gpio_sda=13,i2c_gpio_scl=6</pre>
+        <p>The radio's I²C bus (Si5351, SWR bridge, real-time clock) is the kernel's; add this line too, if it isn't there. Use only this one on GPIO 13 and 6: a second overlay on those pins hides the clock.</p>
+        <pre>dtoverlay=i2c-rtc-gpio,ds1307,i2c_gpio_sda=13,i2c_gpio_scl=6</pre>
         <p>Then <code>sudo reboot</code>. No loopback cards are needed: other programs get the radio's audio from jeSDR's PipeWire devices.</p></li>
       <li><h3>Install jeSDR</h3>
         <p>Download <code>jesdr_&lt;version&gt;_arm64.deb</code> from the <a href="https://github.com/drexjj/jeSDR/releases/latest">latest release</a>, then in the folder where you saved it:</p>
