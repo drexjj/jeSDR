@@ -1,14 +1,14 @@
 {
   "version": "1.8.0",
   "url": "https://github.com/drexjj/jeSDR/releases/download/v1.8.0/jesdr_1.8.0_arm64.deb",
-  "sha256": "2ab9416f197243cca25f659a219e2e15062224b5816379c1ed5e9c984335e2ec",
-  "size": 6082392,
+  "sha256": "d086110d5dbbe5e6fa6de2d2782de439215250437761a33a34b0c4561285191f",
+  "size": 6085152,
   "date": "2026-11-26",
   "notes": "Beta release improvements, fixes, and features",
   "history": {
     "1.6.0": "a72d5e1c1dee643155cdf226c6c0718c38ec1324817effd5884e5dfca2d8035d",
     "1.7.0": "baf87f6b267db60b3da4c41b2a512501dd0aa5eae8872906eec00481850bd5ac",
     "1.7.1": "23f52680e69fd44487264c80fa40f5b7998c44d81a5399fa3b78efa0342df597",
-    "1.8.0": "2ab9416f197243cca25f659a219e2e15062224b5816379c1ed5e9c984335e2ec"
+    "1.8.0": "d086110d5dbbe5e6fa6de2d2782de439215250437761a33a34b0c4561285191f"
   }
 }
