@@ -21,6 +21,10 @@ contributed by:
 - Phil, KA9Q
 - Gerald, K5SDR
 - Steve, N3SB
+- Juan, WP3DN
+
+Thanks, with gratitude, to the community members of the Radio &
+Electronics Hub on Discord for their help and support.
 
 jeSDR includes and uses software written by others. Each component stays
 under its own license, listed here with its copyright holders. Where a

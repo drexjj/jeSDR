@@ -67,7 +67,9 @@ a minute, the radio puts the previous version back.
 
 jeSDR is Copyright © 2026 J. Kujawa, W9JES. All rights reserved. It is built
 on the sBitx software created by Ashhar Farhan, VU2ESE. The enhanced code is by
-J. Kujawa, W9JES, with contributions from Jon W2JON, Alan N1QM, Lee W4WHL, Matt NM7D, Lars OZ7BX, Jeff KF7DYU, Mike KB2ML, Shawn K7IHZ, Jared KJ5DTK, Fabrizio F4VUK, Bob KD8CGH, Bob W7PUA, Phil KA9Q, Gerald K5SDR and Steve N3SB. jeSDR includes
+J. Kujawa, W9JES, with contributions from Jon W2JON, Alan N1QM, Lee W4WHL, Matt NM7D, Lars OZ7BX, Jeff KF7DYU, Mike KB2ML, Shawn K7IHZ, Jared KJ5DTK, Fabrizio F4VUK, Bob KD8CGH, Bob W7PUA, Phil KA9Q, Gerald K5SDR, Steve N3SB and Juan WP3DN. Thanks, with gratitude, to the community
+members of the Radio & Electronics Hub on Discord for their help and
+support. jeSDR includes
 software by others under their own licenses; see
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) (also in the web interface
 under More → About). The SD card image also contains Raspberry Pi OS and its
