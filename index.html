@@ -36,6 +36,20 @@
       <a class="opt opt2" href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Community</a>
       <a class="pill" href="donate.html">Donate</a>
     </div>
+    <details class="menu">
+      <summary aria-label="Menu"><span></span><span></span><span></span></summary>
+      <div class="drawer">
+        <a href="#screens">Screens</a>
+        <a href="#features">Features</a>
+        <a href="#connect">Connect</a>
+        <a href="#download">Download</a>
+        <a href="#install">Install</a>
+        <a href="#manage">Help</a>
+        <a href="report.html">Report a bug</a>
+        <a href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Community</a>
+        <a href="donate.html">Donate</a>
+      </div>
+    </details>
   </div>
 </nav>
 
@@ -91,14 +105,16 @@
         <p>Spectrum and waterfall, band stacks, filters with adjustable low and high cut, receive and transmit equalizers, twelve themes, a Quick page you arrange yourself, settings search, and kiosk mode for the radio's own touchscreen.</p></div>
       <div class="card"><span class="tag">Remote audio</span><h3>Listen and talk from anywhere in the house</h3>
         <p>Receive audio in the browser, and transmit with your phone or laptop microphone over HTTPS. A TX audio scope shows what you are sending.</p></div>
-      <div class="card"><span class="tag">Operating</span><h3>Split, RIT and XIT <span class="new">NEW</span></h3>
+      <div class="card"><span class="tag">Operating</span><h3>Split, RIT and XIT</h3>
         <p>Work a pile-up with split on either VFO, move the receiver with RIT or the transmitter with XIT. The screen always shows where you will transmit, and a band plan for your country warns before you go outside your privileges.</p></div>
       <div class="card"><span class="tag">Digital</span><h3>Digital modes built in</h3>
-        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI. FT8 can answer callers or call CQ for you, hunt for new ones, send POTA, SOTA or WWFF CQs, and show a grid map. JS8 works with JS8Call on the Pi, with its traffic and messages in the web UI. WSJT-X and fldigi work too, with the radio's audio as two named devices, <b>jeSDR Receive</b> and <b>jeSDR Transmit</b>: no loopback cards to set up.</p></div>
+        <p>FT8, FT4 and FT2, RTTY, PSK and JTTY decode and transmit right in the web UI. FT8 can answer callers or call CQ for you, hunt for new ones, send POTA, SOTA or WWFF CQs, and show a grid map. JS8 works with JS8Call on the Pi, with its band activity, messages and inbox in the web UI and old traffic cleared away by itself. WSJT-X and fldigi work too, with the radio's audio as two named devices, <b>jeSDR Receive</b> and <b>jeSDR Transmit</b>: no loopback cards to set up.</p></div>
       <div class="card"><span class="tag">CW</span><h3>CW decoder, keyer and macros</h3>
         <p>Decode CW on screen, zero-beat with the tuning bar, and send stored macros. Key from the front-panel jack with a straight key, bug or iambic paddles, with adjustable weighting and spacing.</p></div>
-      <div class="card"><span class="tag">Voice</span><h3>RADE, voice keyer and recordings</h3>
-        <p>FreeDV RADE V1 digital voice, eight recorded voice messages with auto-repeat for calling CQ, and recordings of what you hear and say that you can download from any device.</p></div>
+      <div class="card"><span class="tag">Headset</span><h3>USB headset or sound card <span class="new">NEW</span></h3>
+        <p>Plug a USB headset or sound card into the Pi and choose it for the headphones, the microphone or both. The headphones hear what the speaker would, sidetone included; the headset mic takes the mic jack's place with your usual PTT. Unplug it and the jacks take over; plug it back in and it carries on.</p></div>
+      <div class="card"><span class="tag">Voice</span><h3>RADE, FreeDV Reporter and voice keyer <span class="new">NEW</span></h3>
+        <p>FreeDV RADE V1 digital voice, with <b>FreeDV Reporter</b>: see who is on RADE right now, on a list and on the waterfall, and let them see you. Eight recorded voice messages with auto-repeat for calling CQ, and recordings of what you hear and say that you can download from any device.</p></div>
       <div class="card"><span class="tag">Receive</span><h3>Quieter listening</h3>
         <p>Two kinds of noise reduction, a noise blanker, an automatic notch and peak filter, and automatic IF gain. The S-meter is calibrated band by band and reads the same at any gain.</p></div>
       <div class="card"><span class="tag">DX</span><h3>DX cluster on the waterfall</h3>
@@ -106,11 +122,13 @@
       <div class="card"><span class="tag">Log</span><h3>Logbook and activations</h3>
         <p>Log from the web UI or the digital modes, export ADIF, and get POTA, WWFF and SOTA activation files in one tap. GridTracker, JTAlert, Log4OM and N1MM+ follow along over UDP.</p></div>
       <div class="card"><span class="tag">Field</span><h3>Made for portable operating</h3>
-        <p>Battery monitoring with low-voltage protection (with an INA260 sensor), a battery saver, a transmit timeout, Pi temperature warnings, and a USB GPS for clock and grid with no internet. Turn the waterfall speed down to keep the Pi cool.</p></div>
+        <p>Battery monitoring with low-voltage protection (with an INA260 sensor), a battery saver, a transmit timeout, Pi temperature warnings, and a USB GPS for clock and grid with no internet. The sBitx's own real-time clock sets the Pi's time at start-up, so FT8 works in the field before GPS or the internet. Turn the waterfall speed down to keep the Pi cool.</p></div>
       <div class="card"><span class="tag">Set-up</span><h3>Calibration in the browser</h3>
         <p>Automatic PA power calibration on every band, an SWR scan, a two-tone test for checking linearity, and S-meter calibration. Back up and restore all your settings, log and voice messages as one file.</p></div>
       <div class="card"><span class="tag">Updates</span><h3>Signed one-click updates</h3>
         <p>The radio checks for new versions and installs them from More → About. Every update is signed, and if a new version fails to start, the previous one is put back automatically.</p></div>
+      <div class="card"><span class="tag">Hardware</span><h3>Straight to the Linux kernel <span class="new">NEW</span></h3>
+        <p>The knobs, keys, PTT, filters and I²C devices go through the kernel's own GPIO and I²C drivers: no WiringPi or other GPIO library to install, on the Raspberry Pi 4 and Pi 5 alike. Other programs get the radio's audio from PipeWire, with no loopback cards.</p></div>
       <div class="card"><span class="tag">Safety</span><h3>Built to protect the radio</h3>
         <p>SWR protection while transmitting, a transmit timeout, one transmitter owner at a time, and the transmitter is un-keyed on shutdown. Stop, restart or shut down from the web UI.</p></div>
     </div>
@@ -131,6 +149,7 @@
           <tr><td>Hamlib rigctld</td><td class="port">TCP 4532</td><td>WSJT-X, fldigi and loggers (rig model 2, <em>Hamlib NET rigctl</em>).</td></tr>
           <tr><td>WSJT-X and ADIF over UDP</td><td class="port">UDP, you choose</td><td>GridTracker, JTAlert, Log4OM and N1MM+: FT8 decodes, status and logged contacts, sent to the addresses you set in More → Logging programs.</td></tr>
           <tr><td>Console</td><td class="port">TCP 8081</td><td>Set-up, status and calibration: <code>telnet &lt;radio&gt; 8081</code>.</td></tr>
+          <tr><td>Audio devices</td><td class="port">PipeWire</td><td><b>jeSDR Receive</b> and <b>jeSDR Transmit</b> on the Pi: the radio's audio for WSJT-X, fldigi, JS8Call and other programs, chosen by name.</td></tr>
           <tr><td>MIDI</td><td class="port">ALSA</td><td>The front-panel knobs, key and PTT, in SDROxide.</td></tr>
         </tbody>
       </table>
@@ -249,7 +268,7 @@ sudo apt install curl openssl python3 alsa-utils gpsd</pre>
         <pre>dtoverlay=audioinjector-wm8731-audio</pre>
         <p>The radio's I²C bus (Si5351, SWR bridge, real-time clock) is the kernel's; add this line too, if it isn't there. Use only this one on GPIO 13 and 6: a second overlay on those pins hides the clock.</p>
         <pre>dtoverlay=i2c-rtc-gpio,ds1307,i2c_gpio_sda=13,i2c_gpio_scl=6</pre>
-        <p>Then <code>sudo reboot</code>. No loopback cards are needed: other programs get the radio's audio from jeSDR's PipeWire devices.</p></li>
+        <p>Then <code>sudo reboot</code>. You don't need to turn on I²C in <code>raspi-config</code> (that is the Pi's own I²C pins); the jeSDR package loads what the radio's bus needs. No loopback cards are needed either: other programs get the radio's audio from jeSDR's PipeWire devices.</p></li>
       <li><h3>Install jeSDR</h3>
         <p>Download <code>jesdr_&lt;version&gt;_arm64.deb</code> from the <a href="https://github.com/drexjj/jeSDR/releases/latest">latest release</a>, then in the folder where you saved it:</p>
         <pre>sudo apt install ./jesdr_&lt;version&gt;_arm64.deb</pre>
@@ -391,5 +410,11 @@ window.addEventListener('load', () => {
 });
 </script>
 <script src="assets/spectrum.js"></script>
+<script>
+document.querySelectorAll('details.menu').forEach(function (m) {
+  m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { m.open = false; }); });
+  document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+});
+</script>
 </body>
 </html>

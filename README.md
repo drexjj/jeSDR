@@ -9,8 +9,9 @@ jeSDR is a new software suite for the sBitx HF transceiver. The radio works as
 it always has, from its front-panel knobs, mic and key, and a touch-friendly
 interface on the built-in screen, with dozens of new features and many
 long-standing bugs fixed: FT8/FT4/FT2, JTTY, RTTY, PSK, CW decoder and macros,
-FreeDV RADE V1, a voice keyer, DX cluster spots and a logbook built in, and a
-JS8 mode that works with JS8Call on the Pi. The
+FreeDV RADE V1 with FreeDV Reporter, a voice keyer, DX cluster spots and a
+logbook built in, a JS8 mode that works with JS8Call on the Pi, and a USB
+headset or sound card as headphones and microphone. The
 same radio can also be operated from any browser on your network, and TCI,
 HPSDR Protocol 1 and Hamlib connect your other programs.
 

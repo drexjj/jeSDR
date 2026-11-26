@@ -161,6 +161,24 @@ nav .links a.pill:hover { border-color: var(--amber); color: var(--yellow); }
 nav .links a.pill[aria-current="page"] { background: #241b05; }
 @media (max-width: 860px) { nav .links { gap: 16px; } }
 @media (max-width: 900px) { nav .links a.opt2 { display: none; } }
+
+/* menu button: every link on narrow screens, where the bar only has room for a few */
+nav .wrap { position: relative; }
+details.menu { display: none; }
+details.menu > summary { list-style: none; cursor: pointer; width: 40px; height: 40px; border: 1px solid var(--line);
+  border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+details.menu > summary::-webkit-details-marker { display: none; }
+details.menu > summary span { display: block; width: 18px; height: 2px; background: var(--text); border-radius: 1px; transition: transform .15s, opacity .15s; }
+details.menu[open] > summary span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+details.menu[open] > summary span:nth-child(2) { opacity: 0; }
+details.menu[open] > summary span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+details.menu .drawer { position: absolute; right: 16px; top: 56px; min-width: 220px; display: flex; flex-direction: column;
+  background: #0f151c; border: 1px solid var(--line); border-radius: 10px; padding: 6px; box-shadow: 0 12px 30px rgba(0,0,0,.45); }
+details.menu .drawer a { color: var(--text); padding: 11px 14px; border-radius: 6px; font-size: 1rem; }
+details.menu .drawer a:hover, details.menu .drawer a:focus { background: #17202a; text-decoration: none; }
+details.menu .drawer a[aria-current="page"] { color: var(--amber); }
+@media (max-width: 900px) { details.menu { display: block; } nav .wrap { gap: 14px; } }
+@media (max-width: 400px) { nav .links { gap: 12px; font-size: .88rem; } nav .links a.pill { padding: 3px 9px; } }
 .flinks { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 14px 0 0; padding: 0; list-style: none; }
 
 /* ---- support band on the home page ---- */

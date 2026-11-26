@@ -27,6 +27,20 @@
       <a class="opt opt2" href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Community</a>
       <a class="pill" href="donate.html">Donate</a>
     </div>
+    <details class="menu">
+      <summary aria-label="Menu"><span></span><span></span><span></span></summary>
+      <div class="drawer">
+        <a href="index.html#screens">Screens</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#connect">Connect</a>
+        <a href="index.html#download">Download</a>
+        <a href="index.html#install">Install</a>
+        <a href="index.html#manage">Help</a>
+        <a href="report.html" aria-current="page">Report a bug</a>
+        <a href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Community</a>
+        <a href="donate.html">Donate</a>
+      </div>
+    </details>
   </div>
 </nav>
 
@@ -259,5 +273,11 @@
 })();
 </script>
 <script src="assets/spectrum.js"></script>
+<script>
+document.querySelectorAll('details.menu').forEach(function (m) {
+  m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { m.open = false; }); });
+  document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+});
+</script>
 </body>
 </html>
