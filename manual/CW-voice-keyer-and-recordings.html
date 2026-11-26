@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CW, voice keyer and recordings · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html" aria-current="page">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#cw">CW</a><a href="#voice-keyer">Voice keyer</a><a href="#recordings">Recordings</a></nav>
+    <article><h1 id="cw-voice-keyer-and-recordings">CW, voice keyer and recordings<a class="hl" href="#cw-voice-keyer-and-recordings" aria-label="Link to this section">#</a></h1>
+<h2 id="cw">CW<a class="hl" href="#cw" aria-label="Link to this section">#</a></h2>
+<p>Choose <strong>CW</strong> (or <strong>CWR</strong>, the opposite sideband) from the mode sheet. The
+CW panel opens above the control strip.</p>
+<p><img src="images/mode-cw.jpg" alt="CW mode" loading="lazy"></p>
+<h3 id="the-keyer">The keyer<a class="hl" href="#the-keyer" aria-label="Link to this section">#</a></h3>
+<p>Plug a straight key, bug or paddles into the key jack (tip = dash or straight
+key, ring = dot) and set <strong>More → CW → Key type</strong>:</p>
+<div class="tw"><table>
+<thead><tr><th>Key type</th><th>For</th></tr></thead>
+<tbody>
+<tr><td>STRAIGHT</td><td>a straight key, or an external keyer</td></tr>
+<tr><td>IAMBIC, IAMBICB</td><td>paddles, iambic mode A or B</td></tr>
+<tr><td>ULTIMAT</td><td>paddles, the last paddle pressed wins</td></tr>
+<tr><td>BUG</td><td>a semi-automatic bug: dots from the dot paddle, dashes by hand</td></tr>
+</tbody></table></div>
+<p><strong>Speed</strong> (WPM), <strong>Pitch</strong> (the tone and where the CW signal sits), <strong>Sidetone</strong>
+(level, independent of the volume) and <strong>Break-in delay</strong> (how long after
+the last element the radio returns to receive) complete it. <strong>Reverse
+paddles</strong> swaps dot and dash for left-handed operators.</p>
+<h3 id="keyer-timing">Keyer timing<a class="hl" href="#keyer-timing" aria-label="Link to this section">#</a></h3>
+<p>Under <strong>More → CW → Timing</strong>:</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Standard</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><strong>Weight</strong></td><td>50</td><td>How much of each element and the space after it is key-down. Above 50 the dots and dashes get longer and the spaces shorter (a heavier sound); below 50, lighter. The speed stays the same.</td></tr>
+<tr><td><strong>Dash length</strong></td><td>3.0</td><td>A dash in dots, from 2.5 to 4.5.</td></tr>
+<tr><td><strong>Letter space</strong></td><td>3</td><td>The space between letters sent from <strong>Type…</strong> and macros, in dots.</td></tr>
+<tr><td><strong>Word space</strong></td><td>7</td><td>The space between words from <strong>Type…</strong> and macros, in dots. Larger letter and word spaces at a normal speed give Farnsworth-style practice.</td></tr>
+<tr><td><strong>Autospace</strong></td><td>OFF</td><td>Paddles: when you pause after an element, the keyer waits out a full letter space before the next one, so letters don't run together. A paddle you touch during that wait is remembered and sent.</td></tr>
+</tbody></table></div>
+<p><strong>Keyer</strong> decides when the jack drives the keyer: <strong>AUTO</strong> (default) in the
+CW modes, <strong>ON</strong> always (for CW through an HPSDR client), <strong>OFF</strong> never (the
+jack is then a plain PTT line).</p>
+<h3 id="decoder">Decoder<a class="hl" href="#decoder" aria-label="Link to this section">#</a></h3>
+<p>The panel shows the decoded text and the estimated speed. Tune the station
+onto the dial marker (tap the signal on the scope). The decoder also finds a
+signal up to about 250 Hz off the pitch and follows it as it drifts; the
+panel then says how far off it is ("following +60 Hz"), and you can zero
+beat to center it. It follows speeds from about 5 to 55 WPM, and it does not
+print noise when no one is sending.</p>
+<p>Weak signals: the decoder listens through several filters at once, each
+matched to a range of speeds (a narrower filter takes out more noise at
+slower speeds), and shows the text from the one whose timing fits Morse
+best. In tests with computer-generated CW it copies at 20 WPM down to about
+6 dB below the noise in a 2500 Hz bandwidth, and keeps up with moderate
+fading. <strong>Decoder on</strong> turns it off and on (<code>CWDEC</code>). <strong>CW peak filter</strong> (<code>APF</code>) adds 6 dB at
+the pitch, about 100 Hz wide.</p>
+<h3 id="zero-beat">Zero beat<a class="hl" href="#zero-beat" aria-label="Link to this section">#</a></h3>
+<p>Next to the speed, the <strong>zero-beat indicator</strong> shows how far the strongest
+steady tone in the receive filter is from your pitch, which is how far that
+station is from your transmit frequency. The needle sits in the middle and
+turns green with "0 beat" within ±10 Hz; amber within ±50 Hz. The scale is
+finer near the middle and reaches ±300 Hz.</p>
+<p><img src="images/cw-zerobeat.png" alt="Zero-beat indicator at +35 Hz, −120 Hz and zero beat" loading="lazy"></p>
+<ul>
+<li><strong>Tap</strong> the indicator to tune onto the station (console <code>zerobeat</code>), so you
+answer on its frequency.</li>
+<li>It works with the decoder off, and shows "—" when there is no steady
+signal, or while you transmit.</li>
+<li>It reads the signal you hear: with several in the filter, narrow the filter
+or tap the one you want on the scope first.</li>
+</ul>
+<h3 id="macros">Macros<a class="hl" href="#macros" aria-label="Link to this section">#</a></h3>
+<p>Below the text: <strong>Call</strong> and <strong>RST</strong> of the station you are working,
+<strong>Type…</strong> to send any text, eight macro buttons and <strong>Stop</strong>.</p>
+<ul>
+<li>A macro is <code>LABEL|text</code>. <code>{MYCALL}</code>, <code>{MYGRID}</code>, <code>{CALL}</code> and <code>{RST}</code> are
+filled in when it is sent.</li>
+<li><strong>Press and hold</strong> a macro button to edit it, or edit them in
+<strong>More → CW → Macros</strong>.</li>
+<li>Text is sent by the keyer at the keyer speed. Console: <code>cwtext &lt;text&gt;</code>,
+<code>cwstop</code>.</li>
+</ul>
+<p><img src="images/settings-cw.jpg" alt="CW settings" loading="lazy"></p>
+<p><strong>Keyer</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Speed</td><td><code>WPM</code></td><td>12</td><td>5–50</td><td>Keyer speed, words per minute</td></tr>
+<tr><td>Pitch</td><td><code>PITCH</code></td><td>700</td><td>100–3000</td><td>CW tone, Hz</td></tr>
+<tr><td>Sidetone</td><td><code>SIDETONE</code></td><td>25</td><td>0–100</td><td>Sidetone level (not affected by volume)</td></tr>
+<tr><td>Break-in delay</td><td><code>CW_DELAY</code></td><td>300</td><td>50–3000</td><td>Back to receive after this many ms</td></tr>
+<tr><td>Key type</td><td><code>CW_INPUT</code></td><td>STRAIGHT</td><td>STRAIGHT, IAMBIC, IAMBICB, ULTIMAT, BUG</td><td>Straight key, bug or paddles</td></tr>
+<tr><td>Reverse paddles</td><td><code>CWREV</code></td><td>OFF</td><td>ON, OFF</td><td>Swap the dot and dash paddles (for left-handed operators)</td></tr>
+<tr><td>Keyer</td><td><code>KEYER</code></td><td>AUTO</td><td>AUTO, ON, OFF</td><td>AUTO = in CW modes</td></tr>
+</tbody></table></div>
+<p><strong>Timing</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Weight</td><td><code>CWWEIGHT</code></td><td>50</td><td>25–75</td><td>Key-down share of each element and the space after it: 50 = standard, more = heavier</td></tr>
+<tr><td>Dash length</td><td><code>CWRATIO</code></td><td>3.0</td><td>2.5, 2.7, 3.0, 3.3, 3.5, 4.0, 4.5</td><td>A dash in dots (3.0 = standard)</td></tr>
+<tr><td>Letter space</td><td><code>CWLSPACE</code></td><td>3</td><td>3–9</td><td>Space between letters sent from text and macros, in dots (3 = standard)</td></tr>
+<tr><td>Word space</td><td><code>CWWSPACE</code></td><td>7</td><td>5–21</td><td>Space between words sent from text and macros, in dots (7 = standard)</td></tr>
+<tr><td>Autospace</td><td><code>CWAUTOSP</code></td><td>OFF</td><td>ON, OFF</td><td>Paddles: when you pause after an element, wait out a full letter space before the next</td></tr>
+</tbody></table></div>
+<p><strong>Receive</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>CW decoder</td><td><code>CWDEC</code></td><td>ON</td><td>ON, OFF</td><td>Decode CW on the panel above the controls</td></tr>
+<tr><td>CW peak filter</td><td><code>APF</code></td><td>OFF</td><td>ON, OFF</td><td>+6 dB at the CW pitch</td></tr>
+</tbody></table></div>
+<p><strong>Macros</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Macro 1</td><td><code>CWM1</code></td><td>CQ|CQ CQ CQ DE {MYCALL} {MYCALL} K</td><td>text</td><td>LABEL|text; {CALL} {RST} {MYCALL} {MYGRID}</td></tr>
+<tr><td>Macro 2</td><td><code>CWM2</code></td><td>ANS|{CALL} DE {MYCALL} {MYCALL} K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 3</td><td><code>CWM3</code></td><td>RPT|{CALL} TU UR {RST} {RST} 73 DE {MYCALL} K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 4</td><td><code>CWM4</code></td><td>TU|{CALL} TU 73 DE {MYCALL} SK</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 5</td><td><code>CWM5</code></td><td>QRZ|QRZ? DE {MYCALL} K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 6</td><td><code>CWM6</code></td><td>AGN|AGN? K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 7</td><td><code>CWM7</code></td><td>GRID|{CALL} GRID {MYGRID} {MYGRID} K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 8</td><td><code>CWM8</code></td><td>MYCALL|{MYCALL}</td><td>text</td><td>Same as macro 1</td></tr>
+</tbody></table></div>
+<h2 id="voice-keyer">Voice keyer<a class="hl" href="#voice-keyer" aria-label="Link to this section">#</a></h2>
+<p>Eight voice messages kept on the radio. Open them from the <strong>Voice keyer</strong>
+tile in SSB, AM and FM.</p>
+<p><img src="images/voice-keyer.png" alt="Voice keyer" loading="lazy"></p>
+<ul>
+<li><strong>Tap</strong> a message to transmit it in place of the microphone (mic gain, the
+compressor and the transmit equalizer still apply).</li>
+<li><strong>Repeat</strong> sends it again every <em>Voice keyer repeat</em> seconds until
+<strong>Stop</strong>, PTT or any other transmission (handy for calling CQ).</li>
+<li><strong>Edit</strong> records a message from the radio's microphone, or from this
+browser's microphone over HTTPS; you can listen to it on the radio's
+speaker or in the browser, rename it or delete it. Recordings are trimmed
+and leveled; each can be up to 60 s.</li>
+</ul>
+<p>Console: <code>vk play N [repeat]</code>, <code>vk rec N</code>, <code>vk stop</code>, <code>vk delete N</code>.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Voice keyer level</td><td><code>VKLEVEL</code></td><td>100</td><td>0–200</td><td>Transmit level of the voice messages, % (100 = as recorded)</td></tr>
+<tr><td>Voice keyer repeat</td><td><code>VKREPEAT</code></td><td>6</td><td>1–60</td><td>Seconds between repeats when Repeat is on</td></tr>
+</tbody></table></div>
+<p><strong>Messages</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Message 1 label</td><td><code>VKM1</code></td><td>CQ</td><td>text</td><td>Button label for voice message 1</td></tr>
+<tr><td>Message 2 label</td><td><code>VKM2</code></td><td>QRZ</td><td>text</td><td>Button label for voice message 2</td></tr>
+<tr><td>Message 3 label</td><td><code>VKM3</code></td><td>73</td><td>text</td><td>Button label for voice message 3</td></tr>
+<tr><td>Message 4 label</td><td><code>VKM4</code></td><td>MSG 4</td><td>text</td><td>Button label for voice message 4</td></tr>
+<tr><td>Message 5 label</td><td><code>VKM5</code></td><td>MSG 5</td><td>text</td><td>Button label for voice message 5</td></tr>
+<tr><td>Message 6 label</td><td><code>VKM6</code></td><td>MSG 6</td><td>text</td><td>Button label for voice message 6</td></tr>
+<tr><td>Message 7 label</td><td><code>VKM7</code></td><td>MSG 7</td><td>text</td><td>Button label for voice message 7</td></tr>
+<tr><td>Message 8 label</td><td><code>VKM8</code></td><td>MSG 8</td><td>text</td><td>Button label for voice message 8</td></tr>
+</tbody></table></div>
+<h2 id="recordings">Recordings<a class="hl" href="#recordings" aria-label="Link to this section">#</a></h2>
+<p><strong>More → Recordings</strong> (or <strong>● Record</strong> on the <a href="Quick-page.html">Quick page</a>)
+records what you hear (after the filter, NR and EQ) and your microphone
+while you transmit, to the radio's SD card as WAV files named by UTC time,
+frequency and mode. The header shows <code>● REC 1:23</code> while recording.</p>
+<p>The list plays a recording in the browser, downloads it or deletes it. A
+recording stops by itself after 2 hours, or when less than 200 MB is free.
+Console: <code>rec start|stop|list|delete &lt;name&gt;</code>.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/CW-voice-keyer-and-recordings" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

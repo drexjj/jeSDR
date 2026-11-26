@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opening the case and swapping the SD card · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html" aria-current="page">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#1-top-screws">1. Top screws</a><a href="#2-bottom-screws">2. Bottom screws</a><a href="#3-separate-the-halves">3. Separate the halves</a><a href="#4-rest-the-top-section-on-its-speaker">4. Rest the top section on its speaker</a><a href="#5-remove-the-sd-card">5. Remove the SD card</a><a href="#putting-it-back-together">Putting it back together</a></nav>
+    <article><h1 id="opening-the-case-and-swapping-the-sd-card">Opening the case and swapping the SD card<a class="hl" href="#opening-the-case-and-swapping-the-sd-card" aria-label="Link to this section">#</a></h1>
+<p>The Raspberry Pi and its microSD card sit inside the sBitx. You only need to
+open the case to swap the card, adjust the <a href="PA-power-and-calibration.html#pa-bias-adjustment">PA bias</a>
+or work on the boards. To put a new image on the card <em>without</em> opening the
+case, see <a href="SD-card-images-and-backups.html#without-opening-the-case">SD card images and backups</a>.</p>
+<p>Before you start:</p>
+<ul>
+<li><a href="Power-backup-shutdown-and-about.html#backup">Download a backup</a> of your
+settings, log and calibration.</li>
+<li>Shut the radio down (<strong>More → Shut down</strong>) and unplug the power and the
+antenna.</li>
+<li>Work on a flat, static-free surface, and keep the screws in a tray.</li>
+</ul>
+<p>You need a Phillips screwdriver.</p>
+<h2 id="1-top-screws">1. Top screws<a class="hl" href="#1-top-screws" aria-label="Link to this section">#</a></h2>
+<p>On the <strong>top</strong> of the case, remove the two screws circled in red and loosen
+(don't remove) the two circled in blue.</p>
+<p><img src="images/case-top-screws.jpg" alt="Top of the case: remove red, loosen blue" loading="lazy"></p>
+<h2 id="2-bottom-screws">2. Bottom screws<a class="hl" href="#2-bottom-screws" aria-label="Link to this section">#</a></h2>
+<p>Turn the radio over. Remove the two screws circled in red and loosen the two
+circled in blue.</p>
+<p><img src="images/case-bottom-screws.jpg" alt="Bottom of the case: remove red, loosen blue" loading="lazy"></p>
+<h2 id="3-separate-the-halves">3. Separate the halves<a class="hl" href="#3-separate-the-halves" aria-label="Link to this section">#</a></h2>
+<p>Gently pull the top and bottom sections apart. Don't force them: the display
+and speaker cables still join the two halves.</p>
+<h2 id="4-rest-the-top-section-on-its-speaker">4. Rest the top section on its speaker<a class="hl" href="#4-rest-the-top-section-on-its-speaker" aria-label="Link to this section">#</a></h2>
+<p>Lay the top section back on its speaker so the cables aren't strained. Support
+the screen so it can't tip over.</p>
+<p><img src="images/case-open.jpg" alt="The case open, top section resting on its speaker" loading="lazy"></p>
+<h2 id="5-remove-the-sd-card">5. Remove the SD card<a class="hl" href="#5-remove-the-sd-card" aria-label="Link to this section">#</a></h2>
+<p>The microSD slot is on the edge of the Raspberry Pi, next to the ribbon
+cable (circled). Pull the card straight out (tweezers or a small screwdriver
+help), and slide the new one in the same way round as the old one.</p>
+<p><img src="images/case-sd-slot.jpg" alt="The Pi&#x27;s microSD slot" loading="lazy"></p>
+<h2 id="putting-it-back-together">Putting it back together<a class="hl" href="#putting-it-back-together" aria-label="Link to this section">#</a></h2>
+<p>Reverse the steps: seat the halves without pinching a cable, then fit and
+tighten the four red screws and tighten the four blue ones. Connect the power
+and switch on. A freshly written card takes a little longer on its first
+start (see <a href="Installing-and-updating.html#sd-card-image">Installing and updating</a>).</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Opening-the-case" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

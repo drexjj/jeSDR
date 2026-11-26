@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clock and band conditions · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html" aria-current="page">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#band-conditions">Band conditions</a><a href="#clock-tool">Clock tool</a><a href="#console">Console</a></nav>
+    <article><h1 id="clock-and-band-conditions">Clock and band conditions<a class="hl" href="#clock-and-band-conditions" aria-label="Link to this section">#</a></h1>
+<p><strong>More → Clock &amp; conditions</strong> has two tools: one checks and sets the clocks
+against network time, and one shows the current HF band conditions. The band
+conditions also have a small indicator in the header.</p>
+<h2 id="band-conditions">Band conditions<a class="hl" href="#band-conditions" aria-label="Link to this section">#</a></h2>
+<p><img src="images/band-conditions.png" alt="Band conditions pop-up" loading="lazy"></p>
+<p>The indicator sits next to the clock. The top line is the <strong>solar flux</strong>
+(SFI). The second line is the <strong>K index</strong> and the <strong>MUF</strong> (maximum usable
+frequency) in MHz.</p>
+<ul>
+<li>The dot shows how the band you are tuned to is doing right now: green is
+Good, amber is Fair, red is Poor. An empty dot means you are outside
+80–10 m.</li>
+<li>The K index turns amber at 4 and red at 5 or more (a geomagnetic storm).</li>
+<li>The indicator dims when the data is more than 6 hours old.</li>
+<li>On a phone it shows only the dot and the solar flux.</li>
+</ul>
+<p>Tap the indicator for the details: sunspots, A index, X-ray, foF2, the
+geomagnetic field, the expected noise level, and a day and night table for
+80-40, 30-20, 17-15 and 12-10 m. Your band is marked with ▸, and the column
+for the current time is brighter. Day or night is worked out from where you
+are (the GPS fix, or <em>My grid</em>), not from the time zone of the device you are
+using. <strong>Refresh</strong> fetches the data again.</p>
+<p>The data comes from N0NBH's solar feed (hamqsl.com). The radio fetches it
+once an hour, or 10 minutes after a failed try, and only while <strong>Band
+conditions</strong> is ON. The radio needs internet for this; your browser does not.
+If the radio can't reach the feed, the indicator stays hidden, and More →
+Clock &amp; conditions says why.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Band conditions</td><td><code>SOLAR</code></td><td>ON</td><td>ON, OFF</td><td>Solar flux, K index and MUF in the header, and HF conditions by day and night</td></tr>
+</tbody></table></div>
+<h2 id="clock-tool">Clock tool<a class="hl" href="#clock-tool" aria-label="Link to this section">#</a></h2>
+<p><img src="images/settings-clock.jpg" alt="Clock &amp; conditions page" loading="lazy"></p>
+<p>FT8 and the other timed modes need the clock right to within about a second,
+and a tenth of a second is better. When the Pi is online it keeps network
+time by itself (systemd-timesyncd). The clock tool lets you see how good the
+time is, set it right away, and keep the <strong>real-time clock (RTC)</strong> right for
+when you have no internet.</p>
+<p>The Pi 5 has an RTC built in; it keeps time while the Pi is off once you
+connect its battery. A Pi 4 needs an RTC add-on board.</p>
+<p>The page shows:</p>
+<ul>
+<li><strong>Network time</strong>: whether the Pi says it is synchronized.</li>
+<li><strong>This Pi's clock</strong>: how far the clock is from the time server, measured
+directly with a few NTP packets. The fastest reply is used.</li>
+<li><strong>Real-time clock</strong>: how far the RTC is from the Pi's clock, measured to
+about 10 ms. The RTC itself only counts whole seconds.</li>
+<li><strong>Last</strong>: the result of the last action.</li>
+</ul>
+<p>The buttons:</p>
+<div class="tw"><table>
+<thead><tr><th>Button</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><strong>Check now</strong></td><td>asks the time server; changes nothing</td></tr>
+<tr><td><strong>Set Pi clock from network</strong></td><td>moves the Pi's clock to network time now</td></tr>
+<tr><td><strong>Write Pi clock to RTC</strong></td><td>sets the RTC from the Pi's clock (do this when the Pi's clock is right)</td></tr>
+<tr><td><strong>Set Pi clock from RTC</strong></td><td>takes the time from the RTC; for no internet and no GPS</td></tr>
+<tr><td><strong>Sync all</strong></td><td>network time → the Pi's clock → the RTC</td></tr>
+</tbody></table></div>
+<p>Setting a clock is not allowed while you are transmitting. A clock that jumps
+during an FT8 transmission would put it out of step.</p>
+<p>Out in the field, a <a href="Station-logbook-and-country-file.html#gps">GPS receiver</a> sets
+the clock too. The clock tool and the GPS use the same helper,
+<code>/opt/jeSDR/jesdr-settime</code>, which the package's sudo rule allows. No other
+root access is needed.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Network time server</td><td><code>NTP_SERVER</code></td><td>pool.ntp.org</td><td>text</td><td>host or host:port; your router or a local server works too</td></tr>
+</tbody></table></div>
+<h3 id="if-it-doesnt-work">If it doesn't work<a class="hl" href="#if-it-doesnt-work" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><strong>"did not answer (UDP 123 blocked or no internet?)"</strong>: the network blocks
+NTP. Try your router's address as the server.</li>
+<li><strong>"refused (rate limit)"</strong>: the server is asking you to slow down. Wait a
+minute and try again.</li>
+<li><strong>"RTC: none found"</strong>: there is no <code>/dev/rtc0</code>. A Pi 4 needs an RTC board
+and its overlay in <code>/boot/firmware/config.txt</code>. On an sBitx whose clock
+vanished after the I2C change, see
+<a href="Troubleshooting.html">Troubleshooting</a>.</li>
+<li><strong>"holds no valid time"</strong>: the RTC lost power, so its battery may be flat.
+Set the Pi's clock first, then <strong>Write Pi clock to RTC</strong>.</li>
+<li><strong>"sudo refused"</strong> or <strong>"not installed"</strong>: reinstall the jeSDR package.</li>
+</ul>
+<h2 id="console">Console<a class="hl" href="#console" aria-label="Link to this section">#</a></h2>
+<pre><code>solar                 the band conditions, one line plus the band table
+solar refresh         fetch them now
+solar on|off          the SOLAR setting
+clock                 the clock status (network time, the Pi's clock, the RTC)
+clock check           ask the time server; changes nothing
+clock set             set the Pi's clock from network time
+clock rtcwrite        set the RTC from the Pi's clock
+clock rtcread         set the Pi's clock from the RTC
+clock sync            network time -&gt; the Pi's clock -&gt; the RTC</code></pre></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Clock-and-band-conditions" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

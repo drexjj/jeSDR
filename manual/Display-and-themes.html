@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Display and themes · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html" aria-current="page">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    
+    <article><h1 id="display-and-themes">Display and themes<a class="hl" href="#display-and-themes" aria-label="Link to this section">#</a></h1>
+<p><strong>More → Display</strong> holds the look of the screen. These settings are kept in
+each browser, so the radio's touchscreen and a phone can differ.</p>
+<p><img src="images/settings-display.png" alt="Display settings" loading="lazy"></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><strong>Themes…</strong></td><td>chooses the colors (below)</td></tr>
+<tr><td><strong>Waterfall contrast</strong></td><td><strong>AUTO</strong> (default) follows the band's signal-to-noise, so plain noise stays dark; − / + set a fixed contrast (higher shows weak signals more strongly)</td></tr>
+<tr><td><strong>Scope colors</strong></td><td><strong>HEAT</strong> colors the area under the trace by strength, like the waterfall; <strong>PLAIN</strong> doesn't</td></tr>
+<tr><td><strong>Waterfall speed</strong></td><td><strong>20</strong>, <strong>10</strong> or <strong>5</strong> updates a second on this screen. Fewer means less work for the computer drawing it and less data over Wi-Fi. The radio's own screen starts at 10 (it keeps the Pi noticeably cooler), other devices at 20; each screen keeps its own choice. The battery saver still drops every screen to 5</td></tr>
+<tr><td><strong>Band privilege ribbons</strong></td><td>All classes, My class (from <em>US license class</em>) or Off. With another country's band plan, one row shows where you may transmit</td></tr>
+<tr><td><strong>DX cluster spots on the scope</strong></td><td>show or hide the spot labels in this browser</td></tr>
+<tr><td><strong>On-screen keyboard</strong></td><td>AUTO shows it on touchscreens without a keyboard</td></tr>
+</tbody></table></div>
+<h2 id="themes">Themes<a class="hl" href="#themes" aria-label="Link to this section">#</a></h2>
+<p><strong>Themes…</strong> offers Midnight (the default), Outdoor (POTA), Night (red), High
+contrast, Ocean, Amber, Green phosphor, and Icom, Yaesu, Kenwood, Elecraft and
+Heathkit style. Each has its own waterfall colors. For night use pick
+<strong>Night (red)</strong>.</p>
+<p><strong>Outdoor (POTA)</strong> is for operating in sunlight, on a park or summit
+activation: a white screen with black text, heavier lettering, thicker
+borders and a waterfall that runs from white through green to dark red, so
+signals still show on a screen in the sun. A radio that used the old
+Daylight theme gets it automatically.</p>
+<p><img src="images/themes.png" alt="Themes" loading="lazy"></p>
+<p><img src="images/themes-gallery.jpg" alt="A few themes on the 800×480 screen" loading="lazy"></p>
+<p><strong>Customize</strong> opens the selected theme in an editor with a live preview:
+every color, the waterfall palette and a red filter for night use. Save it
+as your own theme. <strong>Export</strong> gives the theme as text, and <strong>Import…</strong> on
+another browser takes it in.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Display-and-themes" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

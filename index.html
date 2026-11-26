@@ -31,7 +31,7 @@
       <a class="opt" href="#connect">Connect</a>
       <a href="#download">Download</a>
       <a href="#install">Install</a>
-      <a class="opt" href="#manage">Help</a>
+      <a class="opt" href="manual/index.html">Manual</a>
       <a class="opt opt2" href="report.html">Report a bug</a>
       <a class="opt opt2" href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Community</a>
       <a class="pill" href="donate.html">Donate</a>
@@ -44,6 +44,7 @@
         <a href="#connect">Connect</a>
         <a href="#download">Download</a>
         <a href="#install">Install</a>
+        <a href="manual/index.html">Manual</a>
         <a href="#manage">Help</a>
         <a href="report.html">Report a bug</a>
         <a href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Community</a>
@@ -192,7 +193,7 @@
         <a class="btn primary" href="#install">Step-by-step guide</a>
       </div>
     </div>
-    <p style="margin-top:18px;color:var(--muted);font-size:.92rem">Prefer to do it by hand? The <a id="dl-deb" href="https://github.com/drexjj/jeSDR/releases/latest">.deb package</a> is on the releases page with older versions; see <a href="#manual">installing by hand</a>.</p>
+    <p style="margin-top:18px;color:var(--muted);font-size:.92rem">Prefer to do it by hand? The <a id="dl-deb" href="https://github.com/drexjj/jeSDR/releases/latest">.deb package</a> is on the releases page with older versions; see <a href="#by-hand">installing by hand</a>.</p>
   </div>
 </section>
 
@@ -258,7 +259,7 @@
   </div>
 </section>
 
-<section id="manual">
+<section id="by-hand">
   <div class="wrap">
     <h2>Installing by hand</h2>
     <p class="sub">The same steps as the script, if you'd rather see each one.</p>
@@ -278,6 +279,28 @@ sudo apt install curl openssl python3 alsa-utils gpsd</pre>
         <pre>sudo apt install ./jesdr_&lt;version&gt;_arm64.deb</pre>
         <p>It starts at once and at every boot, running as the user who ran <code>sudo</code>. On a desktop system it also adds jeSDR to the menu and an icon to the desktop.</p></li>
     </ol>
+  </div>
+</section>
+
+<section id="docs">
+  <div class="wrap">
+    <h2>Operating manual</h2>
+    <p class="sub">Every screen and setting, explained and searchable. The same manual is built into the radio: open <code>https://&lt;radio&gt;:8443/manual</code>, or tap <b>Manual</b> on any settings page. It works without internet, in the field.</p>
+    <form class="docsearch" action="manual/index.html" method="get" role="search">
+      <input name="q" type="search" placeholder="Search the manual: SWR, headset, bias, FT8 …" aria-label="Search the manual">
+      <button class="btn primary" type="submit">Search</button>
+    </form>
+    <div class="doclinks">
+      <a href="manual/Installing-and-updating.html"><b>Installing and updating</b><span>Image, installer, package, updates</span></a>
+      <a href="manual/The-main-screen.html"><b>The main screen</b><span>Scope, waterfall, controls</span></a>
+      <a href="manual/Transmit.html"><b>Transmit</b><span>Drive, mic, PTT, tune, SWR protection</span></a>
+      <a href="manual/Digital-modes.html"><b>Digital modes</b><span>FT8, JS8, RTTY, PSK, RADE</span></a>
+      <a href="manual/Connecting-other-programs.html"><b>Connecting other programs</b><span>WSJT-X, SDROxide, TCI, loggers</span></a>
+      <a href="manual/PA-power-and-calibration.html"><b>PA power and calibration</b><span>Power, bias, S-meter, frequency</span></a>
+      <a href="manual/SD-card-images-and-backups.html"><b>SD card images and backups</b><span>Write, copy and back up the card</span></a>
+      <a href="manual/Troubleshooting.html"><b>Troubleshooting</b><span>What to check when it doesn't work</span></a>
+    </div>
+    <p class="docwiki">The manual is made from the <a href="https://github.com/drexjj/jeSDR/wiki" target="_blank" rel="noopener">jeSDR wiki</a> on GitHub, which has the same pages.</p>
   </div>
 </section>
 

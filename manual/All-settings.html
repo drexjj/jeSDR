@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All settings A–Z · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html" aria-current="page">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    
+    <article><h1 id="all-settings-az">All settings A–Z<a class="hl" href="#all-settings-az" aria-label="Link to this section">#</a></h1>
+<p>Every setting by its console name, with the menu page it is on. Type
+<code>&lt;NAME&gt; &lt;value&gt;</code> on the <a href="Console-commands.html">console</a> to set one.</p>
+<div class="tw"><table>
+<thead><tr><th>Console name</th><th>Setting</th><th>Menu page</th><th>Default</th><th>Values</th></tr></thead>
+<tbody>
+<tr><td><code>ADIF_UDP</code></td><td>ADIF over UDP</td><td><a href="Connecting-other-programs.html">Logging programs</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>AGC</code></td><td>AGC</td><td><a href="Receive.html">Receive</a></td><td>SLOW</td><td>OFF, SLOW, MED, FAST</td></tr>
+<tr><td><code>ANF</code></td><td>Auto notch</td><td><a href="Receive.html">Receive</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>APF</code></td><td>CW peak filter</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>ATT</code></td><td>Attenuator</td><td><a href="Receive.html">Receive</a></td><td>OFF</td><td>OFF, 6, 12, 18</td></tr>
+<tr><td><code>AUDIO</code></td><td>Volume</td><td><a href="Receive.html">Receive</a></td><td>60</td><td>0–100</td></tr>
+<tr><td><code>BATT</code></td><td>Battery protection</td><td><a href="Power-backup-shutdown-and-about.html">Power &amp; battery</a></td><td>OFF</td><td>OFF, LIFEPO4, AGM</td></tr>
+<tr><td><code>BATT_SHUT</code></td><td>Shut down when flat</td><td><a href="Power-backup-shutdown-and-about.html">Power &amp; battery</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>BFO</code></td><td>Birdie shift</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-3000–3000</td></tr>
+<tr><td><code>BRIDGE</code></td><td>SWR bridge</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>100</td><td>25–400</td></tr>
+<tr><td><code>BW</code></td><td>Filter width</td><td><a href="Receive.html">Receive</a></td><td>per mode</td><td>50–5000</td></tr>
+<tr><td><code>CESSB</code></td><td>CESSB</td><td><a href="Transmit.html">Transmit</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>CLUSTER</code></td><td>Cluster connection</td><td><a href="Station-logbook-and-country-file.html">Station</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>CLUSTER_AGE</code></td><td>Spot age</td><td><a href="Station-logbook-and-country-file.html">Station</a></td><td>30</td><td>5–120</td></tr>
+<tr><td><code>CLUSTER_HOST</code></td><td>Cluster node address</td><td><a href="Station-logbook-and-country-file.html">Station</a></td><td>ve7cc.net:23</td><td>text</td></tr>
+<tr><td><code>COMP</code></td><td>Compressor</td><td><a href="Transmit.html">Transmit</a></td><td>0</td><td>0–10</td></tr>
+<tr><td><code>CONSOLE</code></td><td>Console</td><td><a href="Connecting-other-programs.html">Network</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>CTCSS_RX</code></td><td>CTCSS receive</td><td><a href="Receive.html">Receive</a></td><td>OFF</td><td>OFF or one of the 38 standard tones (67.0–250.3 Hz)</td></tr>
+<tr><td><code>CTCSS_TX</code></td><td>CTCSS transmit</td><td><a href="Transmit.html">Transmit</a></td><td>OFF</td><td>OFF or one of the 38 standard tones (67.0–250.3 Hz)</td></tr>
+<tr><td><code>CW_DELAY</code></td><td>Break-in delay</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>300</td><td>50–3000</td></tr>
+<tr><td><code>CW_INPUT</code></td><td>Key type</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>STRAIGHT</td><td>STRAIGHT, IAMBIC, IAMBICB, ULTIMAT, BUG</td></tr>
+<tr><td><code>CWAUTOSP</code></td><td>Autospace</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>CWDEC</code></td><td>CW decoder</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>CWLSPACE</code></td><td>Letter space</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>3</td><td>3–9</td></tr>
+<tr><td><code>CWM1</code></td><td>Macro 1</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>CQ|CQ CQ CQ DE {MYCALL} {MYCALL} K</td><td>text</td></tr>
+<tr><td><code>CWM2</code></td><td>Macro 2</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>ANS|{CALL} DE {MYCALL} {MYCALL} K</td><td>text</td></tr>
+<tr><td><code>CWM3</code></td><td>Macro 3</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>RPT|{CALL} TU UR {RST} {RST} 73 DE {MYCALL} K</td><td>text</td></tr>
+<tr><td><code>CWM4</code></td><td>Macro 4</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>TU|{CALL} TU 73 DE {MYCALL} SK</td><td>text</td></tr>
+<tr><td><code>CWM5</code></td><td>Macro 5</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>QRZ|QRZ? DE {MYCALL} K</td><td>text</td></tr>
+<tr><td><code>CWM6</code></td><td>Macro 6</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>AGN|AGN? K</td><td>text</td></tr>
+<tr><td><code>CWM7</code></td><td>Macro 7</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>GRID|{CALL} GRID {MYGRID} {MYGRID} K</td><td>text</td></tr>
+<tr><td><code>CWM8</code></td><td>Macro 8</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>MYCALL|{MYCALL}</td><td>text</td></tr>
+<tr><td><code>CWRATIO</code></td><td>Dash length</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>3.0</td><td>2.5, 2.7, 3.0, 3.3, 3.5, 4.0, 4.5</td></tr>
+<tr><td><code>CWREV</code></td><td>Reverse paddles</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>CWWEIGHT</code></td><td>Weight</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>50</td><td>25–75</td></tr>
+<tr><td><code>CWWSPACE</code></td><td>Word space</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>7</td><td>5–21</td></tr>
+<tr><td><code>DRIVE</code></td><td>Drive</td><td><a href="Transmit.html">Transmit</a></td><td>40</td><td>1–100</td></tr>
+<tr><td><code>ePTT</code></td><td>External PTT</td><td><a href="Transmit.html">Transmit</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>FDVR</code></td><td>FreeDV Reporter</td><td><a href="Digital-modes.html#freedv-reporter">FT8 and digital</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>FDVR_HOST</code></td><td>Reporter server</td><td><a href="Digital-modes.html#freedv-reporter">FT8 and digital</a></td><td>qso.freedv.org</td><td>text</td></tr>
+<tr><td><code>FDVR_MSG</code></td><td>Reporter message</td><td><a href="Digital-modes.html#freedv-reporter">FT8 and digital</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>FOLLOW</code></td><td>Speaker follows TCI</td><td><a href="Connecting-other-programs.html">Network</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>FT8_AUTO</code></td><td>FT8 automation</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>ANS</td><td>OFF, ANS, CQRESP</td></tr>
+<tr><td><code>FT8_CQ</code></td><td>CQ word</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>FT8_CQEVERY</code></td><td>CQ every</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>1</td><td>1–4</td></tr>
+<tr><td><code>FT8_PREFER</code></td><td>Hunt prefers</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>FT8_RECENT</code></td><td>Worked recently</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>24</td><td>0–720</td></tr>
+<tr><td><code>FT8_SKIP</code></td><td>Hunt skips</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>BAND</td><td>NONE, BAND, ANY</td></tr>
+<tr><td><code>FT8_TXF</code></td><td>FT8/FT4/FT2 TX audio</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>1500</td><td>200–3000</td></tr>
+<tr><td><code>FT8_WDOG</code></td><td>TX watchdog</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>10</td><td>0–60</td></tr>
+<tr><td><code>FTXLOCK</code></td><td>Lock tuning in FT modes</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>GPS</code></td><td>GPS receiver</td><td><a href="Station-logbook-and-country-file.html">GPS</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>GPS_DELAY</code></td><td>GPS delay</td><td><a href="Station-logbook-and-country-file.html">GPS</a></td><td>100</td><td>0–1000</td></tr>
+<tr><td><code>GPS_GRID</code></td><td>Grid from GPS</td><td><a href="Station-logbook-and-country-file.html">GPS</a></td><td>OFF</td><td>AUTO, OFF</td></tr>
+<tr><td><code>GPS_HOST</code></td><td>gpsd address</td><td><a href="Station-logbook-and-country-file.html">GPS</a></td><td>127.0.0.1:2947</td><td>text</td></tr>
+<tr><td><code>GPS_TIME</code></td><td>Set the clock from GPS</td><td><a href="Station-logbook-and-country-file.html">GPS</a></td><td>AUTO</td><td>AUTO, OFF</td></tr>
+<tr><td><code>HAMLIB</code></td><td>Hamlib (rigctld)</td><td><a href="Connecting-other-programs.html">Network</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>HIGHCUT</code></td><td>High cut</td><td><a href="Receive.html">Receive</a></td><td>per mode</td><td>50–5000</td></tr>
+<tr><td><code>HPSDR</code></td><td>HPSDR server</td><td><a href="Connecting-other-programs.html">Network</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>HPSDR_IQINV</code></td><td>HPSDR swap I/Q</td><td><a href="Connecting-other-programs.html">Network</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>HPSDR_LNA</code></td><td>HPSDR LNA to IF gain</td><td><a href="Connecting-other-programs.html">Network</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>HSMIC</code></td><td>Microphone (headset)</td><td><a href="Headset-and-USB-audio.html">Headset &amp; USB audio</a></td><td>OFF</td><td>OFF or a PipeWire input</td></tr>
+<tr><td><code>HSMICGAIN</code></td><td>Headset mic gain</td><td><a href="Headset-and-USB-audio.html">Headset &amp; USB audio</a></td><td>0</td><td>−20–30 dB</td></tr>
+<tr><td><code>IF</code></td><td>IF gain</td><td><a href="Receive.html">Receive</a></td><td>60</td><td>0–100</td></tr>
+<tr><td><code>IFAUTO</code></td><td>Auto IF gain</td><td><a href="Receive.html">Receive</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>JS8_API</code></td><td>JS8Call API</td><td><a href="Digital-modes.html#js8">FT8 and digital</a></td><td>127.0.0.1:2442</td><td>text</td></tr>
+<tr><td><code>JS8_STALE</code></td><td>JS8 entries kept</td><td><a href="Digital-modes.html#js8">FT8 and digital</a></td><td>30</td><td>0–1440</td></tr>
+<tr><td><code>JS8_TXF</code></td><td>JS8 offset</td><td><a href="Digital-modes.html#js8">FT8 and digital</a></td><td>1500</td><td>100–2900</td></tr>
+<tr><td><code>JTTY_TXF</code></td><td>JTTY TX audio</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>1500</td><td>200–3000</td></tr>
+<tr><td><code>KEYER</code></td><td>Keyer</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>AUTO</td><td>AUTO, ON, OFF</td></tr>
+<tr><td><code>KNOBS</code></td><td>Knobs</td><td><a href="Tuning-knobs-and-MIDI.html">Tuning and knobs</a></td><td>AUTO</td><td>AUTO, LOCAL, MIDI</td></tr>
+<tr><td><code>LICENSE</code></td><td>US license class</td><td><a href="Band-plan.html">Band plan</a></td><td>OFF</td><td>OFF, NOVICE, TECHNICIAN, GENERAL, ADVANCED, EXTRA</td></tr>
+<tr><td><code>LOCALPTT</code></td><td>Mic PTT</td><td><a href="Transmit.html">Transmit</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>LOWCUT</code></td><td>Low cut</td><td><a href="Receive.html">Receive</a></td><td>per mode</td><td>0–4900</td></tr>
+<tr><td><code>MIC</code></td><td>Mic gain</td><td><a href="Transmit.html">Transmit</a></td><td>30</td><td>0–50</td></tr>
+<tr><td><code>MIDI</code></td><td>MIDI</td><td><a href="Tuning-knobs-and-MIDI.html">Tuning and knobs</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>MODEQRG</code></td><td>Tune to mode frequency</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>MYCALL</code></td><td>My call sign</td><td><a href="Station-logbook-and-country-file.html">Station</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>MYGRID</code></td><td>My grid</td><td><a href="Station-logbook-and-country-file.html">Station</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>NB</code></td><td>Noise blanker</td><td><a href="Receive.html">Receive</a></td><td>0</td><td>0–10</td></tr>
+<tr><td><code>NR</code></td><td>Noise reduction</td><td><a href="Receive.html">Receive</a></td><td>0</td><td>0–10</td></tr>
+<tr><td><code>NRMODE</code></td><td>Noise reduction type</td><td><a href="Receive.html">Receive</a></td><td>SPEC</td><td>SPEC, LMS</td></tr>
+<tr><td><code>NTP_SERVER</code></td><td>Network time server</td><td><a href="Clock-and-band-conditions.html">Clock &amp; conditions</a></td><td>pool.ntp.org</td><td>text</td></tr>
+<tr><td><code>PA_MODEL</code></td><td>sBitx board</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>V3</td><td>DE, V2, V3</td></tr>
+<tr><td><code>PHONES</code></td><td>Headphones</td><td><a href="Headset-and-USB-audio.html">Headset &amp; USB audio</a></td><td>OFF</td><td>OFF or a PipeWire output</td></tr>
+<tr><td><code>PHONESLVL</code></td><td>Headphone level</td><td><a href="Headset-and-USB-audio.html">Headset &amp; USB audio</a></td><td>0</td><td>−20–20 dB</td></tr>
+<tr><td><code>PHONESSPK</code></td><td>Speaker with headphones</td><td><a href="Headset-and-USB-audio.html">Headset &amp; USB audio</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>PITCH</code></td><td>Pitch</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>700</td><td>100–3000</td></tr>
+<tr><td><code>PRE</code></td><td>Preamp</td><td><a href="Receive.html">Receive</a></td><td>OFF</td><td>OFF, 6, 12</td></tr>
+<tr><td><code>PSK_AFC</code></td><td>PSK AFC</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>PSK_MODE</code></td><td>PSK speed</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>BPSK31</td><td>BPSK31, BPSK63, BPSK125</td></tr>
+<tr><td><code>PSK_SQL</code></td><td>PSK squelch</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>30</td><td>0–100</td></tr>
+<tr><td><code>PSK_TXF</code></td><td>PSK center</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>1000</td><td>200–2900</td></tr>
+<tr><td><code>RADESB</code></td><td>RADE sideband</td><td><a href="Digital-modes.html">Digital modes</a></td><td>USB</td><td>USB, LSB, AUTO</td></tr>
+<tr><td><code>RTM1</code></td><td>Macro 1</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>CQ|CQ CQ CQ DE {MYCALL} {MYCALL} {MYCALL} K</td><td>text</td></tr>
+<tr><td><code>RTM2</code></td><td>Macro 2</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>ANS|{CALL} {CALL} DE {MYCALL} {MYCALL} K</td><td>text</td></tr>
+<tr><td><code>RTM3</code></td><td>Macro 3</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>RPT|{CALL} DE {MYCALL} UR {RST} {RST} {MYGRID} {MYGRID} {CALL} DE {MYCALL} K</td><td>text</td></tr>
+<tr><td><code>RTM4</code></td><td>Macro 4</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>TU|{CALL} TU 73 DE {MYCALL} SK</td><td>text</td></tr>
+<tr><td><code>RTM5</code></td><td>Macro 5</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>QRZ|QRZ? DE {MYCALL} K</td><td>text</td></tr>
+<tr><td><code>RTM6</code></td><td>Macro 6</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>AGN|AGN AGN K</td><td>text</td></tr>
+<tr><td><code>RTM7</code></td><td>Macro 7</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>TEST|CQ TEST {MYCALL} {MYCALL}</td><td>text</td></tr>
+<tr><td><code>RTM8</code></td><td>Macro 8</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>EXCH|{CALL} {RST} {RST} {MYGRID}</td><td>text</td></tr>
+<tr><td><code>RTTY_BAUD</code></td><td>RTTY speed</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>45.45</td><td>45.45, 50, 75, 100</td></tr>
+<tr><td><code>RTTY_REV</code></td><td>RTTY reverse</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>RTTY_SHIFT</code></td><td>RTTY shift</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>170</td><td>170, 200, 425, 850</td></tr>
+<tr><td><code>RTTY_SQL</code></td><td>RTTY squelch</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>30</td><td>0–100</td></tr>
+<tr><td><code>RTTY_TXF</code></td><td>RTTY center</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>1500</td><td>200–2900</td></tr>
+<tr><td><code>RTTY_USOS</code></td><td>Unshift on space</td><td><a href="Digital-modes.html">RTTY and PSK</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>RXEQ</code></td><td>Receive EQ</td><td><a href="Equalizer.html">Equalizer</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>RXEQ1</code></td><td>RX band 1</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>RXEQ2</code></td><td>RX band 2</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>RXEQ3</code></td><td>RX band 3</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>RXEQ4</code></td><td>RX band 4</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>RXEQ5</code></td><td>RX band 5</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>SAVER</code></td><td>Battery saver</td><td><a href="Power-backup-shutdown-and-about.html">Power &amp; battery</a></td><td>AUTO</td><td>OFF, ON, AUTO</td></tr>
+<tr><td><code>SCANPTS</code></td><td>SWR scan points</td><td><a href="Transmit.html">Transmit</a></td><td>41</td><td>5–201</td></tr>
+<tr><td><code>SCANPWR</code></td><td>SWR scan drive</td><td><a href="Transmit.html">Transmit</a></td><td>10</td><td>1–100</td></tr>
+<tr><td><code>SIDETONE</code></td><td>Sidetone</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>25</td><td>0–100</td></tr>
+<tr><td><code>SMCAL10M</code></td><td>10 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SMCAL12M</code></td><td>12 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SMCAL15M</code></td><td>15 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SMCAL17M</code></td><td>17 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SMCAL20M</code></td><td>20 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SMCAL30M</code></td><td>30 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SMCAL40M</code></td><td>40 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SMCAL60M</code></td><td>60 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SMCAL80M</code></td><td>80 m</td><td><a href="PA-power-and-calibration.html">Calibration</a></td><td>0</td><td>-200–200</td></tr>
+<tr><td><code>SOLAR</code></td><td>Band conditions</td><td><a href="Clock-and-band-conditions.html">Clock &amp; conditions</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>SQL</code></td><td>Squelch</td><td><a href="Receive.html">Receive</a></td><td>0</td><td>0–20</td></tr>
+<tr><td><code>STEP</code></td><td>Tuning step</td><td><a href="Tuning-knobs-and-MIDI.html">Tuning and knobs</a></td><td>100H</td><td>10H, 100H, 500H, 1K, 10K</td></tr>
+<tr><td><code>TCI</code></td><td>TCI server</td><td><a href="Connecting-other-programs.html">Network</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>TCI_IQINV</code></td><td>TCI swap I/Q</td><td><a href="Connecting-other-programs.html">Network</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>TCI_PORT</code></td><td>TCI port</td><td><a href="Connecting-other-programs.html">Network</a></td><td>50001</td><td>1–65535</td></tr>
+<tr><td><code>TCI_TXLEVEL</code></td><td>TCI TX level</td><td><a href="Connecting-other-programs.html">Network</a></td><td>100</td><td>1–200</td></tr>
+<tr><td><code>TNDUR</code></td><td>Tune time</td><td><a href="Transmit.html">Transmit</a></td><td>5</td><td>2–30</td></tr>
+<tr><td><code>TNPWR</code></td><td>Tune power</td><td><a href="Transmit.html">Transmit</a></td><td>20</td><td>1–100</td></tr>
+<tr><td><code>TOT</code></td><td>Transmit timeout</td><td><a href="Power-backup-shutdown-and-about.html">Power &amp; battery</a></td><td>10</td><td>0–30</td></tr>
+<tr><td><code>TTDUR</code></td><td>Two-tone time</td><td><a href="Transmit.html">Transmit</a></td><td>30</td><td>5–120</td></tr>
+<tr><td><code>TUNEKNOB</code></td><td>Tuning knob</td><td><a href="Tuning-knobs-and-MIDI.html">Tuning and knobs</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>TXEDGES</code></td><td>Custom ranges</td><td><a href="Band-plan.html">Band plan</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>TXEQ</code></td><td>Transmit EQ</td><td><a href="Equalizer.html">Equalizer</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>TXEQ1</code></td><td>TX band 1</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>TXEQ2</code></td><td>TX band 2</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>TXEQ3</code></td><td>TX band 3</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>TXEQ4</code></td><td>TX band 4</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>TXEQ5</code></td><td>TX band 5</td><td><a href="Equalizer.html">Equalizer</a></td><td>0</td><td>-12–12</td></tr>
+<tr><td><code>TXMON</code></td><td>TX monitor</td><td><a href="Transmit.html">Transmit</a></td><td>0</td><td>0–10</td></tr>
+<tr><td><code>TXPLAN</code></td><td>Transmit band plan</td><td><a href="Band-plan.html">Band plan</a></td><td>OFF</td><td>OFF, US, CANADA, UK, AUSTRALIA, JAPAN, NZ, REGION1, REGION2, REGION3, CUSTOM</td></tr>
+<tr><td><code>UI</code></td><td>Web UI</td><td><a href="Connecting-other-programs.html">Network</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>UI_PORT</code></td><td>Web UI port</td><td><a href="Connecting-other-programs.html">Network</a></td><td>8080</td><td>1–65535</td></tr>
+<tr><td><code>UI_TLS_PORT</code></td><td>Web UI HTTPS port</td><td><a href="Connecting-other-programs.html">Network</a></td><td>8443</td><td>0–65535</td></tr>
+<tr><td><code>UPDATECHK</code></td><td>Check for updates daily</td><td><a href="Power-backup-shutdown-and-about.html">About</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>VFOLK</code></td><td>VFO lock</td><td><a href="Tuning-knobs-and-MIDI.html">Tuning and knobs</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>VKLEVEL</code></td><td>Voice keyer level</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>100</td><td>0–200</td></tr>
+<tr><td><code>VKM1</code></td><td>Message 1 label</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>CQ</td><td>text</td></tr>
+<tr><td><code>VKM2</code></td><td>Message 2 label</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>QRZ</td><td>text</td></tr>
+<tr><td><code>VKM3</code></td><td>Message 3 label</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>73</td><td>text</td></tr>
+<tr><td><code>VKM4</code></td><td>Message 4 label</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>MSG 4</td><td>text</td></tr>
+<tr><td><code>VKM5</code></td><td>Message 5 label</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>MSG 5</td><td>text</td></tr>
+<tr><td><code>VKM6</code></td><td>Message 6 label</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>MSG 6</td><td>text</td></tr>
+<tr><td><code>VKM7</code></td><td>Message 7 label</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>MSG 7</td><td>text</td></tr>
+<tr><td><code>VKM8</code></td><td>Message 8 label</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>MSG 8</td><td>text</td></tr>
+<tr><td><code>VKREPEAT</code></td><td>Voice keyer repeat</td><td><a href="CW-voice-keyer-and-recordings.html">Voice keyer</a></td><td>6</td><td>1–60</td></tr>
+<tr><td><code>VOLKNOB</code></td><td>Volume knob</td><td><a href="Tuning-knobs-and-MIDI.html">Tuning and knobs</a></td><td>ON</td><td>ON, OFF</td></tr>
+<tr><td><code>VOLMIDI</code></td><td>Volume knob to MIDI</td><td><a href="Tuning-knobs-and-MIDI.html">Tuning and knobs</a></td><td>OFF</td><td>ON, OFF</td></tr>
+<tr><td><code>WEBTXLVL</code></td><td>Browser mic level</td><td><a href="Transmit.html">Transmit</a></td><td>100</td><td>0–200</td></tr>
+<tr><td><code>WPM</code></td><td>Speed</td><td><a href="CW-voice-keyer-and-recordings.html">CW</a></td><td>12</td><td>5–50</td></tr>
+<tr><td><code>WSJTX_UDP</code></td><td>WSJT-X UDP</td><td><a href="Connecting-other-programs.html">Logging programs</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>XOTA</code></td><td>Activating</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>OFF</td><td>OFF, POTA, SOTA, WWFF, IOTA</td></tr>
+<tr><td><code>XOTA_REF</code></td><td>Your reference</td><td><a href="Digital-modes.html">FT8 and digital</a></td><td>(empty)</td><td>text</td></tr>
+<tr><td><code>XVTR</code></td><td>Transverter</td><td><a href="Station-logbook-and-country-file.html">Station</a></td><td>OFF</td><td>OFF, 2M, 70CM, CUSTOM</td></tr>
+<tr><td><code>XVTR_OFS</code></td><td>Transverter offset</td><td><a href="Station-logbook-and-country-file.html">Station</a></td><td>116000</td><td>0–9000000</td></tr>
+</tbody></table></div>
+<p>Some values are kept by the radio but not shown in the menu: the band stacks
+(<code>BS80M</code>…<code>BS10M</code>), each mode group's filter (<code>FLT_SSB</code>, <code>FLT_CW</code>, …), the
+equalizer band frequencies and Q (<code>RXEQ1F</code>…<code>TXEQ5Q</code>), RIT and XIT
+(<code>RIT</code>, <code>RIT_OFS</code>, <code>XIT</code>, <code>XIT_OFS</code>, set from the Quick page), and the Quick page's list (<code>QUICK</code>).</p>
+<p>Display settings (theme, waterfall contrast, scope colors, waterfall speed,
+ribbons, spots, on-screen keyboard) and the browser's microphone and listening choices are
+kept in each browser, not on the radio.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/All-settings" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

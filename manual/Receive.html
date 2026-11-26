@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Receive · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html" aria-current="page">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#gain">Gain</a><a href="#filter">Filter</a><a href="#noise">Noise</a><a href="#squelch-and-tone">Squelch and tone</a><a href="#all-receive-settings">All receive settings</a></nav>
+    <article><h1 id="receive">Receive<a class="hl" href="#receive" aria-label="Link to this section">#</a></h1>
+<p><strong>More → Receive</strong> holds the receiver's gain, filter, noise and squelch
+settings. Most of them are also tiles on the control strip.</p>
+<p><img src="images/settings-rx.jpg" alt="Receive settings" loading="lazy"></p>
+<h2 id="gain">Gain<a class="hl" href="#gain" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Volume</strong> is the speaker; the left knob and the header's volume button
+set the same value.</li>
+<li><strong>IF gain</strong> is the receiver's input gain (the codec ahead of the ADC). Set
+it so the band noise moves the S-meter a little; too much and strong
+signals overload, too little and weak ones fall into the ADC's own noise.
+The S-meter allows for the IF gain, so it reads the same at any setting.</li>
+<li><strong>Attenuator</strong> (6, 12, 18 dB) helps when a very strong signal overloads the
+receiver: the waterfall goes solid and audio distorts. The sBitx has no RF
+attenuator, so this lowers the gain ahead of the ADC.</li>
+<li><strong>Preamp</strong> (6, 12 dB) adds gain when the band noise barely moves the
+S-meter (often 10–15 m), as far as the IF gain leaves room. <em>Attenuator</em>
+and <em>Preamp</em> turn each other off.</li>
+</ul>
+<h3 id="auto-if-gain">Auto IF gain<a class="hl" href="#auto-if-gain" aria-label="Link to this section">#</a></h3>
+<p><strong>Auto IF gain</strong> keeps the band noise (the S-meter between signals) at the
+level it had when you turned it on. It moves the IF gain in the codec's
+1.5 dB steps every few seconds: less gain on a noisy band, more on a quiet
+one, and a quick drop when the input nears clipping. It allows for narrow
+filters and pauses while you transmit.</p>
+<ol>
+<li>Set the IF gain where you like it on a typical band.</li>
+<li>Turn <strong>Auto IF gain</strong> ON. It learns that noise level.</li>
+<li><strong>Learn now</strong> takes the level again from the band as it is now (console
+<code>ifauto learn</code>).</li>
+</ol>
+<p>The row under it shows the noise in S-units, the target and the codec peak.
+Setting the IF gain by hand turns Auto IF gain off; the IF tile shows
+<code>auto</code> while it is on.</p>
+<h2 id="filter">Filter<a class="hl" href="#filter" aria-label="Link to this section">#</a></h2>
+<p>The receive filter is set by its width (<code>BW</code>), low edge (<code>LOWCUT</code>) and high
+edge (<code>HIGHCUT</code>), in audio Hz. Each group of modes keeps its own filter: SSB,
+CW, AM, FM, DIGI, FT8/FT4, JTTY, RTTY, PSK and RADE.</p>
+<ul>
+<li><strong>SSB and data modes:</strong> <em>Filter width</em> moves the high edge above the low
+cut.</li>
+<li><strong>CW, RTTY and PSK:</strong> the filter is centered on the signal (the CW pitch or
+the RTTY/PSK center) and follows it; width widens or narrows both sides.</li>
+<li><strong>AM and FM:</strong> symmetric about the carrier; <em>High cut</em> sets each side.</li>
+</ul>
+<h2 id="noise">Noise<a class="hl" href="#noise" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Noise reduction</strong> 0–10. With type <strong>SPEC</strong> (spectral, for voice) about
+8 dB less noise at 2, 16 dB at 6, 23 dB at 10; 4–6 suits most voice, and
+above about 8 the background starts to warble. <strong>LMS</strong> (adaptive line
+enhancer) suits weak CW, where a spectral NR tends to chop the tone.</li>
+<li><strong>Noise blanker</strong> 0–10, for impulse noise (ignition, power-line pops).
+High levels can distort very strong signals.</li>
+<li><strong>Auto notch</strong> removes steady tones (carriers, heterodynes) in the voice
+modes, several at once, even under speech.</li>
+</ul>
+<p>NR and the auto notch add about 22 ms of delay. Data modes and the audio for
+other programs (jeSDR Receive) always get the unprocessed audio.</p>
+<h2 id="squelch-and-tone">Squelch and tone<a class="hl" href="#squelch-and-tone" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Squelch</strong> for AM and FM, 0 = open.</li>
+<li><strong>CTCSS receive</strong>: on FM, pass audio only while this tone is heard. Pick one
+of the 38 standard tones from the list.</li>
+</ul>
+<h2 id="all-receive-settings">All receive settings<a class="hl" href="#all-receive-settings" aria-label="Link to this section">#</a></h2>
+<p><strong>Gain</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Volume</td><td><code>AUDIO</code></td><td>60</td><td>0–100</td><td>Speaker volume (the left knob)</td></tr>
+<tr><td>AGC</td><td><code>AGC</code></td><td>SLOW</td><td>OFF, SLOW, MED, FAST</td><td>Automatic gain control speed</td></tr>
+<tr><td>IF gain</td><td><code>IF</code></td><td>60</td><td>0–100</td><td>Receiver input gain</td></tr>
+<tr><td>Auto IF gain</td><td><code>IFAUTO</code></td><td>OFF</td><td>ON, OFF</td><td>Moves the IF gain to keep the band noise steady on the S-meter: less gain when the band is noisy or a signal would overload, more when it is quiet. Set the IF gain you like, then turn it on: it holds that noise level. Setting the IF gain by hand turns it off</td></tr>
+<tr><td>Attenuator</td><td><code>ATT</code></td><td>OFF</td><td>OFF, 6, 12, 18</td><td>dB less receive gain: for very strong signals that overload the receiver (the waterfall turns solid, distortion). The S-meter allows for it</td></tr>
+<tr><td>Preamp</td><td><code>PRE</code></td><td>OFF</td><td>OFF, 6, 12</td><td>dB more receive gain: when the band noise barely moves the S-meter (often 10–15 m). As far as the IF gain leaves room. The S-meter allows for it</td></tr>
+</tbody></table></div>
+<p><strong>Filter</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Filter width</td><td><code>BW</code></td><td>per mode</td><td>50–5000</td><td>Receive bandwidth, Hz (around the signal in CW, RTTY and PSK); each mode keeps its own</td></tr>
+<tr><td>Low cut</td><td><code>LOWCUT</code></td><td>per mode</td><td>0–4900</td><td>The filter’s low edge, Hz; the high edge stays put</td></tr>
+<tr><td>High cut</td><td><code>HIGHCUT</code></td><td>per mode</td><td>50–5000</td><td>The filter’s high edge, Hz; the low edge stays put</td></tr>
+</tbody></table></div>
+<p><strong>Noise</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Noise reduction</td><td><code>NR</code></td><td>0</td><td>0–10</td><td>0 = off; higher removes more noise (Spectral: 4–6 for most voice; above 8 the background may warble)</td></tr>
+<tr><td>Noise reduction type</td><td><code>NRMODE</code></td><td>SPEC</td><td>SPEC, LMS</td><td>SPEC: spectral, best for voice. LMS: adaptive line enhancer, best for weak CW</td></tr>
+<tr><td>Noise blanker</td><td><code>NB</code></td><td>0</td><td>0–10</td><td>0 = off; for ignition and power-line pops</td></tr>
+<tr><td>Auto notch</td><td><code>ANF</code></td><td>OFF</td><td>ON, OFF</td><td>Removes steady tones (voice modes)</td></tr>
+</tbody></table></div>
+<p><strong>Squelch and tone</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Squelch</td><td><code>SQL</code></td><td>0</td><td>0–20</td><td>AM/FM squelch level, 0 = open</td></tr>
+<tr><td>CTCSS receive</td><td><code>CTCSS_RX</code></td><td>OFF</td><td>OFF or one of the 38 standard tones (67.0–250.3 Hz)</td><td>Tone squelch on FM: audio only when this tone is heard</td></tr>
+</tbody></table></div>
+<p>The S-meter calibration is on the <a href="PA-power-and-calibration.html#s-meter-calibration">Calibration</a> page.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Receive" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

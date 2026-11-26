@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnostics · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html" aria-current="page">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#pa-health">PA health</a><a href="#receiver-health">Receiver health</a><a href="#swr-bridge-check">SWR bridge check</a><a href="#lpf-sweep-low-pass-filters">LPF sweep (low-pass filters)</a><a href="#audio-and-i²c">Audio and I²C</a><a href="#console">Console</a></nav>
+    <article><h1 id="diagnostics">Diagnostics<a class="hl" href="#diagnostics" aria-label="Link to this section">#</a></h1>
+<p><strong>More → Diagnostics</strong> has five self-tests for the radio's hardware (PA
+health, receiver health, SWR bridge check, the LPF sweep, audio and I²C). The
+<a href="PA-power-and-calibration.html#pa-bias-adjustment">PA bias adjustment</a> and the
+<a href="PA-power-and-calibration.html#frequency-calibration">frequency calibration</a>, which
+use the same machinery, are on the Calibration page. One runs
+at a time. Each result is kept on the radio (<code>~/jeSDR/data/diag_&lt;test&gt;.json</code>)
+and shown on the page the next time you open it. Rows are marked <strong>OK</strong>,
+<strong>Check</strong> or <strong>Fault</strong>, and the findings under each table say what to look
+at. Tests that transmit ask for a second tap and stop at once with <strong>Stop</strong>
+(or the Stop on the transmit strip). While a test runs nothing else can key,
+tune or change the mode; the SWR protection is held off during the
+transmitting tests, which stop by themselves on an SWR above 3:1.</p>
+<p>The PA health, receiver health and SWR bridge checks compare with the
+previous run, so run them once while the radio works well to have a baseline.</p>
+<h2 id="pa-health">PA health<a class="hl" href="#pa-health" aria-label="Link to this section">#</a></h2>
+<p>Needs a dummy load rated for the board's full power (25 or 40 W). About two
+minutes.</p>
+<ol>
+<li>With the radio receiving, then keyed with no drive, it measures the supply
+current. The difference is the PA's <strong>idle (bias) current</strong>.</li>
+<li>On each band (all but 60 m), it steps the drive 20, 30 … 100 % and measures
+the power, the supply current and voltage.</li>
+</ol>
+<p>For each band it reports the power at full drive, the current, the
+<strong>efficiency</strong> (output power over the extra DC power the PA draws), the
+supply voltage under load and the <strong>1 dB compression point</strong>: the drive
+where the power falls 1 dB short of what the low-drive steps predict, i.e.
+where the PA stops getting louder.</p>
+<p>The compression point is measured from the PA's best gain between 20 and 60 %
+drive, so the lower gain at very low drive (the push-pull pair near its
+crossover) isn't mistaken for compression.</p>
+<p>It points out: almost no idle current (bias off, an open MOSFET or supply), an
+idle current that has moved since the last check (drifting bias, failing
+MOSFET), a PA that limits at 60 % drive or less on 80–17 m, efficiency under
+20 %, a supply that drops more than 1 V under load, a band well below the
+others on 80–17 m, and any band that has lost a quarter of its power since
+the last check. 15–10 m give less power and saturate sooner by design (the
+push-pull PA's losses rise with frequency), so they are judged only against
+their own last check.</p>
+<p>Current, bias and efficiency need the INA260 power monitor; without one only
+the power is measured.</p>
+<h2 id="receiver-health">Receiver health<a class="hl" href="#receiver-health" aria-label="Link to this section">#</a></h2>
+<p>Put a dummy load or a 50 Ω terminator on the antenna jack. It does not
+transmit; about 15 seconds.</p>
+<p>On each band it captures the receiver's IQ and measures the <strong>noise floor</strong>
+(dBFS/Hz, the median from 1 to 18 kHz either side of the dial) and any
+narrow <strong>spurs</strong> 15 dB or more above it, with their frequency. Each band is
+shown against the median of the others. More than 8 dB less noise means the
+band has lost gain (its low-pass filter relay, a solder joint, the front end);
+more than 8 dB more noise, or a spur 20 dB or more up, is interference made
+inside the radio. A band that has moved more than 4 dB since the last check
+is marked too. Some slope across 80–10 m is normal. The IF gain stays as you
+set it.</p>
+<h2 id="swr-bridge-check">SWR bridge check<a class="hl" href="#swr-bridge-check" aria-label="Link to this section">#</a></h2>
+<ol>
+<li><strong>Dummy load</strong>: with a 50 Ω dummy load on the jack, a 5 W carrier on each
+band. The reflected reading should stay near zero; an SWR above 1.3 means
+the bridge is out of balance there (or the load isn't 50 Ω at that
+frequency), so the SWR meter and protection read high.</li>
+<li><strong>Open jack</strong>: take the dummy load off and tap <strong>Open jack</strong>. A 2 W carrier
+for a moment on each band. The reflected reading should be close to the
+forward one; under 70 % means the reflected side under-reads, so the SWR
+meter and protection would read low into a bad antenna.</li>
+</ol>
+<p>The table shows both halves (the bridge's raw counts, 0–1023). The bridge's
+power calibration is <code>BRIDGE</code> (<a href="PA-power-and-calibration.html">PA power and calibration</a>).</p>
+<h2 id="lpf-sweep-low-pass-filters">LPF sweep (low-pass filters)<a class="hl" href="#lpf-sweep-low-pass-filters" aria-label="Link to this section">#</a></h2>
+<p>The <strong>Low-pass filters</strong> section of <strong>More → Diagnostics</strong> (or search the
+settings for "lpf") measures the transmitter's four output low-pass filters
+and points out one that looks defective, damaged, built with a wrong or
+misplaced part, or not attenuating as it should.</p>
+<div class="tw"><table>
+<thead><tr><th>Filter</th><th>Bands</th></tr></thead>
+<tbody>
+<tr><td>LPF_A</td><td>15, 12, 10 m</td></tr>
+<tr><td>LPF_B</td><td>20, 17 m</td></tr>
+<tr><td>LPF_C</td><td>40, 30 m</td></tr>
+<tr><td>LPF_D</td><td>80, 60 m</td></tr>
+</tbody></table></div>
+<p>You need a <strong>50 Ω dummy load</strong> rated for 25 W or more on the antenna jack (no
+antenna, tuner or amplifier).</p>
+<ol>
+<li><strong>Carrier</strong>: 1–10 W; 5 W is plenty. The power reading can briefly go above
+it (the drive is corrected at each frequency, and the PA's gain changes from
+band to band), hence the 25 W dummy load.</li>
+<li><strong>Filters</strong>: B, C and D are selected. LPF_A is always swept: it is the
+reference the others are measured against.</li>
+<li>Tick the three checks and tap <strong>Start sweep</strong>, then <strong>Tap again to
+transmit</strong>.</li>
+</ol>
+<p>The radio keys a carrier and steps it from 1.5 to 36 MHz in 500 kHz steps,
+plus the centre of every band. Each filter is swept from just below its own
+bands upward (LPF_D from 3 MHz, C from 6, B from 12, A over the whole range):
+its passband and the harmonics it has to stop. At each frequency it holds each
+filter in circuit in turn and averages the SWR bridge's forward and reflected
+readings.
+The relays and the frequency only ever change with the carrier muted. A run
+takes three to five minutes (it times the radio's audio delay at the start
+and waits that long at each change), with a short rest in receive every 45
+seconds. It transmits outside the amateur bands too, into the dummy load
+only.</p>
+<p><strong>How it measures.</strong> The bridge sits after the filters, so its reading is the
+PA's output times the filter's response. The PA's output alone changes by
+several dB across HF (LPF_A's own curve shows it), so a filter can't be judged
+from its reading by itself. LPF_A passes everything up to about 30 MHz, so it
+serves as a reference: each other filter's reading divided by LPF_A's at the
+same frequency and drive is that filter's own response, with the PA and the
+bridge cancelled. In a filter's own bands expect it within a dB or so of
+LPF_A, either way: the filter is a slightly different load on the PA. The
+bridge cannot read much more than about 35 dB down at 5 W; deeper parts of the
+stopband are reported as "at least" that (<code>lpfsweep show all</code> lists every
+frequency).</p>
+<p>For each filter it reports:</p>
+<ul>
+<li><strong>Loss</strong> in its own bands against LPF_A (should be under 1.5 dB; over 2.5 dB
+is a fault). LPF_A can't be measured against itself: if it were lossy, the
+other filters would all read high in their bands, so the median of those
+readings is its figure.</li>
+<li><strong>−3 dB</strong>, where it rolls off above the top of its range, from its own level
+in its bands.</li>
+<li><strong>2nd and 3rd harmonics</strong> of its lowest band, the hardest case: 12 dB or more
+at the 2nd and 20 dB or more at the 3rd is expected. Above 30 MHz LPF_A is
+rolling off too, so the figure there is a lower bound. LPF_A's own stopband
+is above the sweep's range: only its passband is checked.</li>
+<li><strong>SWR</strong> in its own bands (a mismatched filter shows a higher SWR than LPF_A
+at the same frequency).</li>
+<li><strong>Findings</strong>: dips inside the passband, a filter that passes almost nothing
+(relay not closing, an open connection), and what has <strong>changed since the
+previous sweep</strong>. Run it once on a radio that works well to have a baseline.</li>
+</ul>
+<p>If the radio's SWR bridge turns out to be ahead of the filters, the forward
+reading hardly changes with the filter; the sweep notices and judges each
+filter instead by how strongly it reflects above its cutoff (a high SWR there
+is right).</p>
+<p>The last result is kept on the radio (<code>~/jeSDR/data/lpf_sweep.dat</code>, and the one
+before it as <code>lpf_sweep.dat.prev</code>) and shown when you open the page. A
+stopped sweep shows what it measured but is not saved.</p>
+<ul>
+<li>The SWR protection is held off during the sweep (a filter in its stopband
+may show a high SWR on purpose); the sweep keeps the power low instead. It
+stops on an SWR above 3.5 through LPF_A in its passband (check the dummy
+load), no output power, no bridge readings, or battery protection.</li>
+<li>While it runs nothing else can key, tune or change the mode. <strong>Stop</strong>, or
+the Stop on the transmit strip, ends it at once.</li>
+</ul>
+<p>Console: <code>lpfsweep start [W] [A,B,C,D]</code> (e.g. <code>lpfsweep start 5 C,D</code>),
+<code>lpfsweep stop</code>, <code>lpfsweep status</code>, <code>lpfsweep show</code> (the stored result as a
+table with the findings), <code>lpfsweep show all</code> (every frequency too).</p>
+<h2 id="audio-and-i²c">Audio and I²C<a class="hl" href="#audio-and-i²c" aria-label="Link to this section">#</a></h2>
+<p>Does not transmit or tune; about 5 seconds.</p>
+<ul>
+<li><strong>Codec inputs</strong>: receive, mic and the audio from programs such as
+WSJT-X (jeSDR Transmit): level (RMS), peak, DC offset and clipped samples. Clipping on
+receive means lower the IF gain or use ATT; a DC offset over 2 % points at
+a coupling capacitor or the codec's input.</li>
+<li><strong>Audio drop-outs</strong> during the test and since start (speaker, capture,
+jeSDR Receive).</li>
+<li><strong>I²C</strong>: the Si5351 (0x60), the SWR bridge (0x08) and the INA260 (0x40) are
+each probed 50 times, with each device's failed transactions since start.
+A device that misses probes has an intermittent fault: wiring, pull-ups, a
+noisy supply, or RF getting into the bus.</li>
+</ul>
+<h2 id="console">Console<a class="hl" href="#console" aria-label="Link to this section">#</a></h2>
+<pre><code>diag pa [bands]              diag rx [bands]
+diag freq [MHz] | apply      diag bridge load|open [W]
+diag audio
+diag show &lt;test&gt;             diag stop | status | help</code></pre>
+<p>Bands: e.g. <code>80m,40m,20m</code> or <code>all</code>.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Diagnostics" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

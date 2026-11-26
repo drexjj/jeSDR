@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital modes · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html" aria-current="page">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#ft8-ft4-and-ft2">FT8, FT4 and FT2</a><a href="#rtty">RTTY</a><a href="#psk">PSK</a><a href="#jtty">JTTY</a><a href="#js8">JS8</a><a href="#freedv-rade-v1">FreeDV RADE V1</a><a href="#mode-frequencies">Mode frequencies</a></nav>
+    <article><h1 id="digital-modes">Digital modes<a class="hl" href="#digital-modes" aria-label="Link to this section">#</a></h1>
+<p>FT8, FT4, FT2, JTTY, RTTY, PSK and FreeDV RADE V1 run on the radio itself:
+pick them from the mode sheet. Set <strong>My call sign</strong> and <strong>My grid</strong> first
+(<strong>More → Station</strong>). FT8 and FT4 need the radio's clock right to within
+about a second; Raspberry Pi OS keeps it with internet time, and in the field
+a <a href="Station-logbook-and-country-file.html#gps">GPS</a> can.</p>
+<p><strong>JS8</strong> works with JS8Call running on the radio: see <a href="#js8">JS8</a> below.
+To use WSJT-X or fldigi instead, choose <strong>DIGI</strong> and see
+<a href="Connecting-other-programs.html#wsjt-x-fldigi-and-other-hamlib-programs">Connecting other programs</a>.</p>
+<h2 id="ft8-ft4-and-ft2">FT8, FT4 and FT2<a class="hl" href="#ft8-ft4-and-ft2" aria-label="Link to this section">#</a></h2>
+<p><img src="images/mode-ft8.jpg" alt="FT8 mode" loading="lazy"></p>
+<p>Decodes appear at the end of each slot (15 s FT8, 7.5 s FT4, 3.75 s FT2):
+time, SNR, time offset, audio frequency, message and the sender's country.
+CQs are green, messages to you red, your own transmissions amber. In the
+sender's call, <strong>bold orange</strong> means never worked, dimmed means worked on
+this band and a dotted underline worked on another band. <strong>All / CQ + me</strong>
+filters the list. Hold a decode for the station's details.</p>
+<p><strong>Making a QSO</strong></p>
+<ol>
+<li><strong>CQ</strong> calls CQ in your next slot, or <strong>tap a decode</strong> to answer it.</li>
+<li>Replies, reports, RR73 and 73 then follow automatically, and the QSO is
+logged when you send RR73 or 73.</li>
+<li><strong>Halt</strong> stops at once. A CQ with no answer stops after 20 tries, any other
+message after 6.</li>
+</ol>
+<p>The radio only transmits while <strong>TX on</strong> is lit. <strong>TX even/odd</strong> is your
+slot; <strong>− / +</strong> moves your audio frequency (the red line on the scope, or
+drag it). <strong>1–6</strong> pick the next message by hand; <strong>DX call…</strong> sets the
+station, <strong>Free text…</strong> sends up to 13 characters, <strong>Log QSO</strong> logs now.</p>
+<p><strong>Map</strong> shows a world map of the grids heard (yellow), grids in your log
+(green, red when logged today) and your own grid. It works without internet.</p>
+<p><strong>Tuning:</strong> choosing FT8, FT4, FT2, JTTY, PSK or RADE tunes to that mode's
+usual frequency on the band (<em>Tune to mode frequency</em>). In the FT modes the tuning
+is locked (<em>Lock tuning in FT modes</em>): the knob, a drag and the arrow keys
+don't move the dial, and a tap on the waterfall moves the TX offset instead.
+Typed frequencies, the band buttons and CAT still tune; <strong>VFO lock</strong> on the
+Quick page turns the FT lock off for a while.</p>
+<p>FT2 is the open FT2 of WSJT-X Improved 3.1 (FT4's coding at twice the speed).
+It is experimental and needs a clock within about ±60 ms.</p>
+<h3 id="automatic-operating">Automatic operating<a class="hl" href="#automatic-operating" aria-label="Link to this section">#</a></h3>
+<div class="tw"><table>
+<thead><tr><th><em>FT8 automation</em></th><th>Behaviour</th></tr></thead>
+<tbody>
+<tr><td><strong>ANS</strong> (default)</td><td>answers and finishes QSOs as above</td></tr>
+<tr><td><strong>OFF</strong></td><td>tapping a decode only fills in the station and the next message; you press <strong>TX on</strong> and pick the messages</td></tr>
+<tr><td><strong>CQRESP</strong></td><td>adds a <strong>Hunt</strong> button: the radio answers CQs by itself, works and logs each QSO, then moves to the next CQ until you press <strong>Halt</strong></td></tr>
+</tbody></table></div>
+<p>Hunting skips calls already worked (<em>Hunt skips</em>: this BAND, ANY band or
+NONE), calls that did not answer you in the last 15 minutes and CQs aimed
+elsewhere; of the rest it answers the strongest, preferring the words in
+<em>Hunt prefers</em> (e.g. <code>POTA,DX</code>) and calls never worked. <em>CQ word</em> adds a word
+to your CQ (<code>CQ POTA</code>, <code>CQ DX</code>); <em>CQ every</em> 2–4 calls only in every 2nd–4th
+slot. <em>TX watchdog</em> (10 minutes) stops automatic transmitting when you have
+not touched anything for that long: automatic operation still needs you at
+the station.</p>
+<h3 id="portable-activations">Portable activations<a class="hl" href="#portable-activations" aria-label="Link to this section">#</a></h3>
+<p>Set <strong>Activating</strong> (POTA, SOTA, WWFF or IOTA) and <strong>Your reference</strong>. Your
+CQ says <code>CQ POTA</code>, every other CQ sends the reference, and every QSO (FT8 or
+logged by hand) is logged with <code>MY_SIG</code>, <code>MY_SIG_INFO</code> and the matching
+<code>MY_*_REF</code> field. The logbook's <strong>Activations</strong> tab downloads each day's file
+for the program (see <a href="Station-logbook-and-country-file.html#logbook">Logbook</a>).</p>
+<p><img src="images/settings-digi.jpg" alt="FT8 and digital settings" loading="lazy"></p>
+<p><strong>Transmit audio</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>FT8/FT4/FT2 TX audio</td><td><code>FT8_TXF</code></td><td>1500</td><td>200–3000</td><td>Transmit offset above the dial, Hz</td></tr>
+<tr><td>JTTY TX audio</td><td><code>JTTY_TXF</code></td><td>1500</td><td>200–3000</td><td>Transmit offset above the dial, Hz</td></tr>
+</tbody></table></div>
+<p><strong>Tuning</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Tune to mode frequency</td><td><code>MODEQRG</code></td><td>ON</td><td>ON, OFF</td><td>Choosing FT8, FT4, FT2, JS8, JTTY, PSK or RADE goes to that mode’s usual frequency on the band</td></tr>
+<tr><td>Lock tuning in FT modes</td><td><code>FTXLOCK</code></td><td>ON</td><td>ON, OFF</td><td>In FT8, FT4 and FT2 the knob, waterfall drag and scroll don’t move the dial, and a tap on the waterfall moves the TX offset. Typed frequencies, band buttons and CAT still tune</td></tr>
+</tbody></table></div>
+<p><strong>Automatic operating</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>FT8 automation</td><td><code>FT8_AUTO</code></td><td>ANS</td><td>OFF, ANS, CQRESP</td><td>OFF: tapping a decode only fills in the station, you press TX on. ANS: answers and finishes QSOs. CQRESP: also Hunt — answers CQs by itself</td></tr>
+<tr><td>CQ word</td><td><code>FT8_CQ</code></td><td>(empty)</td><td>text</td><td>CQ POTA, CQ DX, CQ NA, CQ 123… (1–4 letters or 3 digits); empty = plain CQ</td></tr>
+<tr><td>CQ every</td><td><code>FT8_CQEVERY</code></td><td>1</td><td>1–4</td><td>Call CQ in every Nth of your slots and listen in between (1 = every slot)</td></tr>
+<tr><td>Hunt skips</td><td><code>FT8_SKIP</code></td><td>BAND</td><td>NONE, BAND, ANY</td><td>Stations already worked: on this BAND, on ANY band, or NONE</td></tr>
+<tr><td>Hunt prefers</td><td><code>FT8_PREFER</code></td><td>(empty)</td><td>text</td><td>CQ words to answer first, e.g. POTA,DX</td></tr>
+<tr><td>Worked recently</td><td><code>FT8_RECENT</code></td><td>24</td><td>0–720</td><td>Hours a contact counts as recent (dimmer in the decode list)</td></tr>
+<tr><td>TX watchdog</td><td><code>FT8_WDOG</code></td><td>10</td><td>0–60</td><td>Automatic transmitting and hunting stop this many minutes after you last pressed something (0 = off). You must be at the station</td></tr>
+</tbody></table></div>
+<p><strong>Portable activations</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Activating</td><td><code>XOTA</code></td><td>OFF</td><td>OFF, POTA, SOTA, WWFF, IOTA</td><td>POTA, SOTA, WWFF or IOTA: CQ says so, every other CQ sends your reference, and QSOs are logged with it</td></tr>
+<tr><td>Your reference</td><td><code>XOTA_REF</code></td><td>(empty)</td><td>text</td><td>Park, summit or island, e.g. US-1234 (up to 10 characters go on air)</td></tr>
+</tbody></table></div>
+<h2 id="rtty">RTTY<a class="hl" href="#rtty" aria-label="Link to this section">#</a></h2>
+<p><img src="images/mode-rtty.jpg" alt="RTTY mode" loading="lazy"></p>
+<p>Baudot RTTY, 45.45 baud and 170 Hz shift by default, as audio FSK on upper
+sideband with mark the higher tone. One frequency (the dial plus <em>RTTY
+center</em>) is used to receive and transmit.</p>
+<ul>
+<li><strong>Tune:</strong> tap a signal on the scope and the M and S lines move to it;
+− / + nudge 5 Hz. The panel shows how far a copied signal is from the
+lines. <strong>Rev</strong> swaps mark and space.</li>
+<li><strong>Receive:</strong> the text runs on in the panel. The bar is the signal quality;
+its tick is the squelch, below which text is hidden.</li>
+<li><strong>Send:</strong> <strong>Type…</strong> or a macro keys the radio, sends the text and un-keys.
+More text sent meanwhile goes in the same over; <strong>Stop</strong> ends it.</li>
+</ul>
+<h2 id="psk">PSK<a class="hl" href="#psk" aria-label="Link to this section">#</a></h2>
+<p><img src="images/mode-psk.jpg" alt="PSK mode" loading="lazy"></p>
+<p>BPSK31, BPSK63 or BPSK125 on upper sideband at the dial plus <em>PSK center</em>.
+The panel works like RTTY's. Tap a signal to put the red line on it, drag
+the line, or nudge 1 Hz with − / +. <strong>AFC</strong> pulls in a signal up to about
+one baud away and follows drift.</p>
+<p>RTTY and PSK share the eight macros (<code>LABEL|text</code>, with <code>{CALL}</code>, <code>{RST}</code>,
+<code>{MYCALL}</code>, <code>{MYGRID}</code>; hold a button to edit it) and the Call and RST
+fields.</p>
+<p><img src="images/settings-rtty.jpg" alt="RTTY and PSK settings" loading="lazy"></p>
+<p><strong>RTTY</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>RTTY center</td><td><code>RTTY_TXF</code></td><td>1500</td><td>200–2900</td><td>Between mark and space, Hz above the dial (receive and transmit); tap a signal on the scope to set it</td></tr>
+<tr><td>RTTY speed</td><td><code>RTTY_BAUD</code></td><td>45.45</td><td>45.45, 50, 75, 100</td><td>Baud: 45.45 is the amateur standard</td></tr>
+<tr><td>RTTY shift</td><td><code>RTTY_SHIFT</code></td><td>170</td><td>170, 200, 425, 850</td><td>Hz between mark and space: 170 is the amateur standard</td></tr>
+<tr><td>RTTY reverse</td><td><code>RTTY_REV</code></td><td>OFF</td><td>ON, OFF</td><td>Swap mark and space (for an upside-down signal)</td></tr>
+<tr><td>Unshift on space</td><td><code>RTTY_USOS</code></td><td>ON</td><td>ON, OFF</td><td>Back to letters after a space, receiving and sending</td></tr>
+<tr><td>RTTY squelch</td><td><code>RTTY_SQL</code></td><td>30</td><td>0–100</td><td>Hide text below this signal quality (0 shows everything, noise too)</td></tr>
+</tbody></table></div>
+<p><strong>PSK</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>PSK center</td><td><code>PSK_TXF</code></td><td>1000</td><td>200–2900</td><td>Hz above the dial (receive and transmit); tap a signal on the scope to set it</td></tr>
+<tr><td>PSK speed</td><td><code>PSK_MODE</code></td><td>BPSK31</td><td>BPSK31, BPSK63, BPSK125</td><td>BPSK31 (the usual), BPSK63 or BPSK125</td></tr>
+<tr><td>PSK squelch</td><td><code>PSK_SQL</code></td><td>30</td><td>0–100</td><td>Hide text below this signal quality (0 shows everything, noise too)</td></tr>
+<tr><td>PSK AFC</td><td><code>PSK_AFC</code></td><td>ON</td><td>ON, OFF</td><td>Follow a signal up to about a baud off the line</td></tr>
+</tbody></table></div>
+<p><strong>Macros</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Macro 1</td><td><code>RTM1</code></td><td>CQ|CQ CQ CQ DE {MYCALL} {MYCALL} {MYCALL} K</td><td>text</td><td>LABEL|text, for RTTY and PSK; {CALL} {RST} {MYCALL} {MYGRID}</td></tr>
+<tr><td>Macro 2</td><td><code>RTM2</code></td><td>ANS|{CALL} {CALL} DE {MYCALL} {MYCALL} K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 3</td><td><code>RTM3</code></td><td>RPT|{CALL} DE {MYCALL} UR {RST} {RST} {MYGRID} {MYGRID} {CALL} DE {MYCALL} K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 4</td><td><code>RTM4</code></td><td>TU|{CALL} TU 73 DE {MYCALL} SK</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 5</td><td><code>RTM5</code></td><td>QRZ|QRZ? DE {MYCALL} K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 6</td><td><code>RTM6</code></td><td>AGN|AGN AGN K</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 7</td><td><code>RTM7</code></td><td>TEST|CQ TEST {MYCALL} {MYCALL}</td><td>text</td><td>Same as macro 1</td></tr>
+<tr><td>Macro 8</td><td><code>RTM8</code></td><td>EXCH|{CALL} {RST} {RST} {MYGRID}</td><td>text</td><td>Same as macro 1</td></tr>
+</tbody></table></div>
+<h2 id="jtty">JTTY<a class="hl" href="#jtty" aria-label="Link to this section">#</a></h2>
+<p>Keyboard chat in a narrow (about 125 Hz) 4-GFSK signal with error
+correction, compatible with WSJT-X's JTTY. Each line is one station's
+message, growing as frames arrive. Tap a line to transmit on its frequency;
+<strong>Type a message…</strong> sends up to 80 characters at a time, <strong>CQ</strong> sends a CQ,
+<strong>Stop</strong> clears the queue.</p>
+<p>Choosing JTTY tunes to its calling frequency on the band (<em>Tune to mode
+frequency</em>). These are still preliminary:</p>
+<div class="tw"><table>
+<thead><tr><th>Band</th><th>80 m</th><th>40 m</th><th>30 m</th><th>20 m</th><th>17 m</th><th>15 m</th><th>12 m</th><th>10 m</th></tr></thead>
+<tbody>
+<tr><td>MHz</td><td>3.575</td><td>7.090</td><td>10.140</td><td>14.090</td><td>18.100</td><td>21.090</td><td>24.920</td><td>28.090</td></tr>
+</tbody></table></div>
+<p>There is none on 60 m; there the dial stays where it is.</p>
+<h2 id="js8">JS8<a class="hl" href="#js8" aria-label="Link to this section">#</a></h2>
+<p>JS8 is JS8Call's keyboard-to-keyboard mode: FT8-style weak-signal frames
+carrying free text, directed messages (<code>W1ABC SNR?</code>, <code>@ALLCALL CQ</code>),
+heartbeats, relays and a message inbox. The modem is <strong>JS8Call itself</strong>
+(JS8Call-improved, a separate GPL program), running on the radio's
+desktop: it controls the radio through jeSDR's Hamlib server, exchanges
+audio through jeSDR's PipeWire devices like WSJT-X, and jeSDR reads and drives it
+through <strong>JS8Call's TCP API</strong>. Nothing of JS8Call is built into jeSDR.</p>
+<p><strong>Set-up (once)</strong></p>
+<ol>
+<li>Install JS8Call: run the jeSDR installer again and answer yes to
+<em>Install JS8Call</em> (it puts JS8Call-improved's ARM64 AppImage in
+<code>/opt/js8call</code> and adds it to the menu). If JS8Call had no settings yet,
+the installer sets the rig and the API up for jeSDR.</li>
+<li>In JS8Call, <strong>Settings</strong>:
+<ul>
+<li><strong>Radio</strong>: rig <em>Hamlib NET rigctl</em>, network server <code>127.0.0.1:4532</code>,
+PTT method <strong>CAT</strong>, mode <strong>Data/Pkt</strong> (or None).</li>
+<li><strong>Audio</strong>: input <strong>jeSDR Receive</strong>, output <strong>jeSDR Transmit</strong>, as for
+<a href="Connecting-other-programs.html#audio-for-programs-on-the-pi">WSJT-X</a>.</li>
+<li><strong>Reporting → API</strong>: <strong>Enable TCP Server API</strong> and <strong>Accept TCP
+Requests</strong>, port 2442 (if you change it, set <em>JS8Call API</em>, <code>JS8_API</code>,
+to match).</li>
+<li><strong>General</strong>: your call sign and grid.</li>
+</ul></li>
+</ol>
+<p><strong>Using it</strong></p>
+<ol>
+<li>Choose <strong>JS8</strong> in the mode sheet. It tunes to the band's JS8 frequency
+(<em>Tune to mode frequency</em>) and connects to JS8Call; <strong>Open JS8Call</strong>
+starts JS8Call on the radio's desktop if it isn't running (log in to the
+desktop first).</li>
+<li><p>The panel's tabs:</p>
+<ul>
+<li><strong>Band</strong>: what JS8Call hears, one line per offset, growing as frames
+arrive (the line ends at JS8Call's ♢ end mark). The number on the right
+is the SNR. Tap a line to answer its station.</li>
+<li><strong>Messages</strong>: directed messages (to you in red, also @ALLCALL, @HB and
+groups) and what you send (amber). Messages to you also pop up.</li>
+<li><strong>Calls</strong>: the stations JS8Call has heard, newest first.</li>
+<li><strong>Inbox</strong>: JS8Call's message inbox.</li>
+</ul>
+<p><strong>Clear</strong> empties the list on show (band lines, messages or calls;
+JS8Call's own inbox stays). Entries older than <em>JS8 entries kept</em>
+(<code>JS8_STALE</code>, 30 minutes; 0 = keep them) go by themselves.</p></li>
+<li><strong>Type a message…</strong> sends through JS8Call at its next cycle (JS8 is upper
+case; the chips add <code>@ALLCALL</code>, <code>SNR?</code>, <code>GRID?</code>, <code>INFO?</code> and so on).
+<strong>CQ</strong> sends <code>@ALLCALL CQ CQ CQ &lt;grid&gt;</code>, <strong>HB</strong> a heartbeat, <strong>Stop</strong>
+stops JS8Call transmitting.</li>
+<li><strong>Slow / Normal / Fast / Turbo</strong> set JS8Call's speed (25 / 50 / 80 / 160 Hz
+wide; 30 / 15 / 10 / 6 s frames). Both stations need the same speed.</li>
+<li>Your transmit offset is the red <strong>JS8</strong> line on the scope: tap the scope
+or drag the line to move it, or use <strong>− JS8 1500 Hz +</strong>. It is the same
+as JS8Call's offset both ways (<em>JS8 offset</em>, <code>JS8_TXF</code>).</li>
+</ol>
+<p>The band plan checks the actual JS8 signal (offset and width) before
+JS8Call can transmit. While in JS8, JS8Call asking for PKTUSB or USB
+keeps the radio in JS8. QSOs are logged by JS8Call (or its logging
+programs); jeSDR's own log form offers MFSK / JS8.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>JS8 offset</td><td><code>JS8_TXF</code></td><td>1500</td><td>100–2900</td><td>Where JS8Call transmits, Hz above the dial; kept the same as JS8Call’s offset</td></tr>
+<tr><td>JS8Call API</td><td><code>JS8_API</code></td><td>127.0.0.1:2442</td><td>host:port</td><td>JS8Call's TCP API. Empty = no link</td></tr>
+<tr><td>JS8 entries kept</td><td><code>JS8_STALE</code></td><td>30</td><td>0–1440 minutes</td><td>Band lines, messages and stations heard older than this are cleared (0 = keep)</td></tr>
+</tbody></table></div>
+<div class="tw"><table>
+<thead><tr><th>Band</th><th>80 m</th><th>40 m</th><th>30 m</th><th>20 m</th><th>17 m</th><th>15 m</th><th>12 m</th><th>10 m</th></tr></thead>
+<tbody>
+<tr><td>JS8 (MHz)</td><td>3.578</td><td>7.078</td><td>10.130</td><td>14.078</td><td>18.104</td><td>21.078</td><td>24.922</td><td>28.078</td></tr>
+</tbody></table></div>
+<p>JS8Call's default 60 m frequency (5.363 MHz) is not a US channel, so on
+60 m the dial stays where it is.</p>
+<h2 id="freedv-rade-v1">FreeDV RADE V1<a class="hl" href="#freedv-rade-v1" aria-label="Link to this section">#</a></h2>
+<p>RADE is FreeDV's machine-learning digital voice: about 1.5 kHz wide, with
+good speech down to low SNR. It is built into every jeSDR release.</p>
+<ol>
+<li>Choose <strong>RADE</strong> (it tunes to the band's FreeDV frequency).</li>
+<li>Tune within about ±50 Hz of the other station.</li>
+<li>Talk with the mic PTT. Set the level with <em>Mic gain</em>; the equalizers,
+compressor and noise reduction do not apply to RADE.</li>
+</ol>
+<p>The panel shows sync, SNR and the frequency offset while receiving, and the
+speaker plays the decoded speech. While you transmit the speaker plays your
+own voice at <em>TX monitor</em>, never the modem signal.</p>
+<p><strong>Sideband.</strong> FreeDV's convention is upper sideband on every band, and that
+is the default. Some nets below 10 MHz still use lower sideband, so the RADE
+panel has <strong>USB / LSB / Auto</strong> buttons (<em>RADE sideband</em>, <code>RADESB</code>). Auto
+uses LSB below 10 MHz and USB above, like voice SSB, and the button shows
+which one it is using. Both stations must use the same sideband, or neither
+decodes the other. The passband on the waterfall shows the side, and CAT
+programs read the mode as USB or LSB to match. The sideband doesn't change
+during a transmission.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>RADE sideband</td><td><code>RADESB</code></td><td>USB</td><td>USB, LSB, AUTO</td><td>USB on every band (FreeDV’s convention), LSB, or Auto: LSB below 10 MHz and USB above</td></tr>
+</tbody></table></div>
+<h3 id="freedv-reporter">FreeDV Reporter<a class="hl" href="#freedv-reporter" aria-label="Link to this section">#</a></h3>
+<p><a href="https://qso.freedv.org/" target="_blank" rel="noopener">FreeDV Reporter</a> lists the FreeDV stations on the
+air. With <em>FreeDV Reporter</em> on (<code>FDVR ON</code>, More → FT8 and digital):</p>
+<ul>
+<li><strong>Reporter</strong> in the RADE panel opens the list: frequency, call sign,
+grid and distance, whether the station is transmitting (red), whom it
+last heard and at what SNR, and its message. <strong>This band</strong> shows the
+stations within 250 kHz of the dial, <strong>All</strong> every band. Tap a station to
+tune to it. The button shows a green dot and the number of stations while
+connected.</li>
+<li>The stations also show as green labels on the scope (red while they
+transmit), with the cluster spots; tap one to tune to it.</li>
+<li><strong>You are listed while the radio is in RADE</strong>, with <code>MYCALL</code>, <code>MYGRID</code>,
+your frequency (on air, with a transverter's offset), when you transmit,
+and <em>Reporter message</em> (<code>FDVR_MSG</code>). In any other mode jeSDR hides you
+and only watches. Without MYCALL and MYGRID it only watches.</li>
+<li>A station asking you to QSY (from its FreeDV Reporter window) pops up.</li>
+</ul>
+<p>jeSDR does not yet send or decode the call sign RADE carries in its
+end-of-over, so stations do not report hearing you by call, and jeSDR does
+not report the stations it hears. <code>reporter</code> on the console shows the
+connection.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>FreeDV Reporter</td><td><code>FDVR</code></td><td>OFF</td><td>ON, OFF</td><td>Show FreeDV stations; list yourself while in RADE</td></tr>
+<tr><td>Reporter message</td><td><code>FDVR_MSG</code></td><td>(empty)</td><td>text</td><td>Your message on FreeDV Reporter</td></tr>
+<tr><td>Reporter server</td><td><code>FDVR_HOST</code></td><td>qso.freedv.org</td><td>host[:port]</td><td>The server (WebSocket, port 80)</td></tr>
+</tbody></table></div>
+<h2 id="mode-frequencies">Mode frequencies<a class="hl" href="#mode-frequencies" aria-label="Link to this section">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th>Band</th><th>FT8</th><th>FT4</th><th>FT2</th><th>PSK</th><th>RADE</th></tr></thead>
+<tbody>
+<tr><td>80 m</td><td>3.573</td><td>3.5755</td><td>3.578</td><td>3.580</td><td>3.625</td></tr>
+<tr><td>60 m</td><td>5.357</td><td>–</td><td>–</td><td>–</td><td>5.4035</td></tr>
+<tr><td>40 m</td><td>7.074</td><td>7.0475</td><td>7.052</td><td>7.070</td><td>7.177</td></tr>
+<tr><td>30 m</td><td>10.136</td><td>10.140</td><td>10.144</td><td>10.142</td><td>–</td></tr>
+<tr><td>20 m</td><td>14.074</td><td>14.080</td><td>14.084</td><td>14.070</td><td>14.236</td></tr>
+<tr><td>17 m</td><td>18.100</td><td>18.104</td><td>18.108</td><td>18.100</td><td>18.118</td></tr>
+<tr><td>15 m</td><td>21.074</td><td>21.140</td><td>21.144</td><td>21.070</td><td>21.313</td></tr>
+<tr><td>12 m</td><td>24.915</td><td>24.919</td><td>24.923</td><td>24.920</td><td>24.933</td></tr>
+<tr><td>10 m</td><td>28.074</td><td>28.180</td><td>28.184</td><td>28.120</td><td>28.330</td></tr>
+</tbody></table></div></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Digital-modes" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

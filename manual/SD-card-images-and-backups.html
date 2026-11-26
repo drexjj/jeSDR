@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SD card images and backups · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html" aria-current="page">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#writing-the-jesdr-image">Writing the jeSDR image</a><a href="#without-opening-the-case">Without opening the case</a><a href="#backing-up-the-whole-card">Backing up the whole card</a><a href="#moving-to-a-new-card">Moving to a new card</a></nav>
+    <article><h1 id="sd-card-images-and-backups">SD card images and backups<a class="hl" href="#sd-card-images-and-backups" aria-label="Link to this section">#</a></h1>
+<p>The sBitx is a computer as well as a transceiver: its Raspberry Pi runs
+Raspberry Pi OS from a microSD card. An <strong>image</strong> is a complete copy of such
+a card (the operating system, jeSDR and its set-up) in one file. Writing an
+image to a card is like reformatting a computer's disk and restoring it:
+everything on the card is replaced.</p>
+<p>Use an image for a fresh start, a new or failed card, or to get back to a
+known-good system. To add jeSDR to a card that already runs Raspberry Pi OS,
+or to update it, you don't need an image: see
+<a href="Installing-and-updating.html">Installing and updating</a>.</p>
+<div class="tw"><table>
+<thead><tr><th>Your radio's</th><th>What keeps it</th></tr></thead>
+<tbody>
+<tr><td>settings, log, calibration, voice messages</td><td><strong>More → Backup → Download a backup</strong> (one small file)</td></tr>
+<tr><td>everything on the card</td><td>a whole-card copy (below)</td></tr>
+</tbody></table></div>
+<p>The calibration (<code>hw_settings.ini</code>) belongs to your radio's own boards, so
+keep a backup of it whatever else you do.</p>
+<h2 id="writing-the-jesdr-image">Writing the jeSDR image<a class="hl" href="#writing-the-jesdr-image" aria-label="Link to this section">#</a></h2>
+<p>You need a computer (Windows, macOS or Linux), a microSD card of 16 GB or
+more (32 GB gives room for recordings and other programs) and a card reader.</p>
+<ol>
+<li>Download the SD card image from the
+<a href="https://github.com/drexjj/jeSDR/releases/latest" target="_blank" rel="noopener">releases page</a>.</li>
+<li>Install <strong><a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener">Raspberry Pi Imager</a></strong>
+or <strong><a href="https://etcher.balena.io/" target="_blank" rel="noopener">balenaEtcher</a></strong>. Both write the
+compressed file (<code>.img.xz</code> or <code>.img.gz</code>) directly; there is no need to
+unpack it first.</li>
+<li>Write it:
+<ul>
+<li><strong>Raspberry Pi Imager:</strong> <em>Choose OS → Use custom</em>, pick the image;
+<em>Choose storage</em>, pick the card; <em>Next</em>. When it offers to customise
+the settings, choose <em>No</em>: the image is already set up.</li>
+<li><strong>balenaEtcher:</strong> <em>Flash from file</em>, <em>Select target</em>, <em>Flash</em>.</li>
+</ul></li>
+<li>Eject the card, <a href="Opening-the-case.html">put it in the radio</a> and switch on.</li>
+</ol>
+<p>The first start takes a little longer: the card is expanded to its full size,
+and the radio makes its own HTTPS certificate and SSH keys. Then restore your
+backup in <strong>More → Backup → Restore from a file…</strong>. The image is made on a
+Pi 4: on a Pi 5, run the <a href="Installing-and-updating.html#one-line-installer">one-line installer</a>
+once after the first start.</p>
+<p>If the card isn't recognised, try another reader or USB port, and make sure
+the card is big enough. A card that fails to write twice is probably worn
+out: SD cards do fail, especially cheap ones.</p>
+<h2 id="without-opening-the-case">Without opening the case<a class="hl" href="#without-opening-the-case" aria-label="Link to this section">#</a></h2>
+<p>The Pi can start from a <strong>USB drive</strong> instead of its internal card. That
+lets you try an image without touching the card inside, or copy a new image
+onto the internal card from the radio itself.</p>
+<h3 id="start-the-radio-from-a-usb-drive">Start the radio from a USB drive<a class="hl" href="#start-the-radio-from-a-usb-drive" aria-label="Link to this section">#</a></h3>
+<ol>
+<li>Write the image to a USB drive of 16 GB or more, as above (choose the USB
+drive as the target).</li>
+<li>On the radio, open a terminal and run <code>sudo raspi-config</code>. Choose
+<strong>Advanced Options → Boot Order → USB Boot</strong> (<em>NVMe/USB Boot</em> on newer
+versions), then <em>Finish</em>.
+<ul>
+<li>If that gives an error, connect the radio to the internet, choose
+<strong>Update</strong> in raspi-config, then <strong>Advanced Options → Bootloader
+Version → Latest</strong>, reboot and try again.</li>
+</ul></li>
+<li>Shut down, plug in the USB drive and switch on. The first start from USB
+takes a few minutes.</li>
+</ol>
+<p>To go back to the internal card, remove the USB drive and restart. With no
+USB drive the Pi looks for one for a few seconds, then starts from the card.</p>
+<h3 id="copy-the-usb-drive-onto-the-internal-card">Copy the USB drive onto the internal card<a class="hl" href="#copy-the-usb-drive-onto-the-internal-card" aria-label="Link to this section">#</a></h3>
+<p>With the radio running from the USB drive:</p>
+<ol>
+<li>Back up anything you want from the internal card first (it is about to
+be replaced).</li>
+<li>Open the Raspberry Pi menu → <strong>Accessories → SD Card Copier</strong>.</li>
+<li><strong>Copy From Device:</strong> the USB drive you started from (usually
+<code>/dev/sda</code>). <strong>Copy To Device:</strong> the internal card (<code>/dev/mmcblk0</code>).</li>
+<li>Tick <strong>New Partition UUIDs</strong>, check both choices again, and press
+<strong>Start</strong>. It asks before it overwrites the card.</li>
+<li>When it finishes, shut down, remove the USB drive and switch on: the
+radio starts from the freshly copied card.</li>
+</ol>
+<h2 id="backing-up-the-whole-card">Backing up the whole card<a class="hl" href="#backing-up-the-whole-card" aria-label="Link to this section">#</a></h2>
+<p>A copy of the whole card brings back everything at once, including other
+programs and their settings.</p>
+<p><strong>On the radio</strong>, to a USB drive at least as big as the card (it erases the
+drive): Raspberry Pi menu → <strong>Accessories → SD Card Copier</strong>, <em>Copy From</em>
+the internal card (<code>/dev/mmcblk0</code>), <em>Copy To</em> the USB drive (usually
+<code>/dev/sda</code>), <strong>Start</strong>. To restore, start from that drive and copy it back
+(above), or <a href="Opening-the-case.html">swap the card</a>.</p>
+<p><strong>On a computer</strong>, as an image file: take the card out of the radio and
+read it with Win32 Disk Imager (<em>Read</em>) on Windows, or <code>dd</code> on Linux or
+macOS:</p>
+<pre><code class="lang-console">sudo dd if=/dev/sdX of=radio-backup.img bs=4M status=progress</code></pre>
+<p>(<code>/dev/sdX</code> is the card reader; check it with <code>lsblk</code> first, because <code>dd</code>
+to the wrong device erases it.) The file is the card's full size; write it
+back with Raspberry Pi Imager or balenaEtcher like any other image.</p>
+<p>A copy of your card contains your Wi-Fi passwords, the radio's own keys and
+certificate, and your log. Keep it for yourself; don't share it as an image
+for others.</p>
+<h2 id="moving-to-a-new-card">Moving to a new card<a class="hl" href="#moving-to-a-new-card" aria-label="Link to this section">#</a></h2>
+<ol>
+<li><strong>More → Backup → Download a backup</strong> on the old card.</li>
+<li>Write the jeSDR image to the new card and start the radio with it.</li>
+<li><strong>More → Backup → Restore from a file…</strong> with the backup.</li>
+</ol>
+<p>Programs you added yourself (WSJT-X, fldigi, JS8Call…) are not in the
+backup: install them again, or use a whole-card copy instead. Their own
+logs are in your home folder: <code>~/.local/share/WSJT-X/</code>,
+<code>~/.local/share/JS8Call/</code> and <code>~/.fldigi/</code>.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/SD-card-images-and-backups" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

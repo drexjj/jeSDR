@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sBitx hardware and upgrades · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html" aria-current="page">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#sbitx-v3-specifications">sBitx V3 specifications</a><a href="#microphones">Microphones</a><a href="#raspberry-pi-5">Raspberry Pi 5</a><a href="#touch-display-2">Touch Display 2</a></nav>
+    <article><h1 id="sbitx-hardware-and-upgrades">sBitx hardware and upgrades<a class="hl" href="#sbitx-hardware-and-upgrades" aria-label="Link to this section">#</a></h1>
+<p>Notes on the sBitx V3 itself: its specifications, microphones, and the
+Raspberry Pi 5 and Touch Display 2 upgrades. To get inside, see
+<a href="Opening-the-case.html">Opening the case</a>.</p>
+<h2 id="sbitx-v3-specifications">sBitx V3 specifications<a class="hl" href="#sbitx-v3-specifications" aria-label="Link to this section">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th></th><th></th></tr></thead>
+<tbody>
+<tr><td>Supply</td><td>11.5–14 V DC; full power needs 12.8–14 V at up to 9 A</td></tr>
+<tr><td>Receive current</td><td>about 600 mA</td></tr>
+<tr><td>Transmit current</td><td>up to 9 A at full drive</td></tr>
+<tr><td>Bands</td><td>80 to 10 m</td></tr>
+</tbody></table></div>
+<p>Typical output per band:</p>
+<div class="tw"><table>
+<thead><tr><th>Band</th><th>80 m</th><th>60 m</th><th>40 m</th><th>30 m</th><th>20 m</th><th>17 m</th><th>15 m</th><th>12 m</th><th>10 m</th></tr></thead>
+<tbody>
+<tr><td>Power</td><td>25 W</td><td>25 W</td><td>25 W</td><td>25 W</td><td>22 W</td><td>18 W</td><td>15 W</td><td>12 W</td><td>10 W</td></tr>
+</tbody></table></div>
+<p>jeSDR's <a href="PA-power-and-calibration.html">PA power calibration</a> sets the drive for
+each band against these figures. Use a supply that holds its voltage while
+transmitting: a sagging supply costs power on the high bands and can upset
+the Pi (see <a href="Power-backup-shutdown-and-about.html#power--battery">Power &amp; battery</a>).</p>
+<h2 id="microphones">Microphones<a class="hl" href="#microphones" aria-label="Link to this section">#</a></h2>
+<p>The stock microphone has low output and a hollow sound. <strong>Mic gain</strong>,
+the compressor and the <a href="Equalizer.html">transmit equalizer</a> help, but a better
+microphone helps more.</p>
+<h3 id="the-mic-jack">The mic jack<a class="hl" href="#the-mic-jack" aria-label="Link to this section">#</a></h3>
+<p>The sBitx mic input is a 3.5 mm <strong>TRS</strong> jack:</p>
+<div class="tw"><table>
+<thead><tr><th>Contact</th><th>Signal</th></tr></thead>
+<tbody>
+<tr><td>Tip</td><td>Mic +</td></tr>
+<tr><td>Ring</td><td>PTT (to ground to transmit)</td></tr>
+<tr><td>Sleeve</td><td>Ground</td></tr>
+</tbody></table></div>
+<pre><code>plug base  ===| GND |===| PTT |===| MIC+ |=&gt;  plug tip</code></pre>
+<p>Few other radios wire a 3.5 mm plug this way, so another hand microphone
+usually needs its plug rewired or an adapter. Hand mics owners have used:</p>
+<ul>
+<li><strong>TIDRadio TD-HM060</strong>: replace its 2.5 mm TRRS plug with a 3.5 mm TRS plug.</li>
+<li><strong>Baofeng-style speaker-microphones</strong>: rewire to a 3.5 mm TRS plug as
+above, and disconnect the speaker inside.</li>
+</ul>
+<h3 id="a-better-element-in-the-stock-microphone">A better element in the stock microphone<a class="hl" href="#a-better-element-in-the-stock-microphone" aria-label="Link to this section">#</a></h3>
+<p>The stock mic's electret capsule can be replaced, for example with a
+PUI Audio <strong>AOM-5024L-HD-R</strong> (−24 dB, noticeably more output and a clearer
+sound).</p>
+<ol>
+<li>Open the microphone. Photograph the inside first: note the capsule's
+wire polarity and how the PTT switch and its spring sit.</li>
+<li>Unsolder the old capsule, leaving the wires on the board.</li>
+<li>Solder the new capsule with the same polarity.</li>
+<li>Put a little loose cotton around the capsule to damp resonance.</li>
+<li>Close it up, checking the PTT spring is back in place.</li>
+</ol>
+<p>Then lower <strong>Mic gain</strong> to suit, and check the <a href="Transmit.html#alc-meter">ALC meter</a>.</p>
+<h3 id="a-usb-headset-or-microphone">A USB headset or microphone<a class="hl" href="#a-usb-headset-or-microphone" aria-label="Link to this section">#</a></h3>
+<p>A USB headset or USB sound card can be the radio's microphone, headphones or
+both: see <a href="Headset-and-USB-audio.html">Headset and USB audio</a>.</p>
+<h2 id="raspberry-pi-5">Raspberry Pi 5<a class="hl" href="#raspberry-pi-5" aria-label="Link to this section">#</a></h2>
+<p>jeSDR runs on a Pi 5 as well as a Pi 4. The swap needs more than a new
+board:</p>
+<ul>
+<li><strong>Power.</strong> The Pi 5 needs a 5 V regulator that can give <strong>5 A</strong>; set its
+output to about 5.3 V to make up for the drop in the wiring. Too
+little and the Pi won't start or resets. <code>vcgencmd pmic_read_adc</code> shows the
+supply rails, and jeSDR's Pi badge turns red on under-voltage.</li>
+<li><strong>Display cable.</strong> The Pi 5's display connector is the small 22-pin type;
+the 7-inch display needs a <em>Standard to Mini</em> display cable (the
+Raspberry Pi 500 mm one fits the case).</li>
+<li><strong>Cooling.</strong> The Pi 5 runs hotter: fit the Raspberry Pi <strong>Active Cooler</strong>
+or another fan and heatsink. jeSDR shows the Pi's temperature and warns
+when it is hot; keep it under about 70 °C.</li>
+<li><strong>Case.</strong> The Ethernet and USB ports and the mounting holes are in
+different places, so the side panel needs new cut-outs (and perhaps new
+standoffs). 3D-printable replacement side plates are on the
+<a href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Discord server</a>.</li>
+<li><strong>Software.</strong> Run the <a href="Installing-and-updating.html#one-line-installer">one-line installer</a>
+once on the Pi 5, even after writing the SD card image (the image is made
+on a Pi 4).</li>
+</ul>
+<p>Afterwards, check the display, the audio, receive and a low-power transmit
+into a dummy load, and look at <strong>More → Diagnostics</strong> and <code>dmesg</code> for errors.</p>
+<h2 id="touch-display-2">Touch Display 2<a class="hl" href="#touch-display-2" aria-label="Link to this section">#</a></h2>
+<p>The Raspberry Pi <strong>Touch Display 2</strong> (720 × 1280) is sharper than the
+original 7-inch display, but it is not a drop-in replacement:</p>
+<ul>
+<li><strong>It doesn't fit the old bezel.</strong> It is taller and narrower; a
+3D-printable bezel is on the <a href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Discord server</a>.</li>
+<li><strong>Power connector.</strong> It has a different power plug: cut and solder the
+power wires, <strong>black to ground, brown to +5 V</strong>. Check the polarity twice.</li>
+<li><strong>Display cable.</strong> The existing cable can be reused (on a Pi 4); insert it
+with the exposed contacts facing up.</li>
+</ul>
+<p>Software:</p>
+<ol>
+<li>Bring Raspberry Pi OS up to date: <code>sudo apt update &amp;&amp; sudo apt full-upgrade</code>.</li>
+<li><p>In <code>/boot/firmware/config.txt</code>, make sure the display driver line is the
+KMS one (<code>dtoverlay=vc4-kms-v3d</code>, not <code>vc4-fkms-v3d</code>), and add:</p>
+<pre><code class="lang-ini"># Touch Display 2
+dtoverlay=vc4-kms-dsi-ili9881-7inch,rotation=270</code></pre>
+<p>Restart.</p></li>
+<li>In the desktop's screen settings, turn <strong>DSI-1</strong> to the orientation you
+want, and map the touchscreen (<em>Goodix Capacitive Touchscreen</em>) to it.</li>
+</ol>
+<p>jeSDR's screen adapts to the new size. The battery saver dims the display
+through the kernel's backlight control, if the display provides one.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/sBitx-hardware" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

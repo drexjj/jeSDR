@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Headset and USB audio · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html" aria-current="page">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    
+    <article><h1 id="headset-and-usb-audio">Headset and USB audio<a class="hl" href="#headset-and-usb-audio" aria-label="Link to this section">#</a></h1>
+<p>A USB headset or USB sound card plugged into the Pi can be the radio's
+headphones, its microphone, or both. Choose them under <strong>More → Headset &amp; USB
+audio</strong>.</p>
+<p><img src="images/settings-headset.png" alt="Headset &amp; USB audio" loading="lazy"></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Headphones</td><td><code>PHONES</code></td><td>OFF</td><td>OFF or an output</td><td>Plays what the speaker plays on that output</td></tr>
+<tr><td>Headphone level</td><td><code>PHONESLVL</code></td><td>0</td><td>−20…20 dB</td><td>Added to the volume knob's level</td></tr>
+<tr><td>Speaker with headphones</td><td><code>PHONESSPK</code></td><td>OFF</td><td>ON, OFF</td><td>OFF: the speaker jack goes quiet while the headphones play</td></tr>
+<tr><td>Microphone</td><td><code>HSMIC</code></td><td>OFF</td><td>OFF or an input</td><td>Takes the mic jack's place for transmitting</td></tr>
+<tr><td>Headset mic gain</td><td><code>HSMICGAIN</code></td><td>0</td><td>−20…30 dB</td><td>The headset mic's gain (<code>MIC</code> is the mic jack's)</td></tr>
+</tbody></table></div>
+<p><strong>Headphones.</strong> They get exactly what the speaker would: the receiver, the
+CW sidetone and the voice monitor (<code>TXMON</code>), at the speaker's level (the
+volume knob, or the fixed sidetone level while sending), plus <em>Headphone
+level</em>. The receiver's audio is blanked around each transmit/receive switch
+the same way, so there are no clicks.</p>
+<p><strong>Microphone.</strong> In the voice modes (USB, LSB, AM, FM, RADE) the headset's
+microphone replaces the mic jack. Key the radio as usual: the mic's PTT,
+the PTT button, CAT or the console. In the digital modes the transmit audio
+still comes from the program playing into <em>jeSDR Transmit</em>.</p>
+<p><strong>Choosing the device.</strong> The lists show every output and input in the Pi's
+PipeWire session, USB devices first (marked <em>(USB)</em>). The settings remember
+the device, not a port, so:</p>
+<ul>
+<li>Unplugged, it shows <em>Not connected</em> and the speaker and mic jack take over.
+Plugged back in, it carries on by itself.</li>
+<li>The radio never sends its audio to another device instead, so the
+headphones' audio can never reach <em>jeSDR Transmit</em>.</li>
+<li>The Pi's desktop can still use the same headset; PipeWire mixes them.</li>
+</ul>
+<p>On the <a href="Console-commands.html">console</a>, <code>headset</code> lists the devices with numbers
+and shows what is in use; <code>headset phones 1</code> or <code>headset mic 1</code> chooses one,
+and <code>headset phones off</code> turns the headphones off.</p>
+<h2 id="choosing-a-headset">Choosing a headset<a class="hl" href="#choosing-a-headset" aria-label="Link to this section">#</a></h2>
+<p>Most USB headsets and USB sound cards work without drivers: look for
+<strong>USB Audio Class 1 or 2</strong> ("plug and play", "works with Chromebook / Linux").
+A wireless headset with its own <strong>USB dongle</strong> works the same way. Very
+power-hungry devices can upset the Pi; a powered USB hub helps. Models
+sBitx owners have reported working include the Logitech H390, H540 and H600,
+Jabra Evolve 20/30 II/40, Poly (Plantronics) Blackwire 3210/5220, EPOS
+Sennheiser SC 60 and SC 165 USB, Microsoft LifeChat LX-3000, the EKSA E1000
+and the Sabrent USB stereo adapter (for a wired headset or microphone).</p>
+<h2 id="if-it-doesnt-work">If it doesn't work<a class="hl" href="#if-it-doesnt-work" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Nothing in the lists:</strong> jeSDR finds devices through the radio user's
+PipeWire session. <code>status</code> shows <em>programs' audio: PipeWire: …</em>; if it
+says it is waiting, see <a href="Troubleshooting.html">Troubleshooting</a>.</li>
+<li><strong>Too quiet or too loud:</strong> use <em>Headphone level</em> and <em>Headset mic gain</em>.
+The device's own volume (on the headset, or in the desktop's sound
+settings) applies too.</li>
+<li><strong>A slight delay compared to the speaker:</strong> PipeWire adds about 20–30 ms.
+For CW at high speed the speaker jack has the shortest sidetone delay.</li>
+</ul></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Headset-and-USB-audio" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

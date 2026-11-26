@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Band plan · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html" aria-current="page">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#transmit-band-plan">Transmit band plan</a><a href="#us-license-class-and-privilege-ribbons">US license class and privilege ribbons</a><a href="#settings">Settings</a></nav>
+    <article><h1 id="band-plan">Band plan<a class="hl" href="#band-plan" aria-label="Link to this section">#</a></h1>
+<p><strong>More → Band plan</strong> sets where the radio may transmit, and shows your US
+license privileges on the scope.</p>
+<p><img src="images/settings-txplan.png" alt="Band plan settings" loading="lazy"></p>
+<h2 id="transmit-band-plan">Transmit band plan<a class="hl" href="#transmit-band-plan" aria-label="Link to this section">#</a></h2>
+<p>Choose your country, or your IARU region. The radio then refuses to
+transmit unless the whole signal (the dial plus the filter or tone offset)
+fits inside an allowed range. The header shows <strong>TX blocked</strong> when you are
+outside, and the radio will not key, whatever asks it to: PTT, CAT, TCI,
+HPSDR, the keyer or the digital modes.</p>
+<div class="tw"><table>
+<thead><tr><th>Plan</th><th>Covers</th></tr></thead>
+<tbody>
+<tr><td>Off</td><td>no limit (the default)</td></tr>
+<tr><td>USA, Canada, UK, Australia, Japan, New Zealand</td><td>that country's amateur bands</td></tr>
+<tr><td>IARU Region 1, 2, 3</td><td>the IARU region's bands, with the WRC-15 60 m band</td></tr>
+<tr><td>Custom</td><td>the ranges you type in <em>Custom ranges</em></td></tr>
+</tbody></table></div>
+<p>Under the buttons the page lists the ranges of the selected plan in kHz.
+<strong>Copy these to Custom</strong> copies them into <em>Custom ranges</em> and selects
+Custom, so you can start from your country's plan and change it.</p>
+<p>The presets follow each country's rules as of November 2026. 60 m is often
+by permit or a separate license. <strong>Your license is what counts</strong>: if it
+differs from the preset, copy the plan to Custom and change it.</p>
+<h3 id="custom-ranges">Custom ranges<a class="hl" href="#custom-ranges" aria-label="Link to this section">#</a></h3>
+<p>Type kHz ranges as <code>low-high</code>, separated by spaces or commas, for example:</p>
+<pre><code>3500-3800 5351.5-5366.5 7000-7200 14000-14350</code></pre>
+<p>Add any other ranges your license allows (MARS, CAP, 11 m where permitted).
+With a transverter, the 10 m IF is not checked.</p>
+<h2 id="us-license-class-and-privilege-ribbons">US license class and privilege ribbons<a class="hl" href="#us-license-class-and-privilege-ribbons" aria-label="Link to this section">#</a></h2>
+<p><strong>US license class</strong> (Novice, Technician, General, Advanced, Extra) outlines
+your row in the colored ribbons along the top of the scope and warns in the
+header when the signal you would transmit in the current mode falls outside
+your privileges or in the wrong segment. The ribbons show the FCC §97.301 and
+§97.305 privileges: CW only, CW and data, CW and phone, plus the 60 m
+channels. The license class is a guide only: it does not stop the
+transmitter (the transmit band plan does that). <strong>More → Display → Band
+privilege ribbons</strong> chooses All classes, My class or Off.</p>
+<h2 id="settings">Settings<a class="hl" href="#settings" aria-label="Link to this section">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>US license class</td><td><code>LICENSE</code></td><td>OFF</td><td>OFF, NOVICE, TECHNICIAN, GENERAL, ADVANCED, EXTRA</td><td>Shows your band privileges on the scope and warns outside them</td></tr>
+<tr><td>Transmit band plan</td><td><code>TXPLAN</code></td><td>OFF</td><td>OFF, US, CANADA, UK, AUSTRALIA, JAPAN, NZ, REGION1, REGION2, REGION3, CUSTOM</td><td>The radio will not transmit outside these amateur bands (the whole signal must fit). Off: no limit. Pick your country, or your IARU region; check it against your license</td></tr>
+<tr><td>Custom ranges</td><td><code>TXEDGES</code></td><td>(empty)</td><td>text</td><td>For Custom: the kHz ranges you may transmit in, e.g. 3500-3800 5351.5-5366.5 7000-7200. Add any others your license allows (MARS, CAP, 11 m where permitted)</td></tr>
+</tbody></table></div></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Band-plan" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jeSDR operating manual · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html" aria-current="page">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#getting-started">Getting started</a><a href="#using-the-radio">Using the radio</a><a href="#station-and-connections">Station and connections</a><a href="#the-radio-and-its-sd-card">The radio and its SD card</a><a href="#reference">Reference</a><a href="#help-and-community">Help and community</a><a href="#how-settings-work">How settings work</a></nav>
+    <article><p align="center"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/jesdr-logo-dark-600.png">
+  <img src="images/jesdr-logo-600.png" alt="jeSDR" width="360">
+</picture></p>
+<h1 id="jesdr-wiki">jeSDR wiki<a class="hl" href="#jesdr-wiki" aria-label="Link to this section">#</a></h1>
+<p>jeSDR turns an <strong>sBitx</strong> HF transceiver into a network transceiver with its
+own touch-friendly screen. It runs on the radio's Raspberry Pi 4 or Pi 5, drives the
+hardware, and serves the radio to SDR, logging and digital-mode programs on
+your network: TCI, HPSDR Protocol 1 and Hamlib. FT8/FT4/FT2, JS8 (with JS8Call), JTTY, RTTY, PSK,
+a CW decoder with macros, FreeDV RADE V1, a voice keyer, DX cluster spots and
+a logbook are built in.</p>
+<p>Project website: <strong><a href="https://www.jeSDR.com" target="_blank" rel="noopener">www.jeSDR.com</a></strong>.</p>
+<p><img src="images/main-desktop.jpg" alt="The jeSDR main screen" loading="lazy"></p>
+<p>This wiki explains every screen and setting and how to use them. The same
+pages are the operating manual built into the radio: open
+<code>https://&lt;radio&gt;:8443/manual</code>, or tap <strong>Manual</strong> on any settings page; it
+works without internet. A searchable copy is at
+<a href="https://www.jeSDR.com/manual/" target="_blank" rel="noopener">jeSDR.com/manual</a>. jeSDR is
+closed source; downloads are on the
+<a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">releases page</a>.</p>
+<h2 id="getting-started">Getting started<a class="hl" href="#getting-started" aria-label="Link to this section">#</a></h2>
+<ol>
+<li><a href="Installing-and-updating.html">Install jeSDR</a> from the SD card image, the
+one-line installer or the package.</li>
+<li>Open the radio's screen, or <code>https://&lt;radio&gt;:8443/</code> from any browser on
+your network.</li>
+<li>Set your call sign and grid: <strong>More → Station</strong> (<a href="Station-logbook-and-country-file.html">Station and logbook</a>).</li>
+<li>Pick your country's transmit band plan: <strong>More → Band plan</strong> (<a href="Band-plan.html">Band plan</a>).</li>
+<li>Before the first transmission into an antenna, run the
+<a href="PA-power-and-calibration.html">PA power calibration</a> into a dummy load.</li>
+</ol>
+<h2 id="using-the-radio">Using the radio<a class="hl" href="#using-the-radio" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><a href="The-main-screen.html">The main screen</a>: header, scope and waterfall, control
+strip, band and mode, volume</li>
+<li><a href="Quick-page.html">Quick page</a>: your own shortcuts</li>
+<li><a href="Receive.html">Receive</a>: gain, auto IF gain, filters, noise reduction, squelch</li>
+<li><a href="Transmit.html">Transmit</a>: drive, mic, compressor, PTT, tune, SWR protection, a
+browser microphone, CTCSS</li>
+<li><a href="Band-plan.html">Band plan</a>: country transmit limits and US privilege ribbons</li>
+<li><a href="Equalizer.html">Equalizer</a>: receive and transmit equalizers</li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer and recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a>: FT8, FT4, FT2, JS8, JTTY, RTTY, PSK, RADE</li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<h2 id="station-and-connections">Station and connections<a class="hl" href="#station-and-connections" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file and GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a>: a USB headset or sound
+card as headphones and microphone</li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a>: network time, the
+RTC, solar flux, K index and MUF</li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a>: WSJT-X, SDROxide,
+GridTracker, loggers, audio routing, network servers</li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down and About</a></li>
+</ul>
+<h2 id="the-radio-and-its-sd-card">The radio and its SD card<a class="hl" href="#the-radio-and-its-sd-card" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a> and swapping the SD card</li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a>: writing the
+image, starting from USB, copying or backing up the whole card</li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a>: specifications,
+microphones, Raspberry Pi 5, Touch Display 2</li>
+<li><a href="No-RF-output.html">No RF output</a>: settings, self-tests and the PA chain</li>
+</ul>
+<h2 id="reference">Reference<a class="hl" href="#reference" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety</a> and limitations</li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<h2 id="help-and-community">Help and community<a class="hl" href="#help-and-community" aria-label="Link to this section">#</a></h2>
+<p>Questions, ideas and 3D-printable parts (Pi 5 side plates, the Touch
+Display 2 bezel) are shared on the <a href="https://discord.gg/tCCjw5g5Pf" target="_blank" rel="noopener">Discord server</a>.
+Videos are on the <a href="https://www.youtube.com/@radioelectronicshub" target="_blank" rel="noopener">Radio Electronics Hub YouTube channel</a>.
+Report a bug from the <a href="https://www.jeSDR.com" target="_blank" rel="noopener">project website</a>.</p>
+<h2 id="how-settings-work">How settings work<a class="hl" href="#how-settings-work" aria-label="Link to this section">#</a></h2>
+<p>Every setting lives on the radio, so the touchscreen, a laptop and a phone
+all see the same values; a change in one browser shows in all of them at
+once. Open <strong>More</strong> (bottom right) for the settings menu. Each setting has a
+plain name, a line of help and a ☆ that adds it to the <a href="Quick-page.html">Quick page</a>.
+<strong>Search</strong> at the top of the menu finds a setting by name, help text or
+common words ("swr", "volume", "power").</p>
+<p><img src="images/settings-search.png" alt="Searching the settings" loading="lazy"></p>
+<p>Each setting also has a console name (shown in the tables on these pages),
+which you can type on the <a href="Console-commands.html">console</a>, e.g. <code>WPM 20</code>.</p>
+<hr>
+<p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. It is an independent project,
+built to run on sBitx hardware, and is not affiliated with or endorsed by the
+makers of the sBitx.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

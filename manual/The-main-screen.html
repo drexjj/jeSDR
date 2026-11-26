@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The main screen · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html" aria-current="page">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#header">Header</a><a href="#scope-and-waterfall">Scope and waterfall</a><a href="#control-strip">Control strip</a><a href="#mode-panels">Mode panels</a><a href="#smaller-screens">Smaller screens</a></nav>
+    <article><h1 id="the-main-screen">The main screen<a class="hl" href="#the-main-screen" aria-label="Link to this section">#</a></h1>
+<p>The same screen works on the radio's 800×480 touchscreen, a desktop browser
+and a phone; the layout adapts to the size.</p>
+<p><img src="images/main-desktop.jpg" alt="Main screen on a desktop browser" loading="lazy"></p>
+<h2 id="header">Header<a class="hl" href="#header" aria-label="Link to this section">#</a></h2>
+<p>From left to right:</p>
+<div class="tw"><table>
+<thead><tr><th>Item</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><strong>Band</strong> (<code>40m</code>)</td><td>opens the band sheet: nine bands with three band-stacking registers each</td></tr>
+<tr><td><strong>Mode</strong> (<code>LSB</code>)</td><td>opens the mode sheet: USB, LSB, CW, CWR, AM, FM, DIGI, FT8, FT4, FT2, JTTY, RTTY, PSK, RADE</td></tr>
+<tr><td><strong>Frequency</strong></td><td>tap it for a keypad; scroll the mouse wheel over a digit to change that digit. The line under it shows the VFO, the tuning step, RIT and locks</td></tr>
+<tr><td><strong>jeSDR logo</strong></td><td>tap it to open <a href="https://jeSDR.com" target="_blank" rel="noopener">jeSDR.com</a> in a new window (on the radio's own screen it asks first); it shrinks, and hides on a phone, when the header is short of room</td></tr>
+<tr><td><strong>Clock</strong></td><td>UTC and local time</td></tr>
+<tr><td><strong>Band conditions</strong></td><td>solar flux, then K index and MUF; the dot is your band now (green Good, amber Fair, red Poor). Tap it for the details (<a href="Clock-and-band-conditions.html">Clock and band conditions</a>)</td></tr>
+<tr><td><strong>Supply</strong></td><td>voltage and current, with an INA260 power monitor fitted (amber below 11.5 V or above 15 V)</td></tr>
+<tr><td><strong>Badges</strong></td><td>GPS, ● REC, battery stage, ECO, transmit timeout, Pi temperature; tap one to open its page</td></tr>
+<tr><td><strong>S-meter</strong></td><td>S-units and dBm while receiving; power and SWR while transmitting, with the <a href="Transmit.html#alc-meter">ALC meter</a> under it</td></tr>
+<tr><td><strong>Volume</strong></td><td>the speaker volume; tap it for a slider</td></tr>
+<tr><td><strong>RX / TX</strong></td><td>press and hold to transmit (push-to-talk)</td></tr>
+</tbody></table></div>
+<p>On another device a 🔈 button next to PTT plays the receiver in that browser
+(see <a href="Connecting-other-programs.html#browser-audio">Connecting other programs</a>).</p>
+<h3 id="volume">Volume<a class="hl" href="#volume" aria-label="Link to this section">#</a></h3>
+<p>Tap the volume button for a tall slider; drag it, or tap anywhere outside to
+close it. The left knob on the radio moves the same setting (<code>AUDIO</code>).
+Double-tap the button to point the right knob at the volume.</p>
+<p><img src="images/volume-popup.png" alt="Volume slider" loading="lazy"></p>
+<h3 id="band-sheet">Band sheet<a class="hl" href="#band-sheet" aria-label="Link to this section">#</a></h3>
+<p><img src="images/band-sheet.png" alt="Band sheet" loading="lazy"></p>
+<p>A band button goes to the register you used last on that band. Tapping the
+band you are already on steps to its next register, and the three registers
+of the current band are shown underneath to pick one directly. Each register
+remembers frequency, mode, filter, drive, tune power and IF gain; where you
+were is saved when you leave it. The registers live on the radio, so every
+screen shares them. <strong>SWR scan…</strong> is described on the <a href="Transmit.html#swr-scan">Transmit</a> page.</p>
+<h3 id="mode-sheet-and-keypad">Mode sheet and keypad<a class="hl" href="#mode-sheet-and-keypad" aria-label="Link to this section">#</a></h3>
+<p><img src="images/mode-sheet.png" alt="Mode sheet" loading="lazy"></p>
+<p><img src="images/keypad.png" alt="Frequency keypad" loading="lazy"></p>
+<p>Type kHz (<code>14074</code>) or MHz with a dot (<code>14.074</code>) and press <strong>Enter</strong>.</p>
+<h2 id="scope-and-waterfall">Scope and waterfall<a class="hl" href="#scope-and-waterfall" aria-label="Link to this section">#</a></h2>
+<p>The scope shows 24 kHz around the dial; the waterfall below it shows the
+recent past.</p>
+<ul>
+<li><strong>Tap</strong> to tune there. <strong>Drag</strong> or <strong>scroll</strong> to tune in whole
+<em>Tuning steps</em> (the dial stays on the step grid: with a 1 kHz step it moves
+1 kHz at a time). <strong>Pinch</strong> or <strong>− / +</strong> to zoom (24, 12, 6 or 3 kHz). Zooming in also sharpens the display.</li>
+<li>The <strong>shaded area</strong> is the receive passband; the dashed line is the dial.</li>
+<li>The colored ribbons along the top are the US band privileges
+(see <a href="Band-plan.html#us-license-class-and-privilege-ribbons">Band plan</a>).</li>
+<li>In FT8, FT4, FT2, JTTY and PSK a <strong>red line</strong> marks the transmit offset; in
+RTTY two lines mark the mark (M) and space (S) tones. Drag a line, or its
+label, to move it; the dial stays put.</li>
+<li>With the DX cluster on, spotted calls appear as labels at their
+frequency; tap one to tune to it, hold it for the station's details.</li>
+<li>With <strong>AUTO</strong> contrast (the default) the waterfall's color range follows
+the band's noise and signals, so plain noise stays dark. Display settings
+are on the <a href="Display-and-themes.html">Display and themes</a> page.</li>
+</ul>
+<h2 id="control-strip">Control strip<a class="hl" href="#control-strip" aria-label="Link to this section">#</a></h2>
+<p>The tiles along the bottom change with the mode: SSB, CW, the digital modes,
+RADE and AM/FM each have their own set.</p>
+<ul>
+<li><strong>Drag or scroll</strong> a tile to change its value.</li>
+<li><strong>Tap</strong> a tile to point the radio's right knob at it; push the knob (or
+wait 10 s) to go back to tuning. Some tiles open a sheet instead (Filter,
+Equalizer, Voice keyer).</li>
+<li><strong>Log</strong> opens the <a href="Station-logbook-and-country-file.html#logbook">logbook</a>;
+<strong>More</strong> opens the settings.</li>
+</ul>
+<h3 id="filter">Filter<a class="hl" href="#filter" aria-label="Link to this section">#</a></h3>
+<p><img src="images/filter-sheet.png" alt="Filter sheet" loading="lazy"></p>
+<p>Tap <strong>Filter</strong> for width (<code>BW</code>), low cut and high cut; dragging the tile
+changes the width. Each group of modes keeps its own filter and gets it back
+when you return. In CW, RTTY and PSK the filter sits on the signal and
+follows it. See <a href="Receive.html#filter">Receive</a>.</p>
+<h2 id="mode-panels">Mode panels<a class="hl" href="#mode-panels" aria-label="Link to this section">#</a></h2>
+<p>In CW, FT8, FT4, FT2, JTTY, RTTY, PSK and RADE a panel opens above the
+control strip with that mode's decoder and buttons; ▾ makes it smaller. See
+<a href="CW-voice-keyer-and-recordings.html">CW</a> and <a href="Digital-modes.html">Digital modes</a>.</p>
+<h2 id="smaller-screens">Smaller screens<a class="hl" href="#smaller-screens" aria-label="Link to this section">#</a></h2>
+<p>The radio's 800×480 touchscreen:</p>
+<p><img src="images/main-800x480.jpg" alt="Main screen at 800×480" loading="lazy"></p>
+<p>A phone puts the header on three rows:</p>
+<img src="images/main-phone.jpg" alt="Main screen on a phone" width="300"></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/The-main-screen" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

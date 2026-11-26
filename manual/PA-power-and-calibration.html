@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PA power and calibration · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html" aria-current="page">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#pa-power-calibration">PA power calibration</a><a href="#pa-bias-adjustment">PA bias adjustment</a><a href="#power-meter-swr-bridge-calibration">Power meter (SWR bridge) calibration</a><a href="#frequency-calibration">Frequency calibration</a><a href="#s-meter-calibration">S-meter calibration</a><a href="#birdie-shift">Birdie shift</a></nav>
+    <article><h1 id="pa-power-and-calibration">PA power and calibration<a class="hl" href="#pa-power-and-calibration" aria-label="Link to this section">#</a></h1>
+<p><strong>More → Calibration</strong> has six sections: <strong>PA power</strong>, the <strong>PA bias</strong>
+(PA_BIAS1), the <strong>Power meter</strong> (SWR bridge), the <strong>Frequency</strong> (reference
+crystal), the <strong>S-meter</strong> and the <strong>Receiver</strong> (birdie shift). The LPF sweep is on the
+<a href="Diagnostics.html#lpf-sweep-low-pass-filters">Diagnostics</a> page.</p>
+<p><img src="images/settings-cal.jpg" alt="Calibration page" loading="lazy"></p>
+<h2 id="pa-power-calibration">PA power calibration<a class="hl" href="#pa-power-calibration" aria-label="Link to this section">#</a></h2>
+<p>The PA's gain changes from band to band, so each band has its own power
+scale. The <strong>PA power</strong> section of <strong>More → Calibration</strong> sets them all so
+that <strong>Drive 100 %</strong> gives the same power on every band. Run it once on a new
+radio, after changing the PA or the low-pass filters, and whenever the power
+on some band looks wrong. Searching the settings for "pa power" finds it too.</p>
+<p>You need a <strong>dummy load</strong> rated for the full power, and a supply that can
+deliver about 6 A at 13.8 V. An inline wattmeter is useful for checking the
+result but is not needed: the radio measures with its own SWR bridge.</p>
+<ol>
+<li><strong>sBitx board</strong>: <strong>DE</strong> or <strong>V2</strong> (40 W) or <strong>V3</strong> (25 W). Check the label
+on your board. This sets the target and the power limit.</li>
+<li><strong>Target power</strong>: the board's rating, or less if you want.</li>
+<li><strong>Bands</strong>: all except 60 m are selected; add 60 m if you use it (it
+calibrates on 5357 kHz).</li>
+<li>Tick the three checks: the dummy load is on the antenna jack, the supply
+can deliver the current, the radio is cool.</li>
+<li>Tap <strong>Start calibration</strong>, then <strong>Tap again to transmit</strong>.</li>
+</ol>
+<p>The radio sends a steady carrier on one band at a time. At each step it waits
+for the power to settle, then averages the forward power over short windows
+until two in a row agree, and moves the band's scale until the power is
+within 2.5 % of the target. Each band is on the air for 5–10 seconds, with a
+few seconds of receive between bands; a whole run takes one to two minutes.
+The page shows the power, SWR, supply voltage and step live, and each band's
+old and new scale when it finishes.</p>
+<ul>
+<li>A band whose PA cannot reach the target (often 10–15 m at 40 W) is set to
+the lowest scale that gives its maximum, and shows <em>PA maximum</em>.</li>
+<li>The run <strong>stops</strong> on an SWR above 3:1, no measurable power, no readings from
+the SWR bridge, or battery protection lowering the drive. <strong>Stop</strong> un-keys
+at once. The band in progress keeps its old scale; bands already done keep
+their new one.</li>
+<li>While it runs nothing else can key, tune or change the mode.</li>
+<li>The result is saved with each band's power limit, which the ALC holds the
+output under. It is part of the <a href="Power-backup-shutdown-and-about.html#backup">backup</a>.</li>
+</ul>
+<p>Console: <code>txcal start [W] [bands]</code> (e.g. <code>txcal start 25 40m,20m</code>),
+<code>txcal stop</code>, <code>txcal status</code>.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>sBitx board</td><td><code>PA_MODEL</code></td><td>V3</td><td>DE, V2, V3</td><td>Sets the PA calibration’s power: DE and V2 40 W, V3 25 W. Check the label on your board</td></tr>
+</tbody></table></div>
+<h2 id="pa-bias-adjustment">PA bias adjustment<a class="hl" href="#pa-bias-adjustment" aria-label="Link to this section">#</a></h2>
+<p><strong>More → Calibration → PA bias (PA_BIAS1)</strong> guides setting PA_BIAS1 on the sBitx V3 (two IRF510s), which is needed after
+replacing the MOSFETs. It follows the V3 bias guide, with the radio doing the
+keying and the measuring.</p>
+<p>You need:</p>
+<ul>
+<li>a 50 Ω dummy load (and a power meter, if you have one);</li>
+<li>a 12–13.8 V supply current-limited to 2 A;</li>
+<li>the case open and PA_BIAS1 found, with the heatsink in place.</li>
+</ul>
+<ol>
+<li>Turn <strong>PA_BIAS1</strong> fully counter-clockwise (minimum bias), tick the checks
+and tap <strong>Start</strong>, then <strong>Tap again to transmit</strong>.</li>
+<li>The radio keys on 7.035 MHz with <strong>no drive at all</strong> (the calibration
+carrier at zero), so the mic and drive settings don't matter and only the
+bias current flows. After 1.5 s it measures the supply current for 2 s:
+the <strong>baseline</strong>.</li>
+<li>Turn PA_BIAS1 <strong>slowly</strong> clockwise. The page shows the increase over the
+baseline live on a 0–350 mA bar with the 150–250 mA target marked:
+<ul>
+<li>under 150 mA it says <em>turn clockwise</em>;</li>
+<li>between 150 and 250 mA it says <em>in range</em>;</li>
+<li>above 250 mA it says <em>turn counter-clockwise now</em>.</li>
+</ul></li>
+<li>Let it settle a few seconds and tap <strong>Done — check it</strong>. The radio
+receives for 5 s, keys again and measures for 3 s. The result shows the
+baseline, the reading when you finished, and the reading after keying
+again.</li>
+</ol>
+<p>The radio flags a setting outside 150–250 mA, and a change of more than 30 mA
+between the end of the adjustment and the check (let it settle: a bias that
+keeps rising with temperature risks thermal runaway). Check that the
+heatsink is warm, not hot, then run <strong>PA health</strong> or the PA power
+calibration.</p>
+<p><strong>Adjust again</strong> keeps the stored baseline (<code>~/jeSDR/data/diag_bias.base</code>)
+for a touch-up without turning the pot back to minimum. PA health also
+reports the idle current against this baseline.</p>
+<p>It un-keys by itself if:</p>
+<ul>
+<li>the bias goes past 400 mA;</li>
+<li>it has been keyed for 5 minutes;</li>
+<li>any RF output appears (more than 1 W forward).</li>
+</ul>
+<p><strong>Without an INA260</strong>, put a meter in series with the supply. The radio still
+keys with no drive (with the same 5-minute limit). Type the two readings in
+mA (the keyed current with the pot at minimum, and the current now); the page
+works out the increase and guides you the same way, and <strong>Done</strong> records
+them.</p>
+<p>The 150–250 mA target is for the V3. For other boards, use their own bias
+figures.</p>
+<p>Console: <code>diag bias</code>, <code>diag bias adjust</code>, <code>diag bias manual</code>, <code>diag bias done
+[base_mA now_mA]</code>, <code>diag show bias</code>.</p>
+<h2 id="power-meter-swr-bridge-calibration">Power meter (SWR bridge) calibration<a class="hl" href="#power-meter-swr-bridge-calibration" aria-label="Link to this section">#</a></h2>
+<p>sBitx boards' SWR bridges differ, so the power the radio shows can read high
+or low. <strong>More → Calibration → Power meter</strong> corrects it against an external
+wattmeter:</p>
+<ol>
+<li>Put a wattmeter and a dummy load on the antenna jack.</li>
+<li>Tap <strong>Tune</strong> for a steady carrier.</li>
+<li>Type what the wattmeter reads and tap <strong>Match</strong>.</li>
+</ol>
+<p>The radio sets <strong>SWR bridge</strong> (<code>BRIDGE</code>, 25–400, default 100) so its reading
+matches. The forward reading is divided by it, so a higher value reads lower;
+you can also set it by hand. Then run the PA power calibration again, since
+it measures with this meter. SWR readings don't change (they are a ratio).</p>
+<p>Console: <code>bridgecal &lt;W&gt;</code> while TUNE is keyed, or <code>BRIDGE &lt;n&gt;</code>.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>SWR bridge</td><td><code>BRIDGE</code></td><td>100</td><td>25–400</td><td>Power meter calibration for your board: higher reads lower</td></tr>
+</tbody></table></div>
+<h2 id="frequency-calibration">Frequency calibration<a class="hl" href="#frequency-calibration" aria-label="Link to this section">#</a></h2>
+<p><strong>More → Calibration → Frequency (reference crystal)</strong> (or search the
+settings for "frequency"). Needs the antenna; it does not transmit.</p>
+<p>It tunes to the time stations WWV/WWVH: all of 2.5, 5, 10, 15, 20 and 25 MHz,
+or just 5, 10, 15 or 20 MHz. It measures each carrier's offset to a fraction
+of a hertz from 2.7 seconds of IQ, at two dial settings (which also confirms
+the direction). The offset divided by the frequency is the <strong>reference
+crystal's error</strong> in ppm; the median of the stations heard is used. WWV is
+usually best on 10–20 MHz by day and 2.5–5 MHz at night.</p>
+<p><strong>Apply</strong> (console <code>diag freq apply</code>) sets the Si5351's crystal frequency to
+match and saves it in <code>hw_settings.ini</code> (<code>[tcxo] cal</code>). It is accepted for 30
+minutes after a measurement. The radio's own tuning steps add about 0.1 ppm
+of uncertainty, and ionospheric Doppler a little more: run it twice if the
+stations disagree.</p>
+<p>GPS gives the time, not a frequency, so it can't calibrate the crystal by
+itself.</p>
+<p>Console: <code>diag freq [MHz]</code>, <code>diag freq apply</code>, <code>diag show freq</code>.</p>
+<h2 id="s-meter-calibration">S-meter calibration<a class="hl" href="#s-meter-calibration" aria-label="Link to this section">#</a></h2>
+<p>Each band has its own S-meter calibration. The S-meter takes the IF gain out
+of its reading, so it reads the same at any IF gain; the Hamlib and TCI
+S-meters use the same reading.</p>
+<ol>
+<li>Feed a <strong>−73 dBm</strong> carrier (S9) from a signal generator into the antenna
+jack and tune it into the filter passband.</li>
+<li>Tap <strong>Calibrate this band to S9</strong>. That band's calibration is set;
+<strong>Clear</strong> zeroes it.</li>
+<li>Repeat on each band you use, or set a band's dB by hand with its − and +.</li>
+</ol>
+<p>There is no longer one setting for all bands. A radio that had one
+(<code>SMCAL</code>) has it added to each band's calibration the first time the updated
+jeSDR starts, so the meter reads the same as before.</p>
+<p>Console: <code>smcal s9</code>, <code>smcal clear</code>, <code>smcal &lt;dB&gt;</code> (this band), bare <code>smcal</code>
+shows this band's value.</p>
+<h2 id="birdie-shift">Birdie shift<a class="hl" href="#birdie-shift" aria-label="Link to this section">#</a></h2>
+<p>Moves the radio's internal oscillator by a few Hz so its own spurious tones
+fall outside the audio you hear. Change it only if a steady tone sits on your
+signals.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>80 m</td><td><code>SMCAL80M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 80 m, dB</td></tr>
+<tr><td>60 m</td><td><code>SMCAL60M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 60 m, dB</td></tr>
+<tr><td>40 m</td><td><code>SMCAL40M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 40 m, dB</td></tr>
+<tr><td>30 m</td><td><code>SMCAL30M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 30 m, dB</td></tr>
+<tr><td>20 m</td><td><code>SMCAL20M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 20 m, dB</td></tr>
+<tr><td>17 m</td><td><code>SMCAL17M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 17 m, dB</td></tr>
+<tr><td>15 m</td><td><code>SMCAL15M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 15 m, dB</td></tr>
+<tr><td>12 m</td><td><code>SMCAL12M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 12 m, dB</td></tr>
+<tr><td>10 m</td><td><code>SMCAL10M</code></td><td>0</td><td>-200–200</td><td>S-meter calibration on 10 m, dB</td></tr>
+<tr><td>Birdie shift</td><td><code>BFO</code></td><td>0</td><td>-3000–3000</td><td>Moves the radio’s internal oscillator so its own spurious tones (birdies) fall outside the audio you hear. Change it only if a steady tone sits on your signals; Hz</td></tr>
+</tbody></table></div></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/PA-power-and-calibration" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

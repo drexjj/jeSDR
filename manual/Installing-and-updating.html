@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installing and updating · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html" aria-current="page">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#choose-a-way-to-install">Choose a way to install</a><a href="#opening-the-radios-screen">Opening the radio's screen</a><a href="#updates">Updates</a><a href="#kernel-i2c-and-the-clock">Kernel I2C and the clock</a><a href="#where-your-data-lives">Where your data lives</a></nav>
+    <article><h1 id="installing-and-updating">Installing and updating<a class="hl" href="#installing-and-updating" aria-label="Link to this section">#</a></h1>
+<p>jeSDR runs on the sBitx's Raspberry Pi 4 or Raspberry Pi 5 under Raspberry Pi
+OS 64-bit (Bookworm or later). On a Pi 5 the Pi needs a 5 V supply that can
+give 5 A. jeSDR drives the GPIO through the kernel's GPIO device, so no GPIO
+library (WiringPi) is needed; SPI must stay off (<code>dtparam=spi=on</code> in
+config.txt takes the pins the filters and the volume knob use). The SD card image is made on a Pi 4: on a Pi 5, run the one-line
+installer once after the first start. Nothing else may use the audio codec or the GPIO at the
+same time, so remove any other radio program from the desktop autostart.</p>
+<h2 id="choose-a-way-to-install">Choose a way to install<a class="hl" href="#choose-a-way-to-install" aria-label="Link to this section">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th></th><th>Use it when</th><th>Keeps your data</th></tr></thead>
+<tbody>
+<tr><td><strong>SD card image</strong></td><td>a fresh start on a new card</td><td>no: it erases the card</td></tr>
+<tr><td><strong>One-line installer</strong></td><td>you already run Raspberry Pi OS on the radio</td><td>yes</td></tr>
+<tr><td><strong>Package (.deb)</strong></td><td>the codec is already set up</td><td>yes</td></tr>
+</tbody></table></div>
+<p>All three come from the <a href="https://github.com/drexjj/jeSDR/releases/latest" target="_blank" rel="noopener">releases page</a>.</p>
+<h3 id="sd-card-image">SD card image<a class="hl" href="#sd-card-image" aria-label="Link to this section">#</a></h3>
+<ol>
+<li>Download <code>jesdr-&lt;version&gt;-sdcard.img.xz</code>.</li>
+<li>Write it to a microSD card (16 GB or more) with Raspberry Pi Imager
+(<em>Use custom</em>) or balenaEtcher.</li>
+<li>Put the card in the radio and switch on. The first start takes a little
+longer: the card is expanded, and the radio makes its own HTTPS
+certificate and SSH keys.</li>
+<li>Open <strong>jeSDR</strong> from the desktop icon or the menu.</li>
+</ol>
+<p>To put the card in the radio see <a href="Opening-the-case.html">Opening the case</a>; to
+write a new card without opening it, or to copy or back up the whole card,
+see <a href="SD-card-images-and-backups.html">SD card images and backups</a>.</p>
+<p>Writing an image erases the card. Your settings, log and voice messages are
+in <code>~/jeSDR/data</code>: make a <a href="Power-backup-shutdown-and-about.html#backup">backup</a>
+first, or update with the button instead (below), which keeps them.</p>
+<h3 id="one-line-installer">One-line installer<a class="hl" href="#one-line-installer" aria-label="Link to this section">#</a></h3>
+<p>On the radio, in a terminal:</p>
+<pre><code class="lang-console">curl -fsSL https://drexjj.github.io/jeSDR/install.sh | sudo bash</code></pre>
+<p>It checks the system, installs what jeSDR needs (including PipeWire and its
+development files, <code>libpipewire-0.3-dev</code>, so jeSDR can also be built on the
+Pi), sets up the WM8731 codec if it
+is not set up yet (other programs use jeSDR's own PipeWire audio devices; no
+loopback cards), downloads the latest package, checks its SHA-256 and
+installs it, then downloads the country file. It then offers to install
+JS8Call (JS8Call-improved's ARM64 AppImage, a separate GPL program, about
+100 MB) for the <a href="Digital-modes.html#js8">JS8 mode</a>; run it again later to add or
+update JS8Call. If it changed the audio set-up it offers to reboot.</p>
+<p>Options go after <code>bash -s --</code>, for example <code>| sudo bash -s -- --yes</code>:</p>
+<div class="tw"><table>
+<thead><tr><th>Option</th><th>Does</th></tr></thead>
+<tbody>
+<tr><td><code>--yes</code></td><td>answers yes to every question</td></tr>
+<tr><td><code>--deb FILE</code></td><td>installs this package instead of downloading the latest</td></tr>
+<tr><td><code>--user NAME</code></td><td>runs jeSDR as this user (default: the user who ran sudo)</td></tr>
+<tr><td><code>--no-hw</code></td><td>leaves the codec and I²C set-up alone</td></tr>
+<tr><td><code>--no-js8call</code></td><td>does not offer JS8Call</td></tr>
+</tbody></table></div>
+<h3 id="package">Package<a class="hl" href="#package" aria-label="Link to this section">#</a></h3>
+<pre><code class="lang-console">sudo apt install ./jesdr_&lt;version&gt;_arm64.deb</code></pre>
+<p>It installs to <code>/opt/jeSDR</code> and runs as the service <code>jesdr</code> under the first
+normal user (or the user named in <code>/etc/jeSDR/user</code>).</p>
+<h2 id="opening-the-radios-screen">Opening the radio's screen<a class="hl" href="#opening-the-radios-screen" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>On the radio:</strong> the <strong>jeSDR</strong> desktop shortcut or the menu entry
+(Internet / Ham Radio) opens the radio in its own Chromium window.</li>
+<li><strong>From another device:</strong> open <code>https://&lt;radio&gt;:8443/</code>. The first time,
+the browser warns about the certificate (the radio makes its own); choose
+<em>Advanced → Proceed</em>, once per device. <code>http://&lt;radio&gt;:8080/</code> redirects
+there. HTTPS is what lets a phone or laptop use its own microphone
+(<a href="Transmit.html#talking-from-another-device">Transmit</a>).</li>
+<li><p><strong>Full screen on the radio (kiosk):</strong> add an autostart entry that runs
+<code>/opt/jeSDR/jesdr-app --kiosk</code>, for example in
+<code>~/.config/autostart/jesdr-kiosk.desktop</code>:</p>
+<pre><code class="lang-ini">[Desktop Entry]
+Type=Application
+Name=jeSDR kiosk
+Exec=/opt/jeSDR/jesdr-app --kiosk</code></pre>
+<p>Press <strong>Alt+F4</strong> to leave kiosk mode.</p></li>
+</ul>
+<p>Every open browser shows the same radio.</p>
+<h3 id="remote-desktop-vnc">Remote desktop (VNC)<a class="hl" href="#remote-desktop-vnc" aria-label="Link to this section">#</a></h3>
+<p>To operate the radio, a browser on the other device is better than a remote
+desktop: the radio sends only the data and the other device draws it.
+For the Pi's desktop itself (other programs, settings), turn on VNC in the
+Raspberry Pi menu → <strong>Preferences → Raspberry Pi Configuration →
+Interfaces → VNC</strong>, then connect with a VNC viewer (for example RealVNC
+Viewer) to the radio's address or <code>&lt;hostname&gt;.local</code> and sign in with the
+Pi's user name and password. The moving waterfall keeps VNC busy, so close
+the viewer when you're done (<a href="Troubleshooting.html">Troubleshooting</a>).</p>
+<h2 id="updates">Updates<a class="hl" href="#updates" aria-label="Link to this section">#</a></h2>
+<p><strong>More → About → Software updates → Check now</strong>, then <strong>Install</strong>. The radio
+also looks once a day by itself (<em>Check for updates daily</em>, <code>UPDATECHK</code>) and
+says when there is a new version. Settings, log, calibration and voice
+messages are kept.</p>
+<p>Updates are signed: the radio installs only a package whose manifest carries
+the jeSDR release signature and whose SHA-256 matches. If a new version does
+not start within a minute, the previous one is put back.</p>
+<p>By hand: <code>sudo apt install ./jesdr_&lt;version&gt;_arm64.deb</code>.</p>
+<h2 id="kernel-i2c-and-the-clock">Kernel I2C and the clock<a class="hl" href="#kernel-i2c-and-the-clock" aria-label="Link to this section">#</a></h2>
+<p>The radio's oscillator, SWR bridge, power monitor and real-time clock (RTC)
+share two GPIO pins. The Linux kernel drives that bus, with this line in
+<code>/boot/firmware/config.txt</code> (the sBitx image's own line):</p>
+<pre><code>dtoverlay=i2c-rtc-gpio,ds1307,i2c_gpio_sda=13,i2c_gpio_scl=6</code></pre>
+<p>It makes the bus and binds the clock on it. Only one overlay may use those
+pins: with a second one (such as <code>dtoverlay=i2c-gpio,...</code>) on GPIO 13 and 6
+the RTC disappears.</p>
+<p>The installer asks before adding it, and an update adds it once on an sBitx
+that has no I2C line yet (keeping a backup, <code>config.txt.jesdr-backup</code>).
+Earlier jeSDR versions added <code>dtoverlay=i2c-gpio,bus=3,...</code>, which runs the
+radio but has no clock: an update changes it to the line above, or removes
+it when an RTC line is there too (backup: <code>config.txt.jesdr-rtc-backup</code>). It
+takes effect at the next restart. I2C does not need turning on in
+raspi-config (that is for the Pi's own I2C pins, GPIO 2 and 3): the package
+loads the <code>i2c-dev</code> module the radio's bus needs. <code>status</code> on the
+<a href="Console-commands.html">console</a> shows the bus in use (for example
+<code>i2c: /dev/i2c-2</code>).</p>
+<p>At start-up jeSDR sets the Pi's clock from the RTC (unless network time is
+in already), so the clock is right in the field before GPS or the internet;
+at shutdown it writes the Pi's clock to the RTC if that session had network
+time. The <a href="Clock-and-band-conditions.html">clock tool</a> shows the RTC and can set
+it by hand.</p>
+<h2 id="where-your-data-lives">Where your data lives<a class="hl" href="#where-your-data-lives" aria-label="Link to this section">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th>File</th><th>Contents</th></tr></thead>
+<tbody>
+<tr><td><code>~/jeSDR/data/jesdr.ini</code></td><td>settings</td></tr>
+<tr><td><code>~/jeSDR/data/hw_settings.ini</code></td><td>transmitter and S-meter calibration</td></tr>
+<tr><td><code>~/jeSDR/data/jesdr_log.adi</code></td><td>the logbook</td></tr>
+<tr><td><code>~/jeSDR/data/voice/</code></td><td>voice keyer messages</td></tr>
+<tr><td><code>~/jeSDR/data/recordings/</code></td><td>recordings</td></tr>
+<tr><td><code>~/jeSDR/data/bigcty.dat</code></td><td>the country file</td></tr>
+<tr><td><code>~/jeSDR/data/jesdr_cert.pem</code>, <code>jesdr_key.pem</code></td><td>the HTTPS certificate</td></tr>
+</tbody></table></div></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Installing-and-updating" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

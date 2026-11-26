@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safety and limitations · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html" aria-current="page">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    
+    <article><h1 id="safety-and-limitations">Safety and limitations<a class="hl" href="#safety-and-limitations" aria-label="Link to this section">#</a></h1>
+<h2 id="safety">Safety<a class="hl" href="#safety" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>SWR protection</strong> covers every transmit path. A trip holds the drive at
+1 % and ignores remote drive changes until it is cleared
+(<a href="Transmit.html#swr-protection">Transmit</a>).</li>
+<li><strong>Transmit band plan</strong>: with a country plan set, the radio will not key
+outside it (<a href="Band-plan.html">Band plan</a>).</li>
+<li>An HPSDR client that stops sending during transmit is un-keyed after 1 s; a
+TCI client that disconnects while keyed is un-keyed at once.</li>
+<li>A browser that keyed the radio is un-keyed if it disconnects or goes silent
+for 3 s.</li>
+<li>Stopping jeSDR (More → Shut down → Stop jeSDR, or the service) un-keys and
+saves first; a crash drops the T/R relay and the
+external PTT before the process exits.</li>
+<li>The speaker is held silent for the first 1.5 s after start-up.</li>
+<li>The PA power calibration transmits only after the three checks and a second
+tap, stops on an SWR above 3:1, and holds every other way of keying or
+tuning off while it runs.</li>
+<li>The <strong>transmit timeout</strong> un-keys every source after 10 minutes without a
+break; <strong>battery protection</strong> holds the power down on a low battery and
+stops transmitting on a flat one (<a href="Power-backup-shutdown-and-about.html#power--battery">Power &amp; battery</a>).</li>
+</ul>
+<p>Always make the first transmission on each interface into a dummy load with a
+wattmeter: send a single tone, check it lands on the correct side of the
+carrier and that the power follows the drive.</p>
+<h2 id="limitations">Limitations<a class="hl" href="#limitations" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>The built-in digital modes are FT8, FT4, FT2, JTTY, RTTY, PSK and RADE V1.
+JS8 is not built in: run JS8Call on the Pi in DIGI mode. For anything else
+use WSJT-X or fldigi through Hamlib, or a TCI/HPSDR program.</li>
+<li>RADE's end-of-over callsign is not sent or shown.</li>
+<li>TCI carries IQ, not receive audio; programs on the Pi use the <em>jeSDR
+Receive</em> / <em>jeSDR Transmit</em> audio devices.</li>
+<li>An HPSDR client is the master of the frequency: a retune from Hamlib or the
+console is not reported back to it (TCI clients are told).</li>
+<li>HPSDR clients see one VFO; split and RIT are available over TCI, split also
+over Hamlib.</li>
+<li>Only one program should transmit at a time.</li>
+<li>Browser audio is 16 kHz mono with 80–300 ms of delay: fine for voice and
+digital-mode monitoring, too slow for CW sidetone (none is sent).</li>
+</ul></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Safety-and-limitations" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No RF output · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html" aria-current="page">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#check-the-settings-first">Check the settings first</a><a href="#let-the-radio-test-itself">Let the radio test itself</a><a href="#hardware-checks-sbitx-v3">Hardware checks (sBitx V3)</a></nav>
+    <article><h1 id="no-rf-output">No RF output<a class="hl" href="#no-rf-output" aria-label="Link to this section">#</a></h1>
+<p>The radio keys (the TX indicator lights, the relay clicks) but little or no
+power comes out. Work through the software checks first: most "dead" radios
+are a setting. Then the hardware checks below narrow it down to a stage of
+the PA chain.</p>
+<p>Always test into a <strong>50 Ω dummy load</strong> with a wattmeter, never into an
+antenna, and keep transmissions short until you know the PA is healthy.</p>
+<h2 id="check-the-settings-first">Check the settings first<a class="hl" href="#check-the-settings-first" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>SWR protection tripped?</strong> A trip holds the drive at 1 % until cleared
+(<a href="Transmit.html#swr-protection">Transmit → SWR protection</a>). Clear it, and find
+out why it tripped.</li>
+<li><strong>Band plan.</strong> With a country plan set, the radio won't key outside it
+(<a href="Band-plan.html">Band plan</a>).</li>
+<li><strong>Drive and mode.</strong> Drive at 0, or a voice mode with no microphone audio
+(Mic gain at 0, the wrong mic path), gives no power. <strong>Tune</strong> sends a
+carrier regardless of the mic: start there.</li>
+<li><strong>Battery protection</strong> holds the power down on a low supply
+(<a href="Power-backup-shutdown-and-about.html#power--battery">Power &amp; battery</a>).</li>
+<li><strong>Calibration.</strong> A band whose <a href="PA-power-and-calibration.html">PA power calibration</a>
+is far too low gives almost no power on that band only. Restoring a
+backup from <em>another</em> radio brings its calibration with it.</li>
+</ul>
+<h2 id="let-the-radio-test-itself">Let the radio test itself<a class="hl" href="#let-the-radio-test-itself" aria-label="Link to this section">#</a></h2>
+<p><strong>More → Diagnostics</strong> (<a href="Diagnostics.html">Diagnostics</a>) measures the hardware
+for you, into a dummy load:</p>
+<ul>
+<li><strong>PA health</strong> measures the PA's idle (bias) current and the power, current
+and efficiency on every band. Almost no idle current points at the bias or
+an open MOSFET; one weak band at a low-pass filter; all bands weak at the PA
+or its supply.</li>
+<li><strong>LPF sweep</strong> finds a damaged or wrongly built output filter.</li>
+<li><strong>SWR bridge check</strong> shows whether the power meter itself reads correctly.</li>
+</ul>
+<p>If you replace the MOSFETs, set the
+<a href="PA-power-and-calibration.html#pa-bias-adjustment">PA bias</a> before anything else.</p>
+<h2 id="hardware-checks-sbitx-v3">Hardware checks (sBitx V3)<a class="hl" href="#hardware-checks-sbitx-v3" aria-label="Link to this section">#</a></h2>
+<blockquote><p>These notes come from the sBitx 64-bit project wiki and may not be
+accurate for every board. Disconnect the power before every resistance or
+continuity test, and take care around the PA when it is powered.</p></blockquote>
+<p>To get inside, see <a href="Opening-the-case.html">Opening the case</a>.</p>
+<p><img src="images/v3-pa-chain.png" alt="The V3 PA chain" loading="lazy"></p>
+<p>The full V3 PA schematic: <a href="images/v3-pa-circuit.jpg">v3-pa-circuit.png</a>.</p>
+<h3 id="look-first">Look first<a class="hl" href="#look-first" aria-label="Link to this section">#</a></h3>
+<p>Burn marks on the IRF510s or transistors, cracked or bulging capacitors,
+discoloured resistors, damaged or loose transformer windings, and cold or
+broken solder joints. Replace anything that looks wrong before measuring.</p>
+<p><img src="images/irf510-pinout.jpg" alt="IRF510 pinout" loading="lazy"> <img src="images/2n2219-pinout.png" alt="2N2219 pinout" loading="lazy"></p>
+<h3 id="the-irf510-mosfets-q16-q17">The IRF510 MOSFETs (Q16, Q17)<a class="hl" href="#the-irf510-mosfets-q16-q17" aria-label="Link to this section">#</a></h3>
+<p>A <strong>shorted</strong> IRF510 gets hot and draws a lot of current even at the lowest
+drive (PA health shows a high idle current). A MOSFET <strong>damaged by heat</strong>
+may simply not amplify: no extra current, no heat.</p>
+<p>With the power disconnected, on each IRF510:</p>
+<ol>
+<li><strong>Continuity</strong> (diode or continuity mode) between gate–drain, gate–source
+and drain–source: there should be none. A beep or a low reading means a
+short.</li>
+<li><strong>Drain to source</strong> (resistance mode, nothing on the gate): high
+resistance, ideally open.</li>
+<li><strong>Diode test</strong> red lead on the source, black on the gate: note the
+reading; reversed, a good MOSFET reads high or <em>OL</em>.</li>
+</ol>
+<h3 id="the-driver-transistors">The driver transistors<a class="hl" href="#the-driver-transistors" aria-label="Link to this section">#</a></h3>
+<p>With the radio transmitting a carrier, the base–emitter voltage of Q11
+(BFR106) and Q12–Q15 (2N2219A) should be about <strong>0.6–0.7 V</strong>. Much lower
+or higher points at that transistor or the resistors and capacitors around
+it.</p>
+<h3 id="the-tr-switch-pa-supply">The T/R switch (PA supply)<a class="hl" href="#the-tr-switch-pa-supply" aria-label="Link to this section">#</a></h3>
+<p>When transmitting, the PA gets +12 V through <strong>Q9</strong> (IRF4905), switched by
+<strong>Q10</strong> and <strong>Q101</strong> (2N7002):</p>
+<ul>
+<li><strong>Q9:</strong> about 12 V on its drain (the metal tab) while transmitting. Always
+on suggests a short; always off, look at Q10.</li>
+<li><strong>Q10:</strong> turns on while transmitting and pulls Q9's gate to about 0 V
+(V<sub>GS</sub> ≈ −12 V), which turns Q9 on.</li>
+<li><strong>Q101:</strong> its gate should be high (~12 V) while receiving and low (~0 V)
+while transmitting; its source is always at ground. A drain that stays high
+when it shouldn't suggests a faulty Q101.</li>
+</ul>
+<h3 id="supply-rails">Supply rails<a class="hl" href="#supply-rails" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><strong>+12 V:</strong> measure at the drains of Q16 and Q17. Too low: check the supply
+and look for a short.</li>
+<li><strong>HV rail:</strong> measure it and check <strong>D20–D25</strong>, <strong>C201</strong> and the parts
+around them for a fault or an unusual voltage drop.</li>
+</ul>
+<h3 id="with-an-oscilloscope">With an oscilloscope<a class="hl" href="#with-an-oscilloscope" aria-label="Link to this section">#</a></h3>
+<p>Follow the signal from the input to the antenna jack:</p>
+<ol>
+<li><strong>Q11</strong> (BFR106) input: the RF should be there. If not, the fault is
+before the PA.</li>
+<li><strong>Q12–Q15</strong> (2N2219A pre-drivers): the signal should be larger here.
+Missing: a transistor or its bias.</li>
+<li><strong>PA bias:</strong> at R75, R77 and <strong>D6</strong> (5.6 V Zener), about 5.6 V on D6's
+banded side while transmitting.</li>
+<li><strong>Gate drive</strong> on Q16 and Q17: weak or missing, check the driver and
+transformer <strong>T5</strong>.</li>
+<li><strong>Output transformer T7:</strong> no output, check its windings for continuity.</li>
+<li><strong>Low-pass filters</strong> (L31–L41, C301–C308) and the antenna network
+(L402, L403): signal before but not after points at a filter part or a
+joint (the <a href="Diagnostics.html#lpf-sweep-low-pass-filters">LPF sweep</a> finds
+most of these).</li>
+</ol>
+<p>After replacing a part, check the idle current and set the bias before
+going back to full power.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/No-RF-output" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

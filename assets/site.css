@@ -265,3 +265,15 @@ details.menu .drawer a[aria-current="page"] { color: var(--amber); }
 }
 .mb { margin-bottom: 16px; }
 .lede:has(+ .lede) { margin-bottom: 14px; }
+
+/* operating manual section */
+.docsearch { display: flex; gap: 10px; max-width: 640px; margin: 8px 0 22px; }
+.docsearch input { flex: 1; min-width: 0; font: inherit; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--panel); color: var(--text); }
+.docsearch input:focus { outline: 2px solid var(--blue); outline-offset: 0; }
+.doclinks { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.doclinks a { display: block; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; color: var(--text); }
+.doclinks a:hover { border-color: #3a4b5e; text-decoration: none; }
+.doclinks b { display: block; font-weight: 600; }
+.doclinks span { display: block; color: var(--muted); font-size: .88rem; margin-top: 2px; }
+.docwiki { color: var(--muted); font-size: .92rem; margin-top: 18px; }

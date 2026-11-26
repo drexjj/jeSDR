@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html" aria-current="page">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#the-screen">The screen</a><a href="#receiving">Receiving</a><a href="#transmitting">Transmitting</a><a href="#digital-modes">Digital modes</a><a href="#the-pi">The Pi</a></nav>
+    <article><h1 id="troubleshooting">Troubleshooting<a class="hl" href="#troubleshooting" aria-label="Link to this section">#</a></h1>
+<h2 id="the-screen">The screen<a class="hl" href="#the-screen" aria-label="Link to this section">#</a></h2>
+<p><strong>The browser warns about the certificate.</strong> The radio makes its own HTTPS
+certificate. Choose <em>Advanced → Proceed</em> once on each device. After changing
+the radio's address, delete <code>~/jeSDR/data/jesdr_cert.pem</code> and
+<code>jesdr_key.pem</code> and restart to make a new one.</p>
+<p><strong>The page doesn't load at all.</strong> Check the service on the radio:</p>
+<pre><code class="lang-console">sudo systemctl status jesdr
+journalctl -u jesdr -f</code></pre>
+<p>Nothing else may use the audio codec or the GPIO: remove any other radio
+program from the desktop autostart.</p>
+<p><strong>ERR_TOO_MANY_RETRIES or "This site can't be reached" on some phones or
+computers, while others work.</strong> The device isn't letting the browser reach
+devices on your home network. Newer Android versions, iPhones, iPads and Macs
+ask for this permission per app; without it, Chrome is blocked before it
+reaches the radio, retries, and gives up. Nothing is wrong with the radio.
+Allow it on the device, then reload the page:</p>
+<div class="tw"><table>
+<thead><tr><th>Device</th><th>Where</th></tr></thead>
+<tbody>
+<tr><td>Android</td><td>Settings → Apps → <strong>Chrome</strong> → Permissions → <strong>Nearby devices</strong> (on some versions <strong>Local network</strong>) → Allow</td></tr>
+<tr><td>iPhone, iPad</td><td>Settings → <strong>Chrome</strong> → turn on <strong>Local Network</strong> (Safari doesn't need it)</td></tr>
+<tr><td>Mac (macOS 15 or later)</td><td>System Settings → Privacy &amp; Security → <strong>Local Network</strong> → turn on Chrome</td></tr>
+</tbody></table></div>
+<p>Other browsers built on Chrome (Edge, Brave, Opera) have their own switch in
+the same place. Quick check: if Firefox on the same device opens the radio,
+it is this permission. If a device still fails, record what Chrome does: open
+<code>chrome://net-export</code> on it, start logging, load the radio's page, stop, and
+send the saved file along when you ask for help.</p>
+<p><strong>The page says jeSDR is stopped.</strong> Someone used <strong>Stop jeSDR</strong>. Open jeSDR
+from the radio's desktop or menu, run <code>sudo systemctl start jesdr</code>, or
+restart the Pi.</p>
+<p><strong>The desktop shortcut asks whether to execute or open.</strong> Update to the latest
+version; the package fixes the shortcut.</p>
+<p><strong>No sound in the browser on a phone or laptop.</strong> Browsers start sound only
+after a tap: tap the 🔈 button next to PTT. It is hidden on the radio's own
+screen, which uses the speaker.</p>
+<h2 id="receiving">Receiving<a class="hl" href="#receiving" aria-label="Link to this section">#</a></h2>
+<p><strong>The waterfall turns solid or strong signals distort.</strong> The receiver is
+overloaded: lower the IF gain, use the attenuator, or turn on
+<a href="Receive.html#auto-if-gain">Auto IF gain</a>.</p>
+<p><strong>Weak signals are lost in the noise on 10–15 m.</strong> Raise the IF gain or use the
+preamp until the band noise moves the S-meter a little.</p>
+<p><strong>Clicks or dropouts in the speaker.</strong> These are audio underruns. The
+console's <code>status</code> shows how many there have been since start, and the log
+gets one line a minute while they happen (<code>journalctl -u jesdr</code>). Check the Pi
+isn't hot or short of power (<strong>More → Power &amp; battery</strong>), and close other
+heavy programs on the Pi.</p>
+<p><strong>A steady tone sits on every signal.</strong> Try the
+<a href="PA-power-and-calibration.html#birdie-shift">birdie shift</a>, or the auto notch for a
+tone from another station.</p>
+<p><strong>No country under calls.</strong> Install the <a href="Station-logbook-and-country-file.html#country-file">country file</a>.</p>
+<h2 id="transmitting">Transmitting<a class="hl" href="#transmitting" aria-label="Link to this section">#</a></h2>
+<p>If the radio won't transmit, the header usually says why:</p>
+<div class="tw"><table>
+<thead><tr><th>Shown</th><th>Cause</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td><strong>TX blocked</strong></td><td>outside the transmit band plan</td><td>tune inside the band, or check <a href="Band-plan.html">Band plan</a></td></tr>
+<tr><td><strong>SWR</strong> trip</td><td>SWR above the limit</td><td>fix the antenna, then <strong>Clear trip</strong> on <a href="Transmit.html#swr-protection">Transmit</a> and set the drive back</td></tr>
+<tr><td>timeout badge</td><td>the transmit timeout un-keyed</td><td>release PTT; stop the program holding it</td></tr>
+<tr><td>battery <strong>flat</strong></td><td>battery protection</td><td>charge the battery</td></tr>
+<tr><td>—</td><td><em>Mic PTT</em> is OFF</td><td>turn it on in <strong>More → Transmit</strong></td></tr>
+<tr><td>—</td><td>the PA calibration is running</td><td>wait, or <strong>Stop</strong> it</td></tr>
+</tbody></table></div>
+<p><strong>Power differs from band to band.</strong> Run the
+<a href="PA-power-and-calibration.html">PA power calibration</a>.</p>
+<p><strong>It keys, but little or no power comes out.</strong> See <a href="No-RF-output.html">No RF output</a>:
+the settings to check first, the self-tests that find most faults, and the
+PA chain step by step.</p>
+<p><strong>Changed the Pi's language and lost power?</strong> That was a bug in the earlier
+sBitx software (a different decimal separator broke its calibration). jeSDR
+always reads its numbers the same way, whatever the Pi's language.</p>
+<p><strong>A phone or laptop can't use its microphone.</strong> Open the radio over
+<code>https://&lt;radio&gt;:8443/</code>, not <code>http://</code>, and allow the microphone.</p>
+<h2 id="digital-modes">Digital modes<a class="hl" href="#digital-modes" aria-label="Link to this section">#</a></h2>
+<p><strong>FT8 decodes nothing, or DT is large.</strong> The clock must be right within about
+a second. Without internet, use a <a href="Station-logbook-and-country-file.html#gps">GPS</a>.
+If decodes show DT around ±0.1 s after a GPS clock set, adjust <em>GPS delay</em>.</p>
+<p><strong>WSJT-X can't control the radio.</strong> Rig <em>Hamlib NET rigctl</em>, server
+<code>127.0.0.1:4532</code>, PTT via CAT; see
+<a href="Connecting-other-programs.html">Connecting other programs</a>.</p>
+<p><strong>The JS8 panel says "not connected".</strong> JS8Call must be running (<strong>Open
+JS8Call</strong>, or the menu) with its API on: <strong>Settings → Reporting → API</strong>,
+<em>Enable TCP Server API</em> and <em>Accept TCP Requests</em>, port 2442 (or set
+<em>JS8Call API</em>, <code>JS8_API</code>, to its port). If it connects and drops every few
+seconds, another program is using JS8Call's API: raise <em>Max connections</em> in
+JS8Call. <strong>Open JS8Call</strong> needs someone logged in to the radio's desktop. If
+it says JS8Call is not installed, run the installer again and answer yes to
+JS8Call. JS8Call hears nothing or sends no audio: choose <strong>jeSDR Receive</strong>
+and <strong>jeSDR Transmit</strong> in its <strong>Settings → Audio</strong>, as for WSJT-X.</p>
+<p><strong>WSJT-X (or another program) does not list jeSDR Receive / jeSDR
+Transmit.</strong> <code>status</code> on the console says <em>programs' audio: PipeWire …</em> when
+jeSDR made them; <em>waiting for the user's PipeWire session</em> means the radio
+user's PipeWire is not running: log in to the desktop once, or run <code>sudo
+loginctl enable-linger &lt;user&gt;</code> and reboot. Restart the program after
+jeSDR started: some list audio devices only when they start.</p>
+<p><strong>The desktop's sound goes to the transmitter.</strong> <em>jeSDR Transmit</em> became the
+desktop's default output (no other output on the Pi): pick another output in
+the volume menu.</p>
+<p><strong>No DX cluster spots.</strong> Set <em>My call sign</em>, turn <em>Cluster connection</em> ON in
+<strong>More → Station</strong>, and check <em>DX cluster spots on the scope</em> in
+<strong>More → Display</strong>.</p>
+<h2 id="the-pi">The Pi<a class="hl" href="#the-pi" aria-label="Link to this section">#</a></h2>
+<p><strong>A red Pi badge.</strong> The Pi is hot or short of power: check
+<strong>More → Power &amp; battery</strong>. Under-voltage can corrupt the SD card; use a
+supply that holds the voltage while transmitting.</p>
+<p><strong>The Pi's CPU is near 100 %.</strong> jeSDR itself uses about a quarter of one
+core; most of the load is what draws and sends the screen. In <code>htop</code>:</p>
+<ul>
+<li><strong>chromium</strong> (the jeSDR window on the Pi's screen): lower <strong>More → Display
+→ Waterfall speed</strong> on that screen (10 is the default there, 5 halves it
+again). Open jeSDR with its menu entry or desktop icon, which turns off
+Chromium's forced accessibility mode. (Green lines in <code>htop</code> are threads of
+the process above them, not more copies.)</li>
+<li><strong>wayvnc</strong> (only while a VNC viewer is connected): VNC has to encode the
+moving waterfall all the time. Operate from the other computer's browser
+instead (<code>https://&lt;radio&gt;:8443/</code>): the Pi then only sends the data, and the
+other computer draws it.</li>
+<li><strong>labwc</strong> (the desktop) redraws with the windows above it.</li>
+</ul>
+<p><strong>No keying, no filter changes, or dead knobs.</strong> Look at the start of the
+log (<code>journalctl -u jesdr -b</code>) for a <code>gpio:</code> line:</p>
+<div class="tw"><table>
+<thead><tr><th>Log says</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td><code>no permission for /dev/gpiochip*</code></td><td><code>sudo usermod -aG gpio &lt;user&gt;</code>, then restart</td></tr>
+<tr><td><code>GPIO8 is in use by the kernel</code> (or 7, 9, 10, 11)</td><td>SPI is on: comment out <code>dtparam=spi=on</code> in <code>/boot/firmware/config.txt</code> and restart</td></tr>
+<tr><td><code>GPIO4 is in use by the kernel</code></td><td>a 1-wire overlay (<code>dtoverlay=w1-gpio</code>) holds the PTT pin: remove it</td></tr>
+<tr><td><code>in use by ... a second jesdr?</code></td><td>another radio program has the pins; stop it</td></tr>
+</tbody></table></div>
+<p><strong>jeSDR stops at start-up with an <code>i2c:</code> message.</strong> The radio's I2C bus (the
+Si5351, the SWR bridge, the INA260, the RTC) is the kernel's i2c-gpio bus on
+GPIO 13 and 6; jeSDR no longer bit-bangs those pins and can't run without it.</p>
+<div class="tw"><table>
+<thead><tr><th>Log says</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td><code>the radio's I2C bus was not found</code></td><td>add <code>dtoverlay=i2c-rtc-gpio,ds1307,i2c_gpio_sda=13,i2c_gpio_scl=6</code> to <code>/boot/firmware/config.txt</code> and restart the Pi</td></tr>
+<tr><td><code>has no /dev/i2c-N: the i2c-dev module is not loaded</code></td><td><code>sudo modprobe i2c-dev</code>; reinstalling the jeSDR package makes it load at every boot</td></tr>
+<tr><td><code>no permission for /dev/i2c-*</code></td><td><code>sudo usermod -aG i2c &lt;user&gt;</code>, then restart</td></tr>
+<tr><td><code>the Si5351 (0x60) does not answer</code></td><td>the overlay is on other pins, or the bus is wired wrong: check the line above</td></tr>
+</tbody></table></div>
+<p><strong>No RTC since the I2C change</strong> (the clock tool says "RTC: none found").
+<code>/boot/firmware/config.txt</code> must have exactly one I2C overlay on GPIO 13 and
+6, and it must be the clock's:
+<code>dtoverlay=i2c-rtc-gpio,ds1307,i2c_gpio_sda=13,i2c_gpio_scl=6</code>. A plain
+<code>dtoverlay=i2c-gpio,bus=3,...</code> line runs the radio but has no clock, and
+both lines together hide it. Install the current jeSDR package (it fixes the
+line) or edit it yourself, then restart the Pi. <code>ls /sys/class/rtc</code> should
+then list a clock whose <code>name</code> says <code>rtc-ds1307</code>.</p>
+<p><strong>Starting again.</strong> Make a <a href="Power-backup-shutdown-and-about.html#backup">backup</a>,
+write a fresh SD card image, then restore it.</p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Troubleshooting" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

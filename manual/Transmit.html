@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transmit · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html" aria-current="page">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#power-and-audio">Power and audio</a><a href="#alc-meter">ALC meter</a><a href="#ptt">PTT</a><a href="#tune">Tune</a><a href="#swr-protection">SWR protection</a><a href="#swr-scan">SWR scan</a><a href="#two-tone-test">Two-tone test</a><a href="#talking-from-another-device">Talking from another device</a><a href="#fm">FM</a><a href="#all-transmit-settings">All transmit settings</a></nav>
+    <article><h1 id="transmit">Transmit<a class="hl" href="#transmit" aria-label="Link to this section">#</a></h1>
+<p><strong>More → Transmit</strong>: power and microphone, PTT, the tune carrier, SWR
+protection and the SWR scan, a microphone in another device's browser, and
+the FM repeater tone.</p>
+<p><img src="images/settings-tx.jpg" alt="Transmit settings" loading="lazy"></p>
+<h2 id="power-and-audio">Power and audio<a class="hl" href="#power-and-audio" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Drive</strong> (1–100 %) is the transmit power. After the
+<a href="PA-power-and-calibration.html">PA power calibration</a>, 100 % gives the same
+power on every band.</li>
+<li><strong>Mic gain</strong> (0–50) is the codec's mic input level in percent, as on the
+earlier sBitx software. (A USB headset's microphone has its own gain: see
+<a href="Headset-and-USB-audio.html">Headset and USB audio</a>.) Talk at your normal level and watch the <strong>TX scope</strong> on the
+<a href="Quick-page.html">Quick page</a>: the peaks should just reach the clip line.</li>
+<li><strong>Compressor</strong> (0–10) raises the average level of speech; 0 is off.</li>
+<li><strong>CESSB</strong> (controlled-envelope SSB) holds the SSB peaks down so the average
+power can be higher for the same peak power.</li>
+<li><strong>TX monitor</strong> (0–10) plays your own voice in the speaker while you
+transmit, at a modest level so it doesn't feed back into the microphone.
+Headphones are best; with the speaker, keep it low.</li>
+</ul>
+<p>The <a href="Equalizer.html">transmit equalizer</a> shapes the microphone after the
+compressor.</p>
+<h2 id="alc-meter">ALC meter<a class="hl" href="#alc-meter" aria-label="Link to this section">#</a></h2>
+<p>While transmitting, a thin bar under the power meter (and <strong>ALC</strong> on the
+transmit strip at the top of an open menu) shows how hard the transmitter is
+being driven:</p>
+<ul>
+<li><strong>SSB and AM</strong>: the peak of your modulation against the voice clipper,
+from −20 dB to +10 dB. The amber zone starts at the clipper (two-thirds of
+the way along). Green means you are below it, with no limiting. Amber
+means the peaks are being clipped by that many dB: a few dB is speech
+processing. Red means more than 6 dB, which sounds distorted, so lower the
+<strong>Mic gain</strong> or the <strong>Compressor</strong>. <strong>FM</strong> is measured against full
+deviation.</li>
+<li><strong>Every mode</strong>: when the power would pass the band's power limit, the ALC
+holds it down, and that reduction is added in.</li>
+<li><strong>CW, digital modes and TUNE</strong> have no clipper, so the bar moves only when
+the power ALC acts.</li>
+</ul>
+<p>The figure (<strong>ALC 3 dB</strong>) is the total limiting, shown on the transmit strip
+and as the bar's tooltip. Hamlib programs can read it as the <code>ALC</code> level
+(0–1 for 0–10 dB).</p>
+<h2 id="ptt">PTT<a class="hl" href="#ptt" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>External PTT</strong> keys GPIO 26 while transmitting, for an external amplifier.</li>
+<li><strong>Mic PTT</strong>: whether the microphone's PTT keys the radio. The mic jack's
+wiring, and other microphones that fit it, are on
+<a href="sBitx-hardware.html#microphones">sBitx hardware</a>.</li>
+</ul>
+<p>The <strong>RX/TX</strong> button in the header is press-and-hold PTT. The transmit
+timeout (<code>TOT</code>, 10 minutes) un-keys a stuck PTT; see
+<a href="Power-backup-shutdown-and-about.html#power--battery">Power and battery</a>.</p>
+<h2 id="tune">Tune<a class="hl" href="#tune" aria-label="Link to this section">#</a></h2>
+<p><strong>Tune</strong> (on the <a href="Quick-page.html">Quick page</a>, or console <code>tune on</code>) sends a
+steady carrier at <em>Tune power</em> for <em>Tune time</em> seconds, for an antenna tuner.</p>
+<p>While it is on, the <strong>Tune</strong> button shows the power and SWR, and a red strip
+across the top of the menu shows them too, with a bar for the power and a
+<strong>Stop</strong> button. The menu covers the meter, so you can watch the tuner
+without closing it. The strip appears whenever you transmit with a menu open
+(the two-tone test, the SWR scan, PTT); the SWR turns amber at 2 and red at 3
+or on a trip.</p>
+<h2 id="swr-protection">SWR protection<a class="hl" href="#swr-protection" aria-label="Link to this section">#</a></h2>
+<p>On by default. If the SWR goes above <strong>Trip above SWR</strong> (1.5–10; 3.0 suits
+most antennas) on any transmit path, the drive drops to 1 % and remote
+drive changes are ignored. <strong>Status</strong> shows <em>OK</em> or the trip; fix the
+antenna, then <strong>Clear trip</strong> and set the drive back. Turning protection off
+takes two taps and is not recommended. Console: <code>maxvswr</code>, <code>swrreset</code>.</p>
+<h2 id="swr-scan">SWR scan<a class="hl" href="#swr-scan" aria-label="Link to this section">#</a></h2>
+<p><strong>Scan SWR across this band</strong> (also in the band sheet) keys a carrier at
+<em>SWR scan drive</em> (10 %) and steps it across the band the dial is on in <em>SWR
+scan points</em> steps (41 points, about 9 s), drawing SWR against frequency and
+marking the lowest point. Tap the graph to tune there. A key, PTT, tuning or
+<strong>Stop</strong> ends it, and the dial, mode and drive are put back.</p>
+<p>The drive can be anything from 1 to 100 %. The normal SWR protection is held
+off while the scan runs, because a trip would end it at the first bad point,
+often a band edge. Instead the scan protects the PA itself: above 25 % drive,
+wherever the SWR goes past the trip level it drops to 25 % at once and goes
+back up when the match is good again. Every point is still measured.</p>
+<p><img src="images/swr-scan.png" alt="SWR scan" loading="lazy"></p>
+<h2 id="two-tone-test">Two-tone test<a class="hl" href="#two-tone-test" aria-label="Link to this section">#</a></h2>
+<p><strong>Two-tone test</strong> (on this page, or add it to the <a href="Quick-page.html">Quick page</a>)
+sends two equal tones, 700 Hz and 1900 Hz, on upper sideband at the normal
+<strong>Drive</strong>. It is the standard signal for checking an SSB transmitter's
+linearity: on a spectrum analyzer the intermodulation products show beside
+the two tones, and on an oscilloscope the envelope should be clean,
+un-flattened arches.</p>
+<ol>
+<li>Connect a <strong>dummy load</strong> rated for the power (and the analyzer through a
+suitable attenuator or sampler).</li>
+<li>Set the <strong>Drive</strong> you want to test.</li>
+<li>Tap <strong>Two-tone test</strong>. The header shows <strong>2-TONE</strong>.</li>
+<li>It stops after <em>Two-tone time</em> seconds (30), or tap the button again, or
+press PTT.</li>
+</ol>
+<p>The peak envelope power (PEP) is twice the average, so a wattmeter that reads
+average power shows about half the PEP. The band plan, SWR protection and the
+power limits apply as for any transmission. Console: <code>twotone on|off</code>.</p>
+<p><img src="images/settings-twotone.png" alt="Two-tone test on the Transmit page" loading="lazy"></p>
+<h2 id="talking-from-another-device">Talking from another device<a class="hl" href="#talking-from-another-device" aria-label="Link to this section">#</a></h2>
+<p>A phone, tablet or laptop can transmit with its own microphone. Browsers
+only allow the microphone over HTTPS, so open <code>https://&lt;radio&gt;:8443/</code> and
+accept the certificate warning once.</p>
+<ol>
+<li><strong>More → Transmit → Microphone for this browser</strong>: choose
+<strong>This device's mic</strong> and allow the microphone when the browser asks.</li>
+<li><strong>Test mic</strong> shows the level. <strong>Browser's auto gain</strong> lets the device
+level your voice; <strong>Browser mic level</strong> (<code>WEBTXLVL</code>) is the gain at the
+radio.</li>
+<li>Hold <strong>PTT</strong> and talk (USB, LSB, AM, FM, DIGI or RADE). The audio goes
+through the usual chain: compressor, equalizer, CESSB.</li>
+</ol>
+<p>Releasing PTT, closing the page, or 1.5 s without audio (lost Wi-Fi) un-keys
+the radio. Each browser keeps its own choice; the radio's own screen stays
+on the radio's microphone.</p>
+<h2 id="fm">FM<a class="hl" href="#fm" aria-label="Link to this section">#</a></h2>
+<p><strong>CTCSS transmit</strong> sends one of the 38 standard tones with FM, for repeaters
+that need one. Pick it from the list; <em>CTCSS receive</em> is on the
+<a href="Receive.html#squelch-and-tone">Receive</a> page.</p>
+<h2 id="all-transmit-settings">All transmit settings<a class="hl" href="#all-transmit-settings" aria-label="Link to this section">#</a></h2>
+<p><strong>Power and audio</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Drive</td><td><code>DRIVE</code></td><td>40</td><td>1–100</td><td>Transmit power, %</td></tr>
+<tr><td>Mic gain</td><td><code>MIC</code></td><td>30</td><td>0–50</td><td>Mic input level, % (as on the sBitx)</td></tr>
+<tr><td>Compressor</td><td><code>COMP</code></td><td>0</td><td>0–10</td><td>Speech compression, 0 = off</td></tr>
+<tr><td>CESSB</td><td><code>CESSB</code></td><td>OFF</td><td>ON, OFF</td><td>Controlled-envelope SSB (more talk power)</td></tr>
+<tr><td>TX monitor</td><td><code>TXMON</code></td><td>0</td><td>0–10</td><td>Hear your own voice while transmitting, 0 = off</td></tr>
+</tbody></table></div>
+<p><strong>PTT</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>External PTT</td><td><code>ePTT</code></td><td>OFF</td><td>ON, OFF</td><td>Key an external amplifier</td></tr>
+<tr><td>Mic PTT</td><td><code>LOCALPTT</code></td><td>ON</td><td>ON, OFF</td><td>The mic PTT keys the radio</td></tr>
+</tbody></table></div>
+<p><strong>Tune</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Tune power</td><td><code>TNPWR</code></td><td>20</td><td>1–100</td><td>Drive for TUNE, %</td></tr>
+<tr><td>Tune time</td><td><code>TNDUR</code></td><td>5</td><td>2–30</td><td>TUNE stops by itself after this many seconds</td></tr>
+</tbody></table></div>
+<p><strong>SWR protection</strong></p>
+<p>SWR protection on/off, the trip level and <em>Clear trip</em> are on this page; console <code>maxvswr</code>.</p>
+<p><strong>SWR scan</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>SWR scan drive</td><td><code>SCANPWR</code></td><td>10</td><td>1–100</td><td>Drive while scanning, %; above 25 % it drops to 25 % wherever the SWR is past the trip level</td></tr>
+<tr><td>SWR scan points</td><td><code>SCANPTS</code></td><td>41</td><td>5–201</td><td>Frequencies measured across the band</td></tr>
+</tbody></table></div>
+<p><strong>Two-tone test</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Two-tone time</td><td><code>TTDUR</code></td><td>30</td><td>5–120</td><td>The two-tone test stops by itself after this many seconds</td></tr>
+</tbody></table></div>
+<p><strong>Microphone for this browser</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Browser mic level</td><td><code>WEBTXLVL</code></td><td>100</td><td>0–200</td><td>Gain for a browser microphone, %</td></tr>
+</tbody></table></div>
+<p><strong>FM</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>CTCSS transmit</td><td><code>CTCSS_TX</code></td><td>OFF</td><td>OFF or one of the 38 standard tones (67.0–250.3 Hz)</td><td>Tone sent with FM, for repeaters that need one</td></tr>
+</tbody></table></div></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Transmit" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick page · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html" aria-current="page">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#the-buttons">The buttons</a><a href="#rit">RIT</a><a href="#xit">XIT</a><a href="#making-it-yours">Making it yours</a></nav>
+    <article><h1 id="quick-page">Quick page<a class="hl" href="#quick-page" aria-label="Link to this section">#</a></h1>
+<p><strong>More → Quick</strong> is the first page of the settings menu: buttons and
+settings you reach for often, in the order you choose.</p>
+<p><img src="images/settings-quick.png" alt="Quick page" loading="lazy"></p>
+<h2 id="the-buttons">The buttons<a class="hl" href="#the-buttons" aria-label="Link to this section">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th>Button</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><strong>Tune</strong></td><td>sends a carrier at <em>Tune power</em> for <em>Tune time</em> seconds; while it is on, the button and a strip at the top of the menu show the power and SWR (see <a href="Transmit.html#tune">Transmit</a>)</td></tr>
+<tr><td><strong>VFO A/B</strong></td><td>swaps between the two VFOs</td></tr>
+<tr><td><strong>RIT</strong></td><td>turns receive incremental tuning on and off</td></tr>
+<tr><td><strong>XIT</strong></td><td>turns transmit incremental tuning on and off</td></tr>
+<tr><td><strong>ATT</strong></td><td>each tap steps the attenuator: off, 6, 12, 18 dB</td></tr>
+<tr><td><strong>PRE</strong></td><td>each tap steps the preamp: off, 6, 12 dB</td></tr>
+<tr><td><strong>Split</strong></td><td>receive on the VFO in use and transmit on the other one (on VFO A, transmit on B; on VFO B, transmit on A). Set the TX frequency by switching to the other VFO and tuning, then switch back. The line under the frequency shows <strong>split · TX</strong> and where you will transmit; PTT, the CW keyer, TUNE and the two-tone test all use it, and the privilege warning checks the TX frequency</td></tr>
+<tr><td><strong>VFO lock</strong></td><td>locks the tuning; in FT8/FT4/FT2 it turns the automatic FT lock off and on</td></tr>
+<tr><td><strong>Mute</strong></td><td>mutes the speaker</td></tr>
+<tr><td><strong>● Record</strong></td><td>starts and stops a recording (see <a href="CW-voice-keyer-and-recordings.html#recordings">Recordings</a>)</td></tr>
+<tr><td><strong>Logbook</strong></td><td>opens the logbook</td></tr>
+<tr><td><strong>TX scope</strong></td><td>a floating panel with the transmit audio waveform while you transmit, with the clip level (SSB), 100 % modulation (AM) or full deviation (FM) marked</td></tr>
+</tbody></table></div>
+<p>Not on the page at first, but available under <strong>Edit → Add to Quick</strong>:
+<strong>Two-tone test</strong> (see <a href="Transmit.html#two-tone-test">Transmit</a>).</p>
+<h2 id="rit">RIT<a class="hl" href="#rit" aria-label="Link to this section">#</a></h2>
+<p><em>RIT</em> turns it on and off; − / + on the <strong>RIT offset</strong> row move the receiver
+in 10 Hz steps (hold to run) and <strong>Clear</strong> sets 0. Only the receiver moves:
+the passband on the scope shifts, while the dial marker and your transmit
+frequency stay put. The header shows <code>RIT +120 Hz</code> while it is on. Console:
+<code>rit on|off|clear|&lt;hz&gt;</code>.</p>
+<h2 id="xit">XIT<a class="hl" href="#xit" aria-label="Link to this section">#</a></h2>
+<p>XIT is the opposite: only the transmitter moves. <em>XIT</em> turns it on and off;
+the <strong>XIT offset</strong> row works like RIT's (10 Hz steps, hold to run, <strong>Clear</strong>).
+You keep listening on the dial while you transmit the offset away, for
+example to call a DX station "up 1" without split. It adds to split: in split
+the transmitter goes out on the other VFO plus the XIT offset. Every way of
+transmitting uses it (PTT, the CW keyer, TUNE, the two-tone test, the digital
+modes), and the privilege warning checks where you will actually transmit.
+The header shows <code>XIT +1500 Hz · TX 14.251.50</code> while it is on. Console:
+<code>xit on|off|clear|&lt;hz&gt;</code>; Hamlib <code>z</code> / <code>Z</code>.</p>
+<p>RIT, XIT and their offset rows are on the Quick page by default. If you have
+customized the Quick page, add them with <strong>Edit</strong>; searching the settings for
+"rit" or "xit" also finds the offset rows.</p>
+<h2 id="making-it-yours">Making it yours<a class="hl" href="#making-it-yours" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Tap the <strong>☆</strong> next to any setting anywhere in the menu to add it to Quick
+(★ means it is already there; tap again to remove it).</li>
+<li><strong>Edit</strong> on the Quick page lists what is on it: ↑ ↓ reorder, ✕ removes.
+<strong>Add to Quick</strong> underneath searches every button and setting.</li>
+<li><strong>Done</strong> saves. The list is kept on the radio (<code>QUICK</code>), so the
+touchscreen and every other screen share it.</li>
+</ul>
+<p><img src="images/quick-edit.png" alt="Editing the Quick page" loading="lazy"></p></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Quick-page" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

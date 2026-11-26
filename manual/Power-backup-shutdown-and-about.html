@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power &amp; battery, backup, shut down and About · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html" aria-current="page">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#power--battery">Power & battery</a><a href="#backup">Backup</a><a href="#shut-down">Shut down</a><a href="#about">About</a></nav>
+    <article><h1 id="power--battery-backup-shut-down-and-about">Power &amp; battery, backup, shut down and About<a class="hl" href="#power--battery-backup-shut-down-and-about" aria-label="Link to this section">#</a></h1>
+<h2 id="power--battery">Power &amp; battery<a class="hl" href="#power--battery" aria-label="Link to this section">#</a></h2>
+<p>For the field: protection from a stuck transmitter and a flat battery, a
+saver mode, and the Pi's own health. A badge next to the S-meter shows the
+most important of them; tap it to open this page.</p>
+<p><img src="images/settings-power.png" alt="Power &amp; battery" loading="lazy"></p>
+<p>The top of the page shows the supply (with an INA260 power monitor fitted),
+the battery stage, the transmit power limit, the saver, the Pi's temperature
+and its power and speed flags, now and since start-up.</p>
+<ul>
+<li><strong>Transmit timeout</strong> (10 minutes; 0 = off): after that long transmitting
+without a break (a stuck PTT, VOX or CAT program) the radio un-keys, stops
+the keyer, voice keyer and digital modes, and refuses to transmit while
+something keeps asking. The badge counts down the last minute.</li>
+<li><p><strong>Battery protection</strong> (needs the INA260): choose <strong>LIFEPO4</strong> or <strong>AGM</strong>.
+It watches the resting voltage (readings while transmitting, and just
+after, are left out):</p>
+<div class="tw"><table>
+<thead><tr><th>Stage</th><th>LiFePO4</th><th>AGM</th><th>What happens</th></tr></thead>
+<tbody>
+<tr><td>Getting low</td><td>12.8 V</td><td>12.0 V</td><td>a warning</td></tr>
+<tr><td>Low</td><td>12.5 V</td><td>11.7 V</td><td>drive held to 70 % (about half power); battery saver on (AUTO)</td></tr>
+<tr><td>Flat</td><td>12.0 V</td><td>11.4 V</td><td>transmitting off, settings saved</td></tr>
+</tbody></table></div></li>
+</ul>
+<ul>
+<li><strong>Shut down when flat</strong>: after 60 s on a flat battery the Pi shuts down
+cleanly, before the supply takes the SD card with it.</li>
+<li><strong>Battery saver</strong> (OFF, ON, AUTO = when the battery is low): 5 waterfall
+updates a second instead of 20, and the screen's backlight at 40 % where the
+Pi can dim it (the official touch screens and other DSI panels). The badge
+shows <strong>ECO</strong>.</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Transmit timeout</td><td><code>TOT</code></td><td>10</td><td>0–30</td><td>Minutes of transmitting without a break before the radio un-keys itself (a stuck PTT, VOX or CAT program); 0 = off</td></tr>
+<tr><td>Battery protection</td><td><code>BATT</code></td><td>OFF</td><td>OFF, LIFEPO4, AGM</td><td>Battery type, for the INA260 supply voltage: warn, then half power and the saver, then no transmitting when it is flat. LIFEPO4: 12.8 / 12.5 / 12.0 V. AGM (sealed lead-acid): 12.0 / 11.7 / 11.4 V</td></tr>
+<tr><td>Shut down when flat</td><td><code>BATT_SHUT</code></td><td>OFF</td><td>ON, OFF</td><td>After 60 s on a flat battery, shut the Pi down cleanly before the supply takes the SD card with it</td></tr>
+<tr><td>Battery saver</td><td><code>SAVER</code></td><td>AUTO</td><td>OFF, ON, AUTO</td><td>Fewer waterfall updates (5 a second) and a dimmer screen. AUTO: when the battery is low</td></tr>
+</tbody></table></div>
+<h2 id="backup">Backup<a class="hl" href="#backup" aria-label="Link to this section">#</a></h2>
+<p><img src="images/settings-backup.png" alt="Backup" loading="lazy"></p>
+<p><strong>Download a backup</strong> gives one file (<code>jesdr-backup-CALL-YYYYMMDD-HHMM.tar.gz</code>)
+with the settings (macros and band stacks included), the logbook, the
+transmitter and S-meter calibration and the voice keyer's messages. Keep a
+copy off the radio: SD cards fail. Recordings and the web certificate are not
+included.</p>
+<p><strong>Restore from a file…</strong> checks the archive, keeps the files it replaces in
+<code>~/jeSDR/data/before-restore-*</code>, puts the backup's in and restarts the radio.
+Restore on the same radio: the calibration belongs to its hardware.</p>
+<h2 id="shut-down">Shut down<a class="hl" href="#shut-down" aria-label="Link to this section">#</a></h2>
+<p><img src="images/settings-shutdown.png" alt="Shut down" loading="lazy"></p>
+<p><strong>Restart the radio</strong> or <strong>Shut down</strong> the Pi. The radio un-keys and saves
+its settings first, and every open browser shows what is happening. Shut down
+before switching the power off: pulling the plug on a running Pi can damage
+its SD card.</p>
+<h3 id="stopping-jesdr-only">Stopping jeSDR only<a class="hl" href="#stopping-jesdr-only" aria-label="Link to this section">#</a></h3>
+<p>Under <strong>jeSDR only (the Pi stays on)</strong>:</p>
+<ul>
+<li><strong>Restart jeSDR</strong> restarts just the jeSDR program. The radio is off the air
+for a few seconds and every open page reconnects by itself. Use it after
+changing a server setting that says "restart to apply".</li>
+<li><strong>Stop jeSDR</strong> stops the program and leaves the Pi running, for example to
+work in a terminal, run another radio program that needs the audio codec,
+or copy files. The radio un-keys and saves its settings first; open pages
+show that jeSDR is stopped and reconnect by themselves when it is back.</li>
+</ul>
+<p>To start jeSDR again:</p>
+<ul>
+<li>open <strong>jeSDR</strong> from the desktop shortcut or the menu on the radio (it
+starts the service first), or</li>
+<li>run <code>sudo systemctl start jesdr</code> in a terminal or over SSH, or</li>
+<li>restart the Pi. jeSDR also starts by itself at every power-up.</li>
+</ul>
+<p>Console: <code>system stop</code>, <code>system relaunch</code>.</p>
+<h2 id="about">About<a class="hl" href="#about" aria-label="Link to this section">#</a></h2>
+<p><img src="images/settings-about.jpg" alt="About" loading="lazy"></p>
+<p>The version, whether FreeDV RADE is built in, connected clients, the SWR
+protection, supply and log size; a link to the project's website,
+<a href="https://www.jeSDR.com" target="_blank" rel="noopener">www.jeSDR.com</a>, for news, downloads and help (on the
+radio's own screen it asks before opening a window); <strong>Software updates</strong> (see
+<a href="Installing-and-updating.html#updates">Installing and updating</a>); and, at the
+bottom, the credits and the licenses of the software jeSDR includes.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Check for updates daily</td><td><code>UPDATECHK</code></td><td>ON</td><td>ON, OFF</td><td>Looks for a newer jeSDR once a day and says so here</td></tr>
+</tbody></table></div></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Power-backup-shutdown-and-about" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

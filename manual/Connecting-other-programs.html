@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connecting other programs · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html" aria-current="page">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#wsjt-x-fldigi-and-other-hamlib-programs">WSJT-X, fldigi and other Hamlib programs</a><a href="#audio-for-programs-on-the-pi">Audio for programs on the Pi</a><a href="#sdroxide">SDROxide</a><a href="#browser-audio">Browser audio</a><a href="#network">Network</a><a href="#logging-programs">Logging programs</a></nav>
+    <article><h1 id="connecting-other-programs">Connecting other programs<a class="hl" href="#connecting-other-programs" aria-label="Link to this section">#</a></h1>
+<p>The radio serves itself to other programs on the Pi and on your network:</p>
+<div class="tw"><table>
+<thead><tr><th>Interface</th><th>Port</th><th>Use it for</th></tr></thead>
+<tbody>
+<tr><td><strong>Hamlib rigctld</strong></td><td>TCP 4532</td><td>WSJT-X, fldigi, JS8Call, loggers (rig <em>Hamlib NET rigctl</em>)</td></tr>
+<tr><td><strong>TCI</strong> (WebSocket)</td><td>TCP 50001</td><td>SDROxide, loggers, TCI-aware apps: IQ to the program, TX audio modulated by the radio, two-way control</td></tr>
+<tr><td><strong>HPSDR Protocol 1</strong> (Hermes-Lite 2)</td><td>UDP 1024</td><td>SDROxide, SparkSDR, SDR Console: the program does the DSP and sends TX IQ</td></tr>
+<tr><td><strong>Web UI</strong></td><td>TCP 8443 (HTTPS), 8080</td><td>the radio's screen in any browser</td></tr>
+<tr><td><strong>Console</strong></td><td>TCP 8081</td><td>set-up and status (<a href="Console-commands.html">Console commands</a>)</td></tr>
+<tr><td><strong>Audio devices</strong></td><td>PipeWire: <em>jeSDR Receive</em>, <em>jeSDR Transmit</em></td><td>the radio's audio for programs on the Pi (<a href="#audio-for-programs-on-the-pi">below</a>)</td></tr>
+<tr><td><strong>MIDI</strong></td><td>ALSA <code>jeSDR:Controls</code></td><td>the knobs, key and PTT (<a href="Tuning-knobs-and-MIDI.html#midi">MIDI</a>)</td></tr>
+<tr><td><strong>WSJT-X UDP</strong>, <strong>ADIF UDP</strong></td><td>your choice</td><td>GridTracker, JTAlert, Log4OM, N1MM+</td></tr>
+</tbody></table></div>
+<h2 id="wsjt-x-fldigi-and-other-hamlib-programs">WSJT-X, fldigi and other Hamlib programs<a class="hl" href="#wsjt-x-fldigi-and-other-hamlib-programs" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Choose <strong>DIGI</strong> on the radio (or let the program switch it: asking for
+PKTUSB selects DIGI).</li>
+<li>In WSJT-X: <strong>Settings → Radio</strong>: rig <strong>Hamlib NET rigctl</strong>, network server
+<code>127.0.0.1:4532</code> (or the radio's address from another computer), PTT
+method <strong>CAT</strong>.</li>
+<li><strong>Settings → Audio</strong>: input <strong>jeSDR Receive</strong>, output <strong>jeSDR Transmit</strong>
+(see <a href="#audio-for-programs-on-the-pi">below</a>).</li>
+</ol>
+<p>Frequency, mode, PTT, split, the tuning step, volume, IF gain, squelch, NR,
+NB, drive, mic gain, keyer speed, compressor, monitor and AGC all work both
+ways, and changes show up at once on the radio's screen. The S-meter, power
+and SWR can be read; CW text can be sent with <code>b</code> / <code>\send_morse</code>. <code>l ?</code> and
+<code>u ?</code> list the supported levels and functions.</p>
+<p><strong>JS8Call</strong> is set up the same way (rig <em>Hamlib NET rigctl</em>, PTT CAT, audio
+jeSDR Receive / jeSDR Transmit), but choose <strong>JS8</strong> on the radio rather than DIGI: jeSDR then
+also reads JS8Call through its TCP API and shows its traffic in the JS8 panel.
+See <a href="Digital-modes.html#js8">JS8</a>.</p>
+<h2 id="audio-for-programs-on-the-pi">Audio for programs on the Pi<a class="hl" href="#audio-for-programs-on-the-pi" aria-label="Link to this section">#</a></h2>
+<p>jeSDR gives programs on the Pi audio devices of their own, through PipeWire:</p>
+<div class="tw"><table>
+<thead><tr><th>Device</th><th>Kind</th><th>What it is</th></tr></thead>
+<tbody>
+<tr><td><strong>jeSDR Receive</strong></td><td>input (a microphone, to the program)</td><td>what the radio hears: 48 kHz mono, before the noise reduction and the speaker's equalizer</td></tr>
+<tr><td><strong>jeSDR Transmit</strong></td><td>output (a speaker, to the program)</td><td>what the radio sends when it transmits in DIGI or JS8</td></tr>
+</tbody></table></div>
+<p>Programs that use PulseAudio or PipeWire (WSJT-X, JS8Call, fldigi, Qt and
+GTK programs) list them by these names; ALSA-only programs reach them
+through the <code>pipewire</code> (or <code>pulse</code>) ALSA device. No device numbers to
+match, and plugging in a USB device does not move them. (jeSDR has no ALSA
+loopback cards any more.)</p>
+<ul>
+<li>The audio level into the radio is the program's own output level (and
+the radio's <em>Drive</em>): keep the program's level so that the ALC meter
+stays low.</li>
+<li>The radio's codec itself is hidden from the desktop (a WirePlumber rule
+in the package): it carries the radio's I/Q signal, not sound to play.</li>
+<li>The package keeps the radio user's PipeWire running from boot (<code>loginctl
+enable-linger</code>), so the devices are there before anyone logs in.</li>
+<li>The devices ask PipeWire not to make them the system's default speaker or
+microphone, but on a Pi with no other audio output (HDMI and headphones
+off) the desktop may still pick <em>jeSDR Transmit</em>: choose another output in
+the desktop's volume menu, or system sounds would go to the transmitter
+whenever the radio transmits in DIGI.</li>
+</ul>
+<p><code>status</code> on the console shows whether a program is using each device. On
+Raspberry Pi OS Lite the package installs PipeWire; programs there (fldigi
+run headless, for example) use the same devices. Updating removes the
+loopback set-up older installers added (<code>/etc/modprobe.d/jesdr-aloop.conf</code>);
+the loopback cards disappear at the next reboot.</p>
+<h2 id="sdroxide">SDROxide<a class="hl" href="#sdroxide" aria-label="Link to this section">#</a></h2>
+<p><strong>TCI:</strong> in SDROxide <strong>Radio → TCI</strong>, server <code>&lt;radio&gt;:50001</code>, IQ rate 48 or
+96 kHz. SDROxide sends TX audio and the radio modulates it in the selected
+mode; mode, filter, NB/NR, notch, AGC, squelch, volume, lock, keyer speed, CW
+macros, monitor, tune drive, RIT, XIT and split work both ways. For CW use the
+key jack.</p>
+<p><strong>HPSDR:</strong> <strong>Radio → HPSDR → Discover</strong>; the radio appears as a <em>Hermes-Lite 2</em>.
+Use 48 or 96 kHz and leave <em>Swap I/Q</em> on (if the spectrum is upside down,
+turn it off in SDROxide <em>or</em> set <em>HPSDR swap I/Q</em>, not both). SDROxide
+modulates and sends IQ; full scale is the radio's calibrated full power at
+Drive 100.</p>
+<p>With a TCI client the radio's mode follows the client's, and with <em>Speaker
+follows TCI</em> the speaker tunes to where you click in the client's waterfall.</p>
+<p><em>Speaker follows TCI</em> (<code>FOLLOW</code>, ON) is under <strong>More → Network → TCI</strong>:</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Speaker follows TCI</td><td><code>FOLLOW</code></td><td>ON</td><td>ON, OFF</td><td>Listen where the TCI client is tuned</td></tr>
+</tbody></table></div>
+<h2 id="browser-audio">Browser audio<a class="hl" href="#browser-audio" aria-label="Link to this section">#</a></h2>
+<p>The 🔈 button next to PTT plays the radio's receive audio in the browser (16
+kHz, about 32 kB/s, after the noise reduction and equalizer). On another
+device it is on by default and starts at the first tap; on the radio's own
+screen it is hidden. <em>Listening in this browser</em> sets this device's volume
+and the delay: <strong>Low</strong> (80 ms), <strong>Normal</strong> (150 ms) or <strong>Steady</strong> (300 ms) for
+a poor Wi-Fi link. Nothing is sent while transmitting.</p>
+<h2 id="network">Network<a class="hl" href="#network" aria-label="Link to this section">#</a></h2>
+<p><strong>More → Network</strong> turns each server on or off and sets its port. Changes to
+the servers take effect after a restart of the radio.</p>
+<p><img src="images/settings-net.png" alt="Network settings" loading="lazy"></p>
+<p><strong>TCI</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>TCI server</td><td><code>TCI</code></td><td>ON</td><td>ON, OFF</td><td>Port below; restart to apply</td></tr>
+<tr><td>TCI port</td><td><code>TCI_PORT</code></td><td>50001</td><td>1–65535</td><td>TCP port of the TCI server</td></tr>
+<tr><td>TCI swap I/Q</td><td><code>TCI_IQINV</code></td><td>OFF</td><td>ON, OFF</td><td>Mirror the spectrum sent to TCI clients</td></tr>
+<tr><td>TCI TX level</td><td><code>TCI_TXLEVEL</code></td><td>100</td><td>1–200</td><td>%</td></tr>
+</tbody></table></div>
+<p><strong>HPSDR</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>HPSDR server</td><td><code>HPSDR</code></td><td>ON</td><td>ON, OFF</td><td>UDP 1024; restart to apply</td></tr>
+<tr><td>HPSDR LNA to IF gain</td><td><code>HPSDR_LNA</code></td><td>OFF</td><td>ON, OFF</td><td>Let the HPSDR client's LNA gain set the radio's IF gain</td></tr>
+<tr><td>HPSDR swap I/Q</td><td><code>HPSDR_IQINV</code></td><td>OFF</td><td>ON, OFF</td><td>Mirror the spectrum sent to HPSDR clients</td></tr>
+</tbody></table></div>
+<p><strong>Hamlib and console</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Hamlib (rigctld)</td><td><code>HAMLIB</code></td><td>ON</td><td>ON, OFF</td><td>TCP 4532; restart to apply</td></tr>
+<tr><td>Console</td><td><code>CONSOLE</code></td><td>ON</td><td>ON, OFF</td><td>TCP 8081; restart to apply</td></tr>
+</tbody></table></div>
+<p><strong>Web interface</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Web UI</td><td><code>UI</code></td><td>ON</td><td>ON, OFF</td><td>Restart to apply</td></tr>
+<tr><td>Web UI port</td><td><code>UI_PORT</code></td><td>8080</td><td>1–65535</td><td>Restart to apply</td></tr>
+<tr><td>Web UI HTTPS port</td><td><code>UI_TLS_PORT</code></td><td>8443</td><td>0–65535</td><td>For a browser microphone on another device; 0 = off (restart to apply)</td></tr>
+</tbody></table></div>
+<h2 id="logging-programs">Logging programs<a class="hl" href="#logging-programs" aria-label="Link to this section">#</a></h2>
+<p><strong>More → Logging programs</strong> sends what happens on the radio to other
+programs over UDP. Each setting is a list of <code>host:port</code> destinations
+separated by <code>;</code>; leave it empty for off.</p>
+<p><img src="images/settings-udp.png" alt="Logging programs" loading="lazy"></p>
+<ul>
+<li><strong>WSJT-X UDP</strong> speaks WSJT-X's own network protocol, so GridTracker,
+JTAlert and the WSJT-X links of Log4OM and N1MM+ work with the radio: a
+heartbeat, the status in FT8/FT4/FT2, every decode and every logged QSO
+in any mode. GridTracker on the Pi: <code>127.0.0.1:2237</code>; on another computer:
+its address and port 2237; a multicast group such as <code>224.0.0.1:2237</code>
+reaches several programs. Clicking a CQ in GridTracker answers it, and its
+<em>halt TX</em> stops transmitting.</li>
+<li><strong>ADIF over UDP</strong> sends each QSO you log as one ADIF record, for loggers
+with an ADIF UDP input (Log4OM, N1MM+, DXKeeper and others).</li>
+</ul>
+<p>Only new QSOs are sent; edits and imports are not.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>WSJT-X UDP</td><td><code>WSJTX_UDP</code></td><td>(empty)</td><td>text</td><td>GridTracker, JTAlert, loggers: host:port, several separated by ; (e.g. 127.0.0.1:2237 or 224.0.0.1:2237). Empty = off</td></tr>
+<tr><td>ADIF over UDP</td><td><code>ADIF_UDP</code></td><td>(empty)</td><td>text</td><td>Loggers with an ADIF UDP input (Log4OM, N1MM+…): host:port; each QSO you log is sent. Empty = off</td></tr>
+</tbody></table></div></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Connecting-other-programs" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>
