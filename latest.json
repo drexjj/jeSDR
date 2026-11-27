@@ -1,16 +1,17 @@
 {
-  "version": "1.8.2",
-  "url": "https://github.com/drexjj/jeSDR/releases/download/v1.8.2/jesdr_1.8.2_arm64.deb",
-  "sha256": "3fc7827b3fc760662e1fb7eedc47b68be1c281bb774bc1ec57ee67d54deffcca",
-  "size": 11775024,
+  "version": "1.8.3",
+  "url": "https://github.com/drexjj/jeSDR/releases/download/v1.8.3/jesdr_1.8.3_arm64.deb",
+  "sha256": "5323eb374ba8aaf3788e99ef13ea50380ed138335cab2089f2fc50d46f570797",
+  "size": 11773324,
   "date": "2026-11-27",
-  "notes": "Default volume fix, FTx mode formatting/country/complex callsign fixes - Beta 2",
+  "notes": "TCI connection fixes - Beta 3",
   "history": {
     "1.6.0": "a72d5e1c1dee643155cdf226c6c0718c38ec1324817effd5884e5dfca2d8035d",
     "1.7.0": "baf87f6b267db60b3da4c41b2a512501dd0aa5eae8872906eec00481850bd5ac",
     "1.7.1": "23f52680e69fd44487264c80fa40f5b7998c44d81a5399fa3b78efa0342df597",
     "1.8.0": "d086110d5dbbe5e6fa6de2d2782de439215250437761a33a34b0c4561285191f",
     "1.8.1": "e79e5ee1374fbbdd4ef0d188081a04736884cd156b35eb8a67162c71f24b0adc",
-    "1.8.2": "3fc7827b3fc760662e1fb7eedc47b68be1c281bb774bc1ec57ee67d54deffcca"
+    "1.8.2": "3fc7827b3fc760662e1fb7eedc47b68be1c281bb774bc1ec57ee67d54deffcca",
+    "1.8.3": "5323eb374ba8aaf3788e99ef13ea50380ed138335cab2089f2fc50d46f570797"
   }
 }
