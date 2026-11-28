@@ -49,6 +49,7 @@
 <ul>
 <li><a href="Opening-the-case.html">Opening the case</a></li>
 <li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="Managing-the-jeSDR-service.html">Managing the jeSDR service</a></li>
 <li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
 <li><a href="No-RF-output.html">No RF output</a></li>
 </ul>
@@ -109,6 +110,10 @@ with the settings (macros and band stacks included), the logbook, the
 transmitter and S-meter calibration and the voice keyer's messages. Keep a
 copy off the radio: SD cards fail. Recordings and the web certificate are not
 included.</p>
+<p>On the radio's own screen, this and the other download buttons (recordings,
+Export ADIF, activation files) open a <strong>Save</strong> dialog, so you can pick the
+folder or a USB stick. From another computer the file goes to that
+browser's downloads as usual.</p>
 <p><strong>Restore from a file…</strong> checks the archive, keeps the files it replaces in
 <code>~/jeSDR/data/before-restore-*</code>, puts the backup's in and restarts the radio.
 Restore on the same radio: the calibration belongs to its hardware.</p>
@@ -136,6 +141,8 @@ starts the service first), or</li>
 <li>run <code>sudo systemctl start jesdr</code> in a terminal or over SSH, or</li>
 <li>restart the Pi. jeSDR also starts by itself at every power-up.</li>
 </ul>
+<p>All the service commands are in
+<a href="Managing-the-jeSDR-service.html">Managing the jeSDR service</a>.</p>
 <p>Console: <code>system stop</code>, <code>system relaunch</code>.</p>
 <h2 id="about">About<a class="hl" href="#about" aria-label="Link to this section">#</a></h2>
 <p><img src="images/settings-about.jpg" alt="About" loading="lazy"></p>

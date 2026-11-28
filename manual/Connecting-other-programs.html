@@ -49,6 +49,7 @@
 <ul>
 <li><a href="Opening-the-case.html">Opening the case</a></li>
 <li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="Managing-the-jeSDR-service.html">Managing the jeSDR service</a></li>
 <li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
 <li><a href="No-RF-output.html">No RF output</a></li>
 </ul>
@@ -71,7 +72,7 @@
 <tr><td><strong>HPSDR Protocol 1</strong> (Hermes-Lite 2)</td><td>UDP 1024</td><td>SDROxide, SparkSDR, SDR Console: the program does the DSP and sends TX IQ</td></tr>
 <tr><td><strong>Web UI</strong></td><td>TCP 8443 (HTTPS), 8080</td><td>the radio's screen in any browser</td></tr>
 <tr><td><strong>Console</strong></td><td>TCP 8081</td><td>set-up and status (<a href="Console-commands.html">Console commands</a>)</td></tr>
-<tr><td><strong>Audio devices</strong></td><td>PipeWire: <em>jeSDR Receive</em>, <em>jeSDR Transmit</em></td><td>the radio's audio for programs on the Pi (<a href="#audio-for-programs-on-the-pi">below</a>)</td></tr>
+<tr><td><strong>Audio devices</strong></td><td>PipeWire: <em>jeSDR Receive</em>, <em>jeSDR Transmit</em>, <em>jeSDR Speaker</em></td><td>the radio's audio for programs on the Pi (<a href="#audio-for-programs-on-the-pi">below</a>)</td></tr>
 <tr><td><strong>MIDI</strong></td><td>ALSA <code>jeSDR:Controls</code></td><td>the knobs, key and PTT (<a href="Tuning-knobs-and-MIDI.html#midi">MIDI</a>)</td></tr>
 <tr><td><strong>WSJT-X UDP</strong>, <strong>ADIF UDP</strong></td><td>your choice</td><td>GridTracker, JTAlert, Log4OM, N1MM+</td></tr>
 </tbody></table></div>
@@ -101,6 +102,7 @@ See <a href="Digital-modes.html#js8">JS8</a>.</p>
 <tbody>
 <tr><td><strong>jeSDR Receive</strong></td><td>input (a microphone, to the program)</td><td>what the radio hears: 48 kHz mono, before the noise reduction and the speaker's equalizer</td></tr>
 <tr><td><strong>jeSDR Transmit</strong></td><td>output (a speaker, to the program)</td><td>what the radio sends when it transmits in DIGI or JS8</td></tr>
+<tr><td><strong>jeSDR Speaker</strong></td><td>output</td><td>played on the radio's speaker (and the headset's headphones), at the volume knob's level; the desktop's default output</td></tr>
 </tbody></table></div>
 <p>Programs that use PulseAudio or PipeWire (WSJT-X, JS8Call, fldigi, Qt and
 GTK programs) list them by these names; ALSA-only programs reach them
@@ -115,11 +117,14 @@ stays low.</li>
 in the package): it carries the radio's I/Q signal, not sound to play.</li>
 <li>The package keeps the radio user's PipeWire running from boot (<code>loginctl
 enable-linger</code>), so the devices are there before anyone logs in.</li>
-<li>The devices ask PipeWire not to make them the system's default speaker or
-microphone, but on a Pi with no other audio output (HDMI and headphones
-off) the desktop may still pick <em>jeSDR Transmit</em>: choose another output in
-the desktop's volume menu, or system sounds would go to the transmitter
-whenever the radio transmits in DIGI.</li>
+<li><em>jeSDR Speaker</em> asks to be the desktop's default output, so a program
+that just plays to "the speaker" is heard on the radio. While a program
+plays into it, the speaker plays that program instead of the radio's own
+receiver; when it stops, the receiver comes back. The speaker stays quiet
+while transmitting, as always.</li>
+<li><em>jeSDR Receive</em> and <em>jeSDR Transmit</em> ask never to be the default. If you
+once chose another output in the desktop's volume menu, the desktop keeps
+that choice: pick <em>jeSDR Speaker</em> there (or in the program) instead.</li>
 </ul>
 <p><code>status</code> on the console shows whether a program is using each device. On
 Raspberry Pi OS Lite the package installs PipeWire; programs there (fldigi
@@ -137,8 +142,18 @@ Use 48 or 96 kHz and leave <em>Swap I/Q</em> on (if the spectrum is upside down,
 turn it off in SDROxide <em>or</em> set <em>HPSDR swap I/Q</em>, not both). SDROxide
 modulates and sends IQ; full scale is the radio's calibrated full power at
 Drive 100.</p>
-<p>With a TCI client the radio's mode follows the client's, and with <em>Speaker
-follows TCI</em> the speaker tunes to where you click in the client's waterfall.</p>
+<p><strong>Hearing SDROxide on the radio's speaker:</strong> SDROxide demodulates for
+itself and plays to the Pi's default output, which is <em>jeSDR Speaker</em>: its
+audio comes out of the radio's speaker, at the radio's volume knob, in
+place of the radio's own receiver while SDROxide plays. If it plays
+elsewhere, choose <em>jeSDR Speaker</em> as SDROxide's audio output (or in the
+desktop's volume menu).</p>
+<p>With a TCI client the radio's mode follows the client's: USB, LSB, CW, AM,
+FM and DIGL switch the radio. DIGU keeps the radio's own digital mode (FT8,
+FT4, FT2, JTTY, RTTY, PSK, RADE, DIGI) and otherwise chooses DIGI; in JS8
+the radio stays in JS8 (JS8Call asks for USB). With <em>Speaker follows TCI</em>
+the radio's own receiver tunes to where you click in the client's waterfall
+(what you hear when SDROxide is not playing).</p>
 <p><em>Speaker follows TCI</em> (<code>FOLLOW</code>, ON) is under <strong>More → Network → TCI</strong>:</p>
 <div class="tw"><table>
 <thead><tr><th>Setting</th><th>Console name</th><th>Default</th><th>Values</th><th>What it does</th></tr></thead>

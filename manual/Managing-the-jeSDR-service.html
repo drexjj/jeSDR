@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Managing the jeSDR service · jeSDR manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header class="top">
+  <details class="side-menu"><summary aria-label="Contents"><span></span><span></span><span></span></summary></details>
+  <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: light)" srcset="images/jesdr-logo-600.png"><img src="images/jesdr-logo-dark-600.png" alt="jeSDR" width="92" height="38"></picture><span>Manual</span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+    <div id="results" hidden></div>
+  </div>
+  <a class="out" href="../index.html">jeSDR.com</a>
+</header>
+<div class="layout">
+  <aside class="side"><p><strong><a href="index.html">Home</a></strong></p>
+<p><strong>Start</strong></p>
+<ul>
+<li><a href="Installing-and-updating.html">Installing and updating</a></li>
+<li><a href="The-main-screen.html">The main screen</a></li>
+<li><a href="Quick-page.html">Quick page</a></li>
+</ul>
+<p><strong>Operating</strong></p>
+<ul>
+<li><a href="Receive.html">Receive</a></li>
+<li><a href="Transmit.html">Transmit</a></li>
+<li><a href="Band-plan.html">Band plan</a></li>
+<li><a href="Equalizer.html">Equalizer</a></li>
+<li><a href="CW-voice-keyer-and-recordings.html">CW, voice keyer, recordings</a></li>
+<li><a href="Digital-modes.html">Digital modes</a></li>
+<li><a href="Tuning-knobs-and-MIDI.html">Tuning, knobs and MIDI</a></li>
+<li><a href="Display-and-themes.html">Display and themes</a></li>
+</ul>
+<p><strong>Station</strong></p>
+<ul>
+<li><a href="Station-logbook-and-country-file.html">Station, logbook, country file, GPS</a></li>
+<li><a href="Headset-and-USB-audio.html">Headset and USB audio</a></li>
+<li><a href="Clock-and-band-conditions.html">Clock and band conditions</a></li>
+<li><a href="Connecting-other-programs.html">Connecting other programs</a></li>
+<li><a href="PA-power-and-calibration.html">PA power and calibration</a></li>
+<li><a href="Diagnostics.html">Diagnostics</a></li>
+<li><a href="Power-backup-shutdown-and-about.html">Power, backup, shut down, About</a></li>
+</ul>
+<p><strong>The radio</strong></p>
+<ul>
+<li><a href="Opening-the-case.html">Opening the case</a></li>
+<li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="Managing-the-jeSDR-service.html" aria-current="page">Managing the jeSDR service</a></li>
+<li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
+<li><a href="No-RF-output.html">No RF output</a></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="All-settings.html">All settings A–Z</a></li>
+<li><a href="Console-commands.html">Console commands</a></li>
+<li><a href="Safety-and-limitations.html">Safety and limitations</a></li>
+<li><a href="Troubleshooting.html">Troubleshooting</a></li>
+</ul><p class="ver">jeSDR 1.5.0</p></aside>
+  <main>
+    
+    <article><h1 id="managing-the-jesdr-service">Managing the jeSDR service<a class="hl" href="#managing-the-jesdr-service" aria-label="Link to this section">#</a></h1>
+<p>jeSDR runs on the Pi as a system service called <code>jesdr</code>. It starts by
+itself at every power-up and keeps running whether or not a screen or
+browser is open. These commands control it from a terminal on the radio or
+over SSH.</p>
+<h2 id="commands">Commands<a class="hl" href="#commands" aria-label="Link to this section">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th>What</th><th>Command</th></tr></thead>
+<tbody>
+<tr><td>Stop jeSDR</td><td><code>sudo systemctl stop jesdr</code></td></tr>
+<tr><td>Start jeSDR</td><td><code>sudo systemctl start jesdr</code></td></tr>
+<tr><td>Restart jeSDR</td><td><code>sudo systemctl restart jesdr</code></td></tr>
+<tr><td>Don't start at boot</td><td><code>sudo systemctl disable jesdr</code></td></tr>
+<tr><td>Start at boot</td><td><code>sudo systemctl enable jesdr</code></td></tr>
+<tr><td>Check its status</td><td><code>sudo systemctl status jesdr</code></td></tr>
+<tr><td>Start at boot, and start now</td><td><code>sudo systemctl enable --now jesdr</code></td></tr>
+<tr><td>Don't start at boot, and stop now</td><td><code>sudo systemctl disable --now jesdr</code></td></tr>
+<tr><td>Watch its log live</td><td><code>sudo journalctl -u jesdr -f</code></td></tr>
+</tbody></table></div>
+<ol>
+<li><strong>Stop</strong> stops jeSDR immediately. The radio un-keys and saves its
+settings first.</li>
+<li><strong>Start</strong> starts it again.</li>
+<li><strong>Restart</strong> stops and starts it. Use it after changing a file by hand,
+or to recover from a problem.</li>
+<li><strong>Disable</strong> keeps jeSDR from starting when the Pi boots. It doesn't stop
+a jeSDR that is running now.</li>
+<li><strong>Enable</strong> makes jeSDR start when the Pi boots again (the installer
+enables it).</li>
+<li><strong>Status</strong> shows whether jeSDR is running, since when, and its last few
+log lines, including any errors. Press <strong>q</strong> to leave it.</li>
+<li><strong>Enable and start</strong> (<code>enable --now</code>) does 5 and 2 in one step.</li>
+<li><strong>Disable and stop</strong> (<code>disable --now</code>) does 4 and 1 in one step.</li>
+<li><strong>Live log</strong> shows jeSDR's messages as they happen, for troubleshooting.
+Press <strong>Ctrl+C</strong> to leave it. <code>sudo journalctl -u jesdr -b</code> shows
+everything since the Pi started.</li>
+</ol>
+<h2 id="good-to-know">Good to know<a class="hl" href="#good-to-know" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>The jeSDR desktop shortcut starts the service</strong> if it isn't running,
+even when it is disabled. To keep jeSDR off, don't open the shortcut.</li>
+<li><strong>After a crash the service restarts by itself</strong> within a few seconds. A
+<code>stop</code> is different: jeSDR stays stopped until you start it again.</li>
+<li><strong>Settings → Shut down → Stop jeSDR</strong> does the same as <code>systemctl stop</code>
+from the radio's own screen or a browser (see
+<a href="Power-backup-shutdown-and-about.html#shut-down">Power, backup, shut down, About</a>).</li>
+<li><strong>Installing or updating</strong> jeSDR restarts the service for you.</li>
+<li><p><strong>Editing jeSDR's files by hand</strong> (<code>~/jeSDR/data/hw_settings.ini</code>,
+<code>jesdr.ini</code>): jeSDR reads them only when it starts, and writes them
+itself (settings when they change; <code>hw_settings.ini</code> after a PA
+calibration or a reference crystal change), which can overwrite your
+edits. Stop jeSDR first, edit, then start it:</p>
+<pre><code class="lang-console">sudo systemctl stop jesdr
+nano ~/jeSDR/data/hw_settings.ini
+sudo systemctl start jesdr</code></pre></li>
+</ul>
+<ul>
+<li><strong>Only one radio program at a time.</strong> jeSDR needs the audio codec and the
+GPIO for itself: stop it before running other software that drives the
+sBitx hardware directly, and start it again afterwards.</li>
+</ul></article>
+    <footer><p>jeSDR is Copyright © 2026 J. Kujawa, W9JES. Built on the sBitx software created by Ashhar Farhan, VU2ESE. · <a href="https://github.com/drexjj/jeSDR/releases" target="_blank" rel="noopener">Releases</a></p><p class="src">Edit or discuss this page on the <a href="https://github.com/drexjj/jeSDR/wiki/Managing-the-jeSDR-service" target="_blank" rel="noopener">jeSDR wiki</a>.</p></footer>
+  </main>
+</div>
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

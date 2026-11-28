@@ -49,6 +49,7 @@
 <ul>
 <li><a href="Opening-the-case.html">Opening the case</a></li>
 <li><a href="SD-card-images-and-backups.html">SD card images and backups</a></li>
+<li><a href="Managing-the-jeSDR-service.html">Managing the jeSDR service</a></li>
 <li><a href="sBitx-hardware.html">sBitx hardware and upgrades</a></li>
 <li><a href="No-RF-output.html">No RF output</a></li>
 </ul>
@@ -70,6 +71,8 @@ the radio's address, delete <code>~/jeSDR/data/jesdr_cert.pem</code> and
 <p><strong>The page doesn't load at all.</strong> Check the service on the radio:</p>
 <pre><code class="lang-console">sudo systemctl status jesdr
 journalctl -u jesdr -f</code></pre>
+<p>More commands, such as stopping, restarting and starting at boot, are in
+<a href="Managing-the-jeSDR-service.html">Managing the jeSDR service</a>.</p>
 <p>Nothing else may use the audio codec or the GPIO: remove any other radio
 program from the desktop autostart.</p>
 <p><strong>ERR_TOO_MANY_RETRIES or "This site can't be reached" on some phones or
@@ -157,9 +160,13 @@ jeSDR made them; <em>waiting for the user's PipeWire session</em> means the radi
 user's PipeWire is not running: log in to the desktop once, or run <code>sudo
 loginctl enable-linger &lt;user&gt;</code> and reboot. Restart the program after
 jeSDR started: some list audio devices only when they start.</p>
-<p><strong>The desktop's sound goes to the transmitter.</strong> <em>jeSDR Transmit</em> became the
-desktop's default output (no other output on the Pi): pick another output in
-the volume menu.</p>
+<p><strong>The desktop's sound goes to the transmitter.</strong> <em>jeSDR Transmit</em> was chosen
+as the desktop's output: pick <em>jeSDR Speaker</em> in the volume menu.</p>
+<p><strong>No sound from SDROxide (or another program) on the radio's speaker.</strong> The
+program must play to <em>jeSDR Speaker</em>: choose it as the program's audio
+output or in the desktop's volume menu (the desktop keeps an output you
+picked before). <code>status</code> on the console shows <em>jeSDR Speaker in use</em> while
+it plays. The radio's volume knob sets its level.</p>
 <p><strong>No DX cluster spots.</strong> Set <em>My call sign</em>, turn <em>Cluster connection</em> ON in
 <strong>More → Station</strong>, and check <em>DX cluster spots on the scope</em> in
 <strong>More → Display</strong>.</p>
