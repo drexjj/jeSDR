@@ -122,9 +122,12 @@ that just plays to "the speaker" is heard on the radio. While a program
 plays into it, the speaker plays that program instead of the radio's own
 receiver; when it stops, the receiver comes back. The speaker stays quiet
 while transmitting, as always.</li>
-<li><em>jeSDR Receive</em> and <em>jeSDR Transmit</em> ask never to be the default. If you
-once chose another output in the desktop's volume menu, the desktop keeps
-that choice: pick <em>jeSDR Speaker</em> there (or in the program) instead.</li>
+<li><em>jeSDR Receive</em> asks to be the desktop's default input, so a program set
+to the default input hears the radio. <em>jeSDR Transmit</em> is never the
+default: choose it by name in WSJT-X, JS8Call and the like.</li>
+<li>If you once chose another input or output in the desktop's volume menu,
+the desktop keeps that choice: pick the jeSDR device there (or in the
+program) instead.</li>
 </ul>
 <p><code>status</code> on the console shows whether a program is using each device. On
 Raspberry Pi OS Lite the package installs PipeWire; programs there (fldigi

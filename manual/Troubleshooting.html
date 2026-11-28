@@ -162,6 +162,10 @@ loginctl enable-linger &lt;user&gt;</code> and reboot. Restart the program after
 jeSDR started: some list audio devices only when they start.</p>
 <p><strong>The desktop's sound goes to the transmitter.</strong> <em>jeSDR Transmit</em> was chosen
 as the desktop's output: pick <em>jeSDR Speaker</em> in the volume menu.</p>
+<p><strong>WSJT-X, JS8Call or fldigi hear nothing.</strong> Their audio input must be
+<em>jeSDR Receive</em> (or the default input, which is <em>jeSDR Receive</em>). <code>status</code>
+on the console shows <em>jeSDR Receive in use</em> while the program listens. An
+earlier build sent silence to <em>jeSDR Receive</em>: update jeSDR.</p>
 <p><strong>No sound from SDROxide (or another program) on the radio's speaker.</strong> The
 program must play to <em>jeSDR Speaker</em>: choose it as the program's audio
 output or in the desktop's volume menu (the desktop keeps an output you
